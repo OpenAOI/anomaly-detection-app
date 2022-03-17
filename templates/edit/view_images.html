@@ -1,0 +1,40 @@
+{% extends 'edit/base_edit.html' %}
+
+
+{% block head %}
+<link rel="stylesheet" href="../../static/css/modal-images.css">
+{% endblock %}
+
+
+{% block content %}
+<!-- Project images -->
+<div class="container-fluid text-center">    
+    <div class="row content">
+      <div class="col-sm-12 text-left"> 
+        <h4>Images</h4>
+        <br>
+  
+        <div class="img-row">
+          <div class="thumbnail" style="width: 150px;">
+            <img src="" id="myImg" alt="wedding">
+            <div class="caption">
+              <span class="image-text-right">Delete</span><span class="image-text-left">View</span>​
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<!-- Buttons -->
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-12">
+      <a href="/edit/take_photo/{{ project_id }}" class="btn btn-block btn-primary">Take more photos</a>
+      <hr>
+      <a href="/edit/train_project/{{ project_id }}" class="btn btn-block btn-success">Go to next step</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

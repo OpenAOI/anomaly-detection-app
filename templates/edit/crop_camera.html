@@ -1,0 +1,108 @@
+{% extends 'edit/base_edit.html' %}
+
+{% block head %}
+<script type="text/javascript" src="../../static/js/cropper.js"></script>
+<script type="text/javascript" src="../../static/js/crop-page.js"></script>
+<script type="text/javascript" src="../../static/js/send-crop-info.js"></script>
+<link rel="stylesheet" href="../../static/css/cropper.css">
+{% endblock %}
+
+
+{% block content %}
+<!-- Cropper -->
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <!-- Image cropper -->
+    <div class="col-sm-6 text-left">
+      <div style="overflow: hidden;">
+          <img id="image-crop" src="../../static/images/train/test.jpg" alt="Picture"
+          style="display: block; max-width: 100%;">
+      </div>
+    </div>
+    <!-- Crop preview -->
+    <div class="col-sm-6 text-left">
+      <div style="overflow: hidden;">
+        <div class="preview-crop">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Crop info 
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-12 text-left">
+      <p>Data: <span id="crop-data"></span></p>
+    </div>
+  </div>
+</div>
+-->
+
+<!-- Crop settings -->
+<div class="container-fluid text-left">
+  <div class="row content">
+    <!-- Slider -->
+    <div class="col-sm-10">
+      <p>Remove left</p>
+      <input style="width: 100%;" type="range" min="0" max="1920" value="0" id="slider_x1">
+    </div>
+    <!-- Input field -->
+    <div class="col-sm-2" style="padding-top: 15px;">
+      <div class="input-group">
+        <input type="text" class="form-control" id="input_x1" value="0" style="width: 65px;">
+      </div>
+    </div>
+  </div>
+  <div class="row content">
+    <!-- Slider -->
+    <div class="col-sm-10">
+      <p>Remove right</p>
+      <input style="width: 100%;" type="range" min="0" max="1920" value="1920" id="slider_x2">
+    </div>
+    <!-- Input field -->
+    <div class="col-sm-2" style="padding-top: 15px;">
+      <div class="input-group">
+        <input type="text" class="form-control" id="input_x2" value="1920">
+     </div>
+    </div>
+  </div>
+  <div class="row content">
+    <!-- Slider -->
+    <div class="col-sm-10">
+      <p>Remove up</p>
+      <input style="width: 100%; height: 30px;" type="range" min="0" max="1080" value="0" id="slider_y1">
+    </div>
+    <!-- Input field -->
+    <div class="col-sm-2" style="padding-top: 15px;">
+      <div class="input-group">
+        <input type="text" class="form-control" id="input_y1" value="0">
+     </div>
+    </div>
+  </div>
+  <div class="row content">
+    <!-- Slider -->
+    <div class="col-sm-10">
+      <p>Remove down</p>
+      <input style="width: 100%; height: 30px;" type="range" min="0" max="1080" value="1080" id="slider_y2">
+    </div>
+    <!-- Input field -->
+    <div class="col-sm-2" style="padding-top: 15px;">
+      <div class="input-group">
+        <input type="text" class="form-control" id="input_y2" value="1080">
+     </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Buttons -->
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-12">
+      <hr>
+      <a onclick="updateCrop()" class="btn btn-block btn-success">Save Crop</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

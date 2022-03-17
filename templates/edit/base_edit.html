@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block train %}
+<!-- Topic train -->
+<div class="container-fluid text-center train-bar">
+  <div class="row content" style="padding-bottom: 0px; border-bottom: 0px; margin-bottom: 0px;">
+    <div class="col-sm-3">
+      <h4 style="opacity: 1; font-size: 14px; font-weight: bold;">Camera preferences</h4>
+    </div>
+    <div class="col-sm-3">
+      <h4 style="opacity: 0.6; font-size: 13px; font-weight: normal;">Collect data</h4>
+    </div>
+    <div class="col-sm-3">
+      <h4 style="opacity: 0.6; font-size: 13px;" font-weight: normal;>Preview images</h4>
+    </div>
+    <div class="col-sm-3">
+      <h4 style="opacity: 0.6; font-size: 13px;" font-weight: normal;>Train model</h4>
+    </div>
+  </div>
+
+  <div class="row content" style="padding-top: 0px; border-top: 0px; margin-top: 0px; 
+  margin-right: 0px; padding-right: 0px; border-right: 0px;
+  margin-left: 0px; padding-left: 0px; border-left: 0px;">
+    <div class="col-sm-12">
+      <div class="line" style="left: 0px; right: 0px;"></div>
+      <div class="line2" style="left: 0px; right: 0px;"></div>
+      <div id="circle" style="left: 0px;"></div>
+
+      <!-- Move left as same size! TODO -->
+      <script>
+        var box = document.querySelector("#circle");
+        var style = window.getComputedStyle(box)
+        var new_pos = parseFloat(style.marginLeft) - 12.5;
+        box.style.marginLeft = new_pos + "px";
+      </script>
+
+      <!-- <div id="myCanvas" width="25px" height="25px" style="border:1px solid #c3c3c3; background-color: black; border-radius: 15px;" margin-left: 20%;>-->
+      
+    </div>
+  </div> 
+</div>
+{% endblock %}
+
