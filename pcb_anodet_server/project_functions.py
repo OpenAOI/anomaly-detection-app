@@ -17,8 +17,12 @@ def change_project(selected_project):
     global PROJECT_NAME, CAMERA
     PROJECT_NAME = selected_project
     cam_conf = get_projects.get_camera_config(selected_project)
-    CAMERA.release()
-    CAMERA = cv2.VideoCapture(cam_conf["camera"])
+    try: 
+        CAMERA.release()
+    except: 
+        pass
+    finally: 
+        CAMERA = cv2.VideoCapture(cam_conf["camera"])
 
 
 def init_project(new_project_name):
@@ -30,7 +34,7 @@ def init_project(new_project_name):
     return success
 
 
-def crop_project(image):
+def crop_project_photo(image):
     """Crops the image to the size specified in projects config json """
 
     crop_conf = get_projects.get_crop_config(PROJECT_NAME)
@@ -43,7 +47,7 @@ def crop_project(image):
     return cropped_image
 
 
-def mask_project(image):
+def mask_project_photo(image):
     """Mask out unwanted area of project image"""
     mask_conf = get_projects.get_mask_config(PROJECT_NAME)
     x_1 = mask_conf["mask_parameters"]["x_1"]
@@ -56,10 +60,12 @@ def mask_project(image):
 
 def take_project_photo():
     """Take photo of project"""
-    return utils.take_photo(CAMERA)
+    image = utils.take_photo(CAMERA)
+    cropped_project_photo = crop_project_photo(image)
+    return cropped_project_photo
 
 
-def predict_project(image):
+def predict_project_photo(image):
     """Uses the trained model to make an evaluation of an image of a project"""
     path_conf = get_projects.get_path_config(PROJECT_NAME)
     thresh_conf = get_projects.get_threshold_config(PROJECT_NAME)
@@ -73,8 +79,8 @@ def predict_project(image):
 def save_project_photo():
     """Saves an un-evaluated image of a project"""
     path_conf = get_projects.get_path_config(PROJECT_NAME)
-    path = path_conf["path"]
-    array = utils.take_photo()
+    path = path_conf
+    array = utils.take_photo(CAMERA)
     array = cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
     image = Image.fromarray(array)
     return utils.save_photo(image, path, PROJECT_NAME)

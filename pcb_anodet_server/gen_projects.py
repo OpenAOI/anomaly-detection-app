@@ -1,5 +1,5 @@
 from os import path, mkdir
-server_path = "/home/plejd/Desktop/AOI/pcb-anodet-server/pcb_anodet_server/"
+server_path = "/home/plejd/Desktop/AOI/pcb-anodet-server/hidden_aoi/pcb_anodet_server/"
 
 
 def create_project(project_name):
