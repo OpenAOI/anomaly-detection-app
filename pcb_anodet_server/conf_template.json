@@ -1,0 +1,29 @@
+{
+    "crop_config": {
+        "crop_parameters": {
+            "x_1": 0,
+            "x_2": 1920,
+            "y_1": 0,
+            "y_2": 1080
+        }
+    },
+    "mask_config": {
+        "mask_parameters": {
+            "x_1": 0.0,
+            "x_2": 0.0,
+            "y_1": 0.0,
+            "y_2": 0.0
+        },
+        "mask_color": 255
+    },
+    "path_config": {
+        "path": "/home/plejd/Desktop/AOI/pcb-anodet-server/pcb_anodet_server/projects/"
+    },
+    "camera_config": {
+        "camera": 0,
+        "camera_type": "USB"
+    },
+    "threshold_config": {
+        "threshold": 13
+    }
+}
