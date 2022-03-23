@@ -1,9 +1,9 @@
 {% extends 'edit/base_edit.html' %}
 
-{% block head %}
+{% block head2 %}
 <script type="text/javascript" src="../../static/js/cropper.js"></script>
-<script type="text/javascript" src="../../static/js/crop-page.js"></script>
-<script type="text/javascript" src="../../static/js/send-crop-info.js"></script>
+<script type="text/javascript" src="../../static/js/update-sliders.js"></script>
+<!-- <script type="text/javascript" src="../../static/js/send-crop-info.js"></script> -->
 <link rel="stylesheet" href="../../static/css/cropper.css">
 {% endblock %}
 
@@ -15,13 +15,14 @@
     <!-- Image cropper -->
     <div class="col-sm-6 text-left">
       <div style="overflow: hidden;">
-          <img id="image-crop" src="../../static/images/train/test.jpg" alt="Picture"
-          style="display: block; max-width: 100%;">
+          <h5>Image cropper</h5>
+          <img id="image-crop" src="" alt="Picture" style="display: block; max-width: 100%;">
       </div>
     </div>
     <!-- Crop preview -->
     <div class="col-sm-6 text-left">
       <div style="overflow: hidden;">
+        <h5>Preview</h5>
         <div class="preview-crop">
         </div>
       </div>
@@ -29,22 +30,12 @@
   </div>
 </div>
 
-<!-- Crop info 
-<div class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-12 text-left">
-      <p>Data: <span id="crop-data"></span></p>
-    </div>
-  </div>
-</div>
--->
-
 <!-- Crop settings -->
 <div class="container-fluid text-left">
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Remove left</p>
+      <p>Edit left</p>
       <input style="width: 100%;" type="range" min="0" max="1920" value="0" id="slider_x1">
     </div>
     <!-- Input field -->
@@ -57,7 +48,7 @@
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Remove right</p>
+      <p>Edit right</p>
       <input style="width: 100%;" type="range" min="0" max="1920" value="1920" id="slider_x2">
     </div>
     <!-- Input field -->
@@ -70,7 +61,7 @@
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Remove up</p>
+      <p>Edit up</p>
       <input style="width: 100%; height: 30px;" type="range" min="0" max="1080" value="0" id="slider_y1">
     </div>
     <!-- Input field -->
@@ -83,7 +74,7 @@
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Remove down</p>
+      <p>Edit down</p>
       <input style="width: 100%; height: 30px;" type="range" min="0" max="1080" value="1080" id="slider_y2">
     </div>
     <!-- Input field -->
@@ -105,4 +96,18 @@
     </div>
   </div>
 </div>
+
+<script>
+    var ip = ipAdress.concat("save_photo")
+    var xhttp = sendHttpRequest(ip)
+
+
+    var ip = ipAdress.concat("return_saved_photo");
+    var xhttp = sendHttpRequest(ip);
+
+    photo = xhttp.responseText;
+
+    document.getElementById('image-crop').src = photo;
+
+</script>
 {% endblock %}
