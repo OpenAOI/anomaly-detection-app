@@ -8,27 +8,27 @@ import datetime
 app = Flask(__name__, instance_relative_config=True)
 
 """ Predict page """
-@app.route('/predict/<project_id>')
-def predict(project_id):
-    return render_template("predict.html", project_id=project_id)
+@app.route('/predict')
+def predict():
+    return render_template("predict.html")
 
 
 """ New project routes """
-@app.route('/edit/crop_camera/<project_id>')
-def crop_camera(project_id):
-    return render_template("edit/crop_camera.html", project_id=project_id)
+@app.route('/edit/crop_camera')
+def crop_camera():
+    return render_template("edit/crop_camera.html")
 
-@app.route('/edit/take_photo/<project_id>')
-def take_photo(project_id):
-    return render_template("edit/take_photo.html", project_id=project_id)
+@app.route('/edit/take_photo')
+def take_photo():
+    return render_template("edit/take_photo.html")
 
-@app.route('/edit/view_images/<project_id>')
-def view_images(project_id):
-    return render_template("edit/view_images.html", project_id=project_id)
+@app.route('/edit/view_images')
+def view_images():
+    return render_template("edit/view_images.html")
 
-@app.route('/edit/train_project/<project_id>')
-def train_project(project_id):
-    return render_template("edit/train_project.html", project_id=project_id)
+@app.route('/edit/train_project')
+def train_project():
+    return render_template("edit/train_project.html")
 
 
 """ Select project page """
