@@ -1,7 +1,7 @@
 {% extends 'edit/base_edit.html' %}
 
 
-{% block head %}
+{% block head2 %}
 <link rel="stylesheet" href="../../static/css/modal-images.css">
 {% endblock %}
 
@@ -31,10 +31,36 @@
 <div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-12">
-      <a href="/edit/take_photo/{{ project_id }}" class="btn btn-block btn-primary">Take more photos</a>
+      <a href="/edit/take_photo" class="btn btn-block btn-primary">Take more photos</a>
       <hr>
-      <a href="/edit/train_project/{{ project_id }}" class="btn btn-block btn-success">Go to next step</a>
+      <a href="/edit/train_project" class="btn btn-block btn-success">Go to next step</a>
     </div>
   </div>
 </div>
+
+
+
+<script>
+function sendHttpRequest(ipAdress) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", ipAdress, false);
+    try {
+        xhttp.send();
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+    return xhttp;
+}
+
+var ip = ipAdress.concat("return_saved_photo");
+var xhttp = sendHttpRequest(ip);
+console.log(1);
+
+photo = xhttp.responseText;
+
+document.getElementById('myImg').src = photo;
+
+</script>
 {% endblock %}
+
