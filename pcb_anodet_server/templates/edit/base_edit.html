@@ -1,44 +1,43 @@
 {% extends 'base.html' %}
 
 
-{% block train %}
-<!-- Topic train -->
-<div class="container-fluid text-center train-bar">
-  <div class="row content" style="padding-bottom: 0px; border-bottom: 0px; margin-bottom: 0px;">
+{% block head %}
+<link rel="stylesheet" type=text/css href="../../static/css/train-menu.css">
+<script type="text/javascript" src="../../static/js/train-menu.js"></script>
+<script type="text/javascript" src="../../static/js/train-functions.js"></script>
+{% block head2 %}
+{% endblock %}
+
+{% endblock %}
+
+{% block train_menu %}
+<!-- Train menu -->
+<div class="container-fluid text-center">
+  <div class="row content train-bar train-bar-text">
     <div class="col-sm-3">
-      <h4 style="opacity: 1; font-size: 14px; font-weight: bold;">Camera preferences</h4>
+      <h4 id="camera-crop-text" style="opacity: 0.6; font-size: 13px; font-weight: normal;">Cam preferences</h4>
     </div>
     <div class="col-sm-3">
-      <h4 style="opacity: 0.6; font-size: 13px; font-weight: normal;">Collect data</h4>
+      <h4 id="take-photo-text" style="opacity: 0.6; font-size: 13px; font-weight: normal;">Collect data</h4>
     </div>
     <div class="col-sm-3">
-      <h4 style="opacity: 0.6; font-size: 13px;" font-weight: normal;>Preview images</h4>
+      <h4 id="view-images-text" style="opacity: 0.6; font-size: 13px;" font-weight: normal;>Preview images</h4>
     </div>
     <div class="col-sm-3">
-      <h4 style="opacity: 0.6; font-size: 13px;" font-weight: normal;>Train model</h4>
+      <h4 id="train-project-text" style="opacity: 0.6; font-size: 13px;" font-weight: normal;>Train model</h4>
     </div>
   </div>
 
-  <div class="row content" style="padding-top: 0px; border-top: 0px; margin-top: 0px; 
-  margin-right: 0px; padding-right: 0px; border-right: 0px;
-  margin-left: 0px; padding-left: 0px; border-left: 0px;">
-    <div class="col-sm-12">
-      <div class="line" style="left: 0px; right: 0px;"></div>
-      <div class="line2" style="left: 0px; right: 0px;"></div>
-      <div id="circle" style="left: 0px;"></div>
-
-      <!-- Move left as same size! TODO -->
-      <script>
-        var box = document.querySelector("#circle");
-        var style = window.getComputedStyle(box)
-        var new_pos = parseFloat(style.marginLeft) - 12.5;
-        box.style.marginLeft = new_pos + "px";
-      </script>
-
-      <!-- <div id="myCanvas" width="25px" height="25px" style="border:1px solid #c3c3c3; background-color: black; border-radius: 15px;" margin-left: 20%;>-->
-      
+  <div class="row content train-bar train-bar-line" style="display: none;">
+    <div class="hidden-xs col-sm-12">
+      <!-- Fat line -->
+      <div class="line-fat"></div>
+      <!-- Thin line -->
+      <div class="line-thin">
+        <!-- Circle -->
+        <div id="circle" style="margin-top: 5px;"></div>
+      </div>
     </div>
   </div> 
 </div>
 {% endblock %}
-
