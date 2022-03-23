@@ -1,4 +1,3 @@
-// Helper function
 function sendHttpRequest(ipAdress) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", ipAdress, false);
