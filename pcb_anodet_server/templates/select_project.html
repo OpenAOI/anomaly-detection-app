@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
-<!-- Hide projectinfo - No project active here-->
-{% block topic %}
-<h4>Projects</h4>
-{% endblock %}
 
+{% block head %}
+<script type="text/javascript" src="../static/js/select-project.js"></script>
+{% endblock %}
 
 {% block content %}
 <!-- Projects list -->
@@ -12,10 +11,7 @@
   <div class="row content">
     <div class="col-sm-12 text-left">
       <!-- List projects -->
-      <ul class="list-group">
-        <li class="list-group-item"><a href="/predict/PCB-1-2014">PCB-1-2014<span class="badge">5</span></a><br></li>
-        <li class="list-group-item"><a href="/edit/take_photo/PCB-2-2014">PCB-2-2014<span class="badge">5</span></a><br></li>
-        <li class="list-group-item"><a href="/predict/PCB-3-2014">PCB-3-2014<span class="badge">5</span></a><br></li>
+      <ul class="list-group" id="project-list">
       </ul>
 
       <div class="gap-20"></div>
@@ -23,9 +19,11 @@
       <!-- Create project button -->
       <form>
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Project name">
+          <input type="text" class="form-control" placeholder="Project name" id="project-name">
           <div class="input-group-btn">
-            <button type="submit" class="btn btn-default">Create new project</button>
+            <a onclick="createProject()" class="btn btn-block btn-default">Create new project</a>
+    
+            <!--<button onclick="createProject()" type="submit" class="btn btn-default">Create new project</button>-->
           </div>
         </div>
       </form>
@@ -33,4 +31,17 @@
     </div>
   </div>
 </div>
+
+<script>
+var ip = ipAdress.concat("get_projects")
+var xhttp = sendHttpRequest(ip)
+
+var json_response = JSON.parse(xhttp.responseText);
+var projects = json_response.projects;
+
+// List projects in html
+for (var i = 0; i < projects.length; i++) {
+    document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict">' + projects[i].name + '</a><br></li>';
+}
+</script>
 {% endblock %}
