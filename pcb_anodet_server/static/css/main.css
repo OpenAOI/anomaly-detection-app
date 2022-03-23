@@ -73,30 +73,3 @@ h5 {
   height: 300px;
   max-height: 300px;
 } 
-
-/* Edit menu */
-.line {
-  width: 12.5%;
-  height: 12px;
-  border-bottom: 3px solid black;
-  position: absolute;
-}
-
-.line2 {
-  margin-left: 12.5%;
-  width: 87.5%;
-  height: 12px;
-  border-bottom: 1px solid black;
-  position: absolute;
-}
-
-
-#circle {
-  width: 25px;
-  height: 25px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
-  background: black;
-  margin-left: 12.5%;
-}
