@@ -1,10 +1,7 @@
-const ipAdress = "http://10.10.0.87:5000/"
-
 if (checkCameraConnection()) {
     setInterval(fetchPhoto, 200)
 }
 
-// Helper function
 function sendHttpRequest(ipAdress) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", ipAdress, false);
@@ -17,9 +14,9 @@ function sendHttpRequest(ipAdress) {
     return xhttp;
 }
 
-
 function checkCameraConnection() {
-    var xhttp = sendHttpRequest(ipAdress)
+    var ip = ipAdress.concat("ping")
+    var xhttp = sendHttpRequest(ip)
     if (xhttp.status === 200) {
         return true;
     } else {
@@ -38,7 +35,21 @@ function fetchPhoto(){
     document.getElementById('image').src = photo;
 }
 
-// Take photo predict button
+
+// Helper function
+function sendHttpRequest(ipAdress) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", ipAdress, false);
+    try {
+        xhttp.send();
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+    return xhttp;
+}
+
+// Predict image button
 function takePhotoPredict() {
     var ip = ipAdress.concat("take_photo_and_predict")
     var xhttp = sendHttpRequest(ip)
@@ -49,12 +60,12 @@ function takePhotoPredict() {
     thresh = json_response.thresh;
 
     document.getElementById('canvas').src = photo;
-    document.getElementById('score').src = score;
-    document.getElementById('thresh').src = thresh;
+    document.getElementById('score-data').innerHTML = score;
+    document.getElementById('thresh-data').innerHTML = thresh;
 }
 
-// Save photo predict button
-function saveImage() {
+// Save photo to train
+function savePhoto() {
     var ip = ipAdress.concat("save_photo")
     var xhttp = sendHttpRequest(ip)
 
@@ -70,7 +81,9 @@ function saveImage() {
             alert.style.display = "none";
         }, 2500);
         
-    } else {
+    } 
+    /*
+    else {
         var alert = document.getElementById("saved_image_failed");
 
         alert.style.display = "block";
@@ -78,6 +91,5 @@ function saveImage() {
             alert.style.display = "none";
         }, 2500);
     }
+    */
 }
-
-
