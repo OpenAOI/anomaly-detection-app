@@ -6,9 +6,10 @@ from PIL import Image
 from predict import predict_image
 import get_projects
 import update_projects
+import training
+from numpy import asarray
 
-
-CAMERA = None
+CAMERA = cv2.VideoCapture(0)
 PROJECT_NAME = ""
 
 
@@ -67,13 +68,15 @@ def take_project_photo():
 
 def predict_project_photo(image):
     """Uses the trained model to make an evaluation of an image of a project"""
+    #image = Image.fromarray(img)
     path_conf = get_projects.get_path_config(PROJECT_NAME)
     thresh_conf = get_projects.get_threshold_config(PROJECT_NAME)
-    path = path_conf["path"]
+    path = path_conf
     thresh = thresh_conf["threshold"]
-    cropped_image = crop_project(image.copy)
-    masked_cropped_image = mask_project(cropped_image)
-    return masked_cropped_image, predict_image(masked_cropped_image, path, thresh), thresh
+    cropped_image = crop_project_photo(image)
+    masked_cropped_image = mask_project_photo(cropped_image)
+    heatmap, score = predict_image(masked_cropped_image, path, thresh)
+    return masked_cropped_image, heatmap, score, thresh
 
 
 def save_project_photo():
@@ -82,25 +85,28 @@ def save_project_photo():
     path = path_conf
     array = utils.take_photo(CAMERA)
     array = cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
+    cropped_array = crop_project_photo(array.copy())
     image = Image.fromarray(array)
-    return utils.save_photo(image, path, PROJECT_NAME)
+    cropped_image = Image.fromarray(cropped_array)
+    utils.save_photo(cropped_image, path + '/processed_images/', PROJECT_NAME)
+    return utils.save_photo(image, path + '/images/', PROJECT_NAME)
 
 
 def return_saved_project_photo():
     """Fetch photo from disc to display in gui"""
     images = []
     path_conf = get_projects.get_path_config(PROJECT_NAME)
-    img_path = path_conf + '/images'
+    img_path = path_conf + '/processed_images'
     for path in os.listdir(img_path):
         full_path = os.path.join(img_path, path)
         if os.path.isfile(full_path):
             images.append(full_path)
-
     if len(images) > 0:
-        with Image.open(images[-1], formats='JPEG') as im:
-            return utils.ndarray_to_b64(im)
+        with Image.open(images[-1]) as im:
+            b64image = utils.ndarray_to_b64(asarray(im))
     else:
         return None
+    return b64image
 
 
 def update_project_camera(camera, camera_type):
@@ -117,4 +123,14 @@ def update_project_threshold(threshold):
 
 def update_project_crop(x_1, x_2, y_1, y_2):
     """Updates the camera configuration"""
-    update_projects.update_crop(PROJECT_NAME, x_1, x_2, y_1, y_2)
+    update_projects.update_crop(PROJECT_NAME, int(x_1), int(x_2), int(y_1), int(y_2))
+
+
+def train():
+    """Trains model on collected images"""
+    path = get_projects.get_path_config(PROJECT_NAME)
+    training.train(path)
+
+
+def get_all_projects():
+    return get_projects.get_all_projects()

@@ -29,7 +29,8 @@ def take_photo():
 @api_blueprint.route("/take_photo_and_predict", methods=["GET", "POST"])
 def take_photo_and_predict():
     """Take picture, make, prediction and return original, heatmap, score and threshhold"""
-    image_org, image_pred, score, thresh = project_functions.predict_project()
+    image = project_functions.take_project_photo()
+    image_org, image_pred, score, thresh = project_functions.predict_project_photo(image)
     image_org_b64 = utils.ndarray_to_b64(image_org)
     image_pred_b64 = utils.ndarray_to_b64(image_pred)
     return json.dumps({"image_org_b64": image_org_b64, "image_pred_b64": image_pred_b64, "score": score, "thresh": thresh})
@@ -44,7 +45,7 @@ def save_photo():
 
 @api_blueprint.route("/return_saved_photo", methods=["GET", "POST"])
 def return_saved_photo():
-    image = project_functions.return_saved_photo()
+    image = project_functions.return_saved_project_photo()
     return image
 
 
@@ -85,3 +86,17 @@ def change_project():
     project_name = request.args.get('project_name', None)
     project_functions.change_project(project_name)
     return "success"
+
+
+@api_blueprint.route("/train", methods=["GET", "POST"])
+def train():
+    """Train model on collected images"""
+    project_functions.train()
+    return "success"
+
+
+@api_blueprint.route("/get_projects", methods=["GET", "POST"])
+def get_projects():
+    """Get all the project names"""
+    projects = project_functions.get_all_projects()
+    return projects

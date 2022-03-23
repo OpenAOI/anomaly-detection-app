@@ -14,7 +14,7 @@ def take_photo(camera):
 
 def save_photo(image, path, project_name):
     """Take image and save it as a jpg file in the folder "images" """
-    image_path = path + '/images/'
+    image_path = path
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d-%X")
     file_name = (project_name + date_str + ".jpg")

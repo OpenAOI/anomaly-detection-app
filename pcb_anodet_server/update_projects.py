@@ -30,5 +30,5 @@ def update_camera(project_name, camera, camera_type):
 
 def update_threshold(project_name, thresh):
     conf = load_conf(project_name)
-    conf["threshold_config"]["treshold"] = thresh
+    conf["threshold_config"]["threshold"] = thresh
     update(project_name, conf)
