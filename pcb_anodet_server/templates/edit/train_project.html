@@ -17,10 +17,29 @@
 <div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-12">
-      <a href="/edit/take_photo/{{ project_id }}" class="btn btn-block btn-primary">Take more photos</a>
-      <hr>
-      <a href="#" class="btn btn-block btn-success">Start training</a>
+      <a onclick="train()" class="btn btn-block btn-success">Start training</a>
     </div>
   </div>
 </div>
+
+<script>
+function sendHttpRequest(ipAdress) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", ipAdress, false);
+  try {
+      xhttp.send();
+  } catch (error) {
+      console.log(error)
+      return false;
+  }
+  return xhttp;
+}
+
+function train(){
+  var ip = "http://10.10.0.87:5000/".concat("train")
+  var xhttp = sendHttpRequest(ip);
+
+  window.location.href = '/predict';
+}
+</script>
 {% endblock %}
