@@ -1,4 +1,3 @@
-const ipAdress = "http://10.10.0.87:5000/"
 
 // Helper function
 function sendHttpRequest(ipAdress) {
@@ -26,15 +25,13 @@ function updateCrop(){
     y2 = input_field_y2.value;
 
     var adress = "update_crop" + "?x_1=" + x1 + "&x_2=" + x2 + "&y_1=" + y1 + "&y_2=" + y2;
-    var ip = ipAdress.concat(adress)
-    var xhttp = sendHttpRequest(ip)
-
-    console.log(ip)
+    var ip = ipAdress.concat(adress);
+    var xhttp = sendHttpRequest(ip);
 
     //var json_response = JSON.parse(xhttp.responseText);
     if (xhttp.status === 200) {
+        window.location.href = '/edit/take_photo';
         return true;
-    } else {
-        return false;
     }
 }
+
