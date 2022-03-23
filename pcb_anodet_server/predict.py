@@ -2,7 +2,7 @@ import os
 import torch
 import numpy as np
 import anodet
-
+import cv2
 
 def get_predict_model(path):
     model_data_path = path + "/distributions"
@@ -17,6 +17,8 @@ def predict_image(image, path, thresh):
     model = get_predict_model(path)
     batch = anodet.to_batch([image], anodet.standard_image_transform, torch.device('cuda'))
     image_scores, score_maps = model.predict(batch)
+    print(score_maps)
     test_images = np.array([image]).copy()
     heatmap_images = anodet.visualization.heatmap_images(test_images, score_maps, alpha=0.5)
-    return heatmap_images[0], round(image_scores[0].item(), 2)
+    heatmap = cv2.cvtColor(heatmap_images[0], cv2.COLOR_BGR2RGB)
+    return heatmap, round(image_scores[0].item(), 2)
