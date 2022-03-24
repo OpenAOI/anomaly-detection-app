@@ -18,11 +18,11 @@ def change_project(selected_project):
     global PROJECT_NAME, CAMERA
     PROJECT_NAME = selected_project
     cam_conf = get_projects.get_camera_config(selected_project)
-    try: 
+    try:
         CAMERA.release()
-    except: 
+    except:
         pass
-    finally: 
+    finally:
         CAMERA = cv2.VideoCapture(cam_conf["camera"])
 
 
@@ -44,7 +44,6 @@ def crop_project_photo(image):
     x_2 = crop_conf["x_2"]  # X end value
     y_2 = crop_conf["y_2"]  # Y end value
     cropped_image = utils.crop(image, x_1, x_2, y_1, y_2)
-
     return cropped_image
 
 
@@ -68,15 +67,12 @@ def take_project_photo():
 
 def predict_project_photo(image):
     """Uses the trained model to make an evaluation of an image of a project"""
-    #image = Image.fromarray(img)
     path_conf = get_projects.get_path_config(PROJECT_NAME)
     thresh_conf = get_projects.get_threshold_config(PROJECT_NAME)
     path = path_conf
     thresh = thresh_conf["threshold"]
-    cropped_image = crop_project_photo(image)
-    masked_cropped_image = mask_project_photo(cropped_image)
-    heatmap, score = predict_image(masked_cropped_image, path, thresh)
-    return masked_cropped_image, heatmap, score, thresh
+    heatmap, score = predict_image(image, path, thresh)
+    return image, heatmap, score, thresh
 
 
 def save_project_photo():
@@ -84,7 +80,6 @@ def save_project_photo():
     path_conf = get_projects.get_path_config(PROJECT_NAME)
     path = path_conf
     array = utils.take_photo(CAMERA)
-    array = cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
     cropped_array = crop_project_photo(array.copy())
     image = Image.fromarray(array)
     cropped_image = Image.fromarray(cropped_array)
