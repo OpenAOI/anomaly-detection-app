@@ -18,6 +18,7 @@ window.onload = function () {
     var input_field_size = document.getElementById("input_size");
     // Image to crop
     const imageCrop = document.getElementById('image-crop');
+    const imagePreview = document.getElementById('preview-crop');
 
     var Cropper = window.Cropper;
 
@@ -31,6 +32,7 @@ window.onload = function () {
     cropBoxResizable: false,  // crop box resize disable
     zoomOnWheel: false,  // scroll zoom
     aspectRatio: 1,
+    preview: imagePreview,
     ready: function (e) {
         console.log(e.type);
         this.cropper.crop();
