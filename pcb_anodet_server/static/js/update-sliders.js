@@ -4,6 +4,8 @@ var x2;
 var y1;
 var y2;
 
+var minCroppedWidth = 150;
+
 window.onload = function () {
     'use strict';
     
@@ -52,6 +54,10 @@ window.onload = function () {
     crop: function (e) {
         console.log(e.type);
         var data = e.detail;
+
+        if (data.width < minCroppedWidth) {
+          cropper.setData({"width": minCroppedWidth});
+        }
 
         // Update sliders + input fields
         input_field_h.value = Math.round(data.x);
