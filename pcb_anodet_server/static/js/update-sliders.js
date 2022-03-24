@@ -1,32 +1,44 @@
+// Crop info to be sent to server
+var x1;
+var x2;
+var y1;
+var y2;
+
 window.onload = function () {
     'use strict';
-  
-    var Cropper = window.Cropper;
-
+    
     // Sliders + input fields
-    var slider_x1 = document.getElementById("slider_x1");
-    var slider_x2 = document.getElementById("slider_x2");
-    var slider_y1 = document.getElementById("slider_y1");
-    var slider_y2 = document.getElementById("slider_y2");
-    var input_field_x1 = document.getElementById("input_x1");
-    var input_field_x2 = document.getElementById("input_x2");
-    var input_field_y1 = document.getElementById("input_y1");
-    var input_field_y2 = document.getElementById("input_y2");
-
+    var slider_h = document.getElementById("slider_h");
+    var slider_v = document.getElementById("slider_v");
+    var slider_size = document.getElementById("slider_size");
+    var input_field_v = document.getElementById("input_v");
+    var input_field_h = document.getElementById("input_h");
+    var input_field_size = document.getElementById("input_size");
+    // Image to crop
     const imageCrop = document.getElementById('image-crop');
+
+    var Cropper = window.Cropper;
 
     var options = {
     autoCrop: false,
-    viewMode: 1,                // zoom as free
-    guides: false,              // hide guid lines
-    dragMode: 'move',           // dragging mode of cropper
-    movable: false,              // enable image move
-    cropBoxMovable: true,      // crop box move disable
-    cropBoxResizable: true,    // crop box resize disable
-    zoomOnWheel: false,
+    viewMode: 1, // zoom as free
+    guides: false,  // hide guid lines
+    dragMode: 'none',  // dragging mode of cropper
+    movable: false,  // enable image move
+    cropBoxMovable: true,  // crop box move disable
+    cropBoxResizable: false,  // crop box resize disable
+    zoomOnWheel: false,  // scroll zoom
+    aspectRatio: 1,
     ready: function (e) {
         console.log(e.type);
         this.cropper.crop();
+
+        // Update global crop data
+        var data = cropper.getData();
+        x1 = data["x"];
+        x2 = data["x"] + data["width"];
+        y1 = data["y"];
+        y2 = data["y"] + data["height"];
     },
     cropstart: function (e) {
         console.log(e.type, e.detail.action);
@@ -42,55 +54,69 @@ window.onload = function () {
         var data = e.detail;
 
         // Update sliders + input fields
-        input_field_x1.value = Math.round(data.x);
-        input_field_x2.value = Math.round(data.x + data.width);
-        input_field_y1.value = Math.round(data.y);
-        input_field_y2.value = Math.round(data.y + data.height);
+        input_field_h.value = Math.round(data.x);
+        input_field_v.value = Math.round(data.y);
+        input_field_size.value = Math.round(data.width);
 
-        slider_x1.value = Math.round(data.x);
-        slider_x2.value = Math.round(data.x + data.width);
-        slider_y1.value = Math.round(data.y);
-        slider_y2.value = Math.round(data.y + data.height);
+        slider_h.value = Math.round(data.x);
+        slider_v.value = Math.round(data.y);
+        slider_size.value = Math.round(data.width);
+
+        // Update global crop data
+        x1 = data["x"];
+        x2 = data["x"] + data["width"];
+        y1 = data["y"];
+        y2 = data["y"] + data["height"];
     },
     zoom: function (e) {
         console.log(e.type, e.detail.ratio);
     }
     };
+
     const cropper = new Cropper(imageCrop, options);
 
+
     // Create link between sliders and input fields
-
-    // Slider x1
-    slider_x1.oninput = function() {
-    input_field_x1.value = this.value;
-
+    // Horizontal
+    slider_h.oninput = function() {
+      input_field_h.value = this.value;
+      cropper.setData({"x": parseInt(this.value)});
+      console.log(cropper.getData());
     },
-    input_field_x1.oninput = function() {
-    slider_x1.value = this.value;
-    },
-
-    // Slider x2
-    slider_x2.oninput = function() {
-    input_field_x2.value = this.value;
-    },
-    input_field_x2.oninput = function() {
-    slider_x2.value = this.value;
-    },
-
-    // Slider y1
-    slider_y1.oninput = function() {
-    input_field_y1.value = this.value;
-    },
-    input_field_y1.oninput = function() {
-    slider_y1.value = this.value;
-    },
-
-    // Slider y2
-    slider_y2.oninput = function() {
-    input_field_y2.value = this.value;
-    },
-    input_field_y2.oninput = function() {
-    slider_y2.value = this.value;
+      input_field_h.oninput = function() {
+      slider_h.value = this.value;
+      cropper.setData({"x": parseInt(this.value)});
     }
 
+    // Vertical
+    slider_v.oninput = function() {
+      input_field_v.value = this.value;
+      cropper.setData({"y": parseInt(this.value)});
+    },
+    input_field_v.oninput = function() {
+      slider_v.value = this.value;
+      cropper.setData({"y": parseInt(this.value)});
+    }
+
+    // Size
+    slider_size.oninput = function() {
+      input_field_size.value = this.value;
+      cropper.setData({"width": parseInt(this.value), "height": parseInt(this.value)});
+      
+    },
+    input_field_size.oninput = function() {
+        slider_size.value = this.value;
+        cropper.setData({"width": parseInt(this.value), "height": parseInt(this.value)});
+    }
+  
 };
+
+function updateCrop(){
+  var adress = "update_crop" + "?x_1=" + parseInt(x1) + "&x_2=" + parseInt(x2) + "&y_1=" + parseInt(y1) + "&y_2=" + parseInt(y2);
+  var ip = ipAdress.concat(adress);
+  var xhttp = sendHttpRequest(ip);
+
+  if (xhttp.status === 200) {
+      window.location.href = '/edit/take_photo';
+  }
+}

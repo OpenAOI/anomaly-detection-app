@@ -16,7 +16,7 @@
     <div class="col-sm-6 text-left">
       <div style="overflow: hidden;">
           <h5>Image cropper</h5>
-          <img id="image-crop" src="" alt="Picture" style="display: block; max-width: 100%;">
+          <img id="image-crop" src="/static/images/test.jpg" alt="Picture" style="display: block; max-width: 100%;">
       </div>
     </div>
     <!-- Crop preview -->
@@ -35,52 +35,39 @@
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Edit left</p>
-      <input style="width: 100%;" type="range" min="0" max="1920" value="0" id="slider_x1">
+      <p>Move horizontal</p>
+      <input style="width: 100%;" type="range" min="0" max="2000" value="0" id="slider_h">
     </div>
     <!-- Input field -->
     <div class="col-sm-2" style="padding-top: 15px;">
       <div class="input-group">
-        <input type="text" class="form-control" id="input_x1" value="0" style="width: 65px;">
+        <input type="text" class="form-control" id="input_h" value="0" style="width: 65px;">
       </div>
     </div>
   </div>
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Edit right</p>
-      <input style="width: 100%;" type="range" min="0" max="1920" value="1920" id="slider_x2">
+      <p>Move vertical</p>
+      <input style="width: 100%;" type="range" min="0" max="2000" value="0" id="slider_v">
     </div>
     <!-- Input field -->
     <div class="col-sm-2" style="padding-top: 15px;">
       <div class="input-group">
-        <input type="text" class="form-control" id="input_x2" value="1920">
+        <input type="text" class="form-control" id="input_v" value="1920">
      </div>
     </div>
   </div>
   <div class="row content">
     <!-- Slider -->
     <div class="col-sm-10">
-      <p>Edit up</p>
-      <input style="width: 100%; height: 30px;" type="range" min="0" max="1080" value="0" id="slider_y1">
+      <p>Change size</p>
+      <input style="width: 100%; height: 30px;" type="range" min="0" max="2000" value="0" id="slider_size">
     </div>
     <!-- Input field -->
     <div class="col-sm-2" style="padding-top: 15px;">
       <div class="input-group">
-        <input type="text" class="form-control" id="input_y1" value="0">
-     </div>
-    </div>
-  </div>
-  <div class="row content">
-    <!-- Slider -->
-    <div class="col-sm-10">
-      <p>Edit down</p>
-      <input style="width: 100%; height: 30px;" type="range" min="0" max="1080" value="1080" id="slider_y2">
-    </div>
-    <!-- Input field -->
-    <div class="col-sm-2" style="padding-top: 15px;">
-      <div class="input-group">
-        <input type="text" class="form-control" id="input_y2" value="1080">
+        <input type="text" class="form-control" id="input_size" value="0">
      </div>
     </div>
   </div>
@@ -91,6 +78,7 @@
 <div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-12">
+      <!-- <a onclick="" class="btn btn-block btn-primary">Reset Crop</a> <hr> -->
       <hr>
       <a onclick="updateCrop()" class="btn btn-block btn-success">Save Crop</a>
     </div>
@@ -98,16 +86,18 @@
 </div>
 
 <script>
-    var ip = ipAdress.concat("save_photo")
-    var xhttp = sendHttpRequest(ip)
+  /*
+  // Take photo and load to crop
+  var ip = ipAdress.concat("save_photo")
+  var xhttp = sendHttpRequest(ip)
 
 
-    var ip = ipAdress.concat("return_saved_photo");
-    var xhttp = sendHttpRequest(ip);
+  var ip = ipAdress.concat("return_saved_photo");
+  var xhttp = sendHttpRequest(ip);
 
-    photo = xhttp.responseText;
+  photo = xhttp.responseText;
 
-    document.getElementById('image-crop').src = photo;
-
+  document.getElementById('image-crop').src = photo;
+  */
 </script>
 {% endblock %}
