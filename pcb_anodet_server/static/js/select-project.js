@@ -22,3 +22,10 @@ function createProject(){
     window.location.href = '/edit/crop_camera';
       
 }
+
+function change_project(project_name){
+    alert("hello world")
+    var adress = "change_project?project_name=" + project_name;
+    var ip = ipAdress.concat(adress);
+    var xhttp = sendHttpRequest(ip);
+}

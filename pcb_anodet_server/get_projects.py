@@ -1,6 +1,7 @@
 import json
 from os import listdir
 
+
 def load_conf(project_name):
 
     with open('projects/' + project_name + '/conf.json') as f:
@@ -29,7 +30,7 @@ def get_path_config(project_name):
 
 def get_camera_config(project_name):
     conf = load_conf(project_name)
-    
+
     return conf["camera_config"]
 
 
@@ -41,7 +42,7 @@ def get_threshold_config(project_name):
 
 def get_all_projects():
     projects = listdir('projects/')
-    project_json={"projects":[]}
+    project_json = {"projects": []}
     for p in projects:
-        project_json["projects"].append({"name":p})  
+        project_json["projects"].append({"name": p})
     return json.dumps(project_json)

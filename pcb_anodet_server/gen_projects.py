@@ -12,9 +12,7 @@ def create_project(project_name):
     mkdir(full_path + "/images")
     mkdir(full_path + "/processed_images")
 
-
     with open(server_path + "conf_template.json", "r") as f, open(full_path + "/conf.json", "w") as to:
 
         to.write(f.read())
     return True  # returns True if created
-

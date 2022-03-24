@@ -4,7 +4,7 @@ import threading
 
 thread_lock = threading.Lock()
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 app.register_blueprint(api_blueprint)
 
 
@@ -20,7 +20,10 @@ def after_request(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-    thread_lock.release()
+    try:
+        thread_lock.release()
+    except:
+        pass
     return response
 
 
