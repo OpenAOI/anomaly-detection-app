@@ -2,29 +2,79 @@
 
 
 {% block head2 %}
-<link rel="stylesheet" href="../../static/css/modal-images.css">
+<link rel="stylesheet" type=text/css href="../../static/css/image-gallery.css">
 {% endblock %}
 
-
 {% block content %}
-<!-- Project images -->
+<!-- Topic -->
 <div class="container-fluid text-center">    
-    <div class="row content">
-      <div class="col-sm-12 text-left"> 
-        <h4>Images</h4>
-        <br>
-  
-        <div class="img-row">
-          <div class="thumbnail" style="width: 150px;">
-            <img src="" id="myImg" alt="wedding">
+  <div class="row content">
+    <div class="col-sm-12 text-left">
+      <h4>Total images: 100</h4>
+    </div>
+  </div>
+</div>
+
+<!-- Project images gallery -->
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-12 text-left">
+
+      <div class="imgGallery">
+        <div class="thumbnail" style="width: 150px;">
+          <div class="item">
+            <img src="" alt="wedding" id="myImg">
             <div class="caption">
-              <span class="image-text-right">Delete</span><span class="image-text-left">View</span>​
+              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="thumbnail" style="width: 150px;">
+          <div class="item">
+            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
+            <div class="caption">
+              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="thumbnail" style="width: 150px;">
+          <div class="item">
+            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
+            <div class="caption">
+              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="thumbnail" style="width: 150px;">
+          <div class="item">
+            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
+            <div class="caption">
+              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="thumbnail" style="width: 150px;">
+          <div class="item">
+            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
+            <div class="caption">
+              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
             </div>
           </div>
         </div>
 
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+
       </div>
+      
     </div>
+  </div>
 </div>
 
 <!-- Buttons -->
@@ -38,7 +88,27 @@
   </div>
 </div>
 
-
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+  
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  var img = document.getElementById("myImg");
+  var modalImg = document.getElementById("img01");
+  function displayImage() {
+    console.log(11);
+    modal.style.display = "block";
+    modalImg.src = img.src;
+  }
+  
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() { 
+    modal.style.display = "none";
+  }
+</script>
 
 <script>
 function sendHttpRequest(ipAdress) {
