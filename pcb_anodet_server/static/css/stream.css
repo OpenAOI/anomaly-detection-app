@@ -1,0 +1,7 @@
+/* Used by predict.html, take_photo.html */
+
+/* Live stream */
+img {
+    width: 100%;
+    object-fit: contain;
+}

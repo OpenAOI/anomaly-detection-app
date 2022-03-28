@@ -2,9 +2,9 @@
 
 {% block head2 %}
 <script type="text/javascript" src="../../static/js/cropper.js"></script>
+<link rel="stylesheet" type=text/css href="../../static/css/cropper.css">
+
 <script type="text/javascript" src="../../static/js/update-sliders.js"></script>
-<!-- <script type="text/javascript" src="../../static/js/send-crop-info.js"></script> -->
-<link rel="stylesheet" href="../../static/css/cropper.css">
 {% endblock %}
 
 
@@ -16,7 +16,7 @@
     <div class="col-sm-6 text-left">
       <h5>Image cropper</h5>
       <div style="overflow: hidden;">
-        <img id="image-crop" src="/static/images/test2.jpg" alt="Picture" style="display: block; max-width: 100%;">
+        <img id="image-crop" src="" alt="Picture" style="display: block; max-width: 100%;">
       </div>
     </div>
     <!-- Crop preview -->
@@ -84,7 +84,7 @@
 </div>
 
 <script>
-  /*
+  
   // Take photo and load to crop
   var ip = ipAdress.concat("save_photo")
   var xhttp = sendHttpRequest(ip)
@@ -96,6 +96,6 @@
   photo = xhttp.responseText;
 
   document.getElementById('image-crop').src = photo;
-  */
+  
 </script>
 {% endblock %}

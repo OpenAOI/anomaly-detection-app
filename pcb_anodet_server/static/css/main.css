@@ -1,3 +1,5 @@
+/* Used by main.html */
+
 body {
     background-color: rgb(249, 249, 249);
 }
@@ -51,25 +53,3 @@ body {
 h5 {
   margin-bottom: 2px;
 }
-
-/* Page content */
-#page-content {
-  display: block;
-}
-
-#page-content-no-connection {
-  display: none;
-}
-
-/* Live stream */
-.fit-image {
-  width: 100%;
-  object-fit: cover;
-  max-height: 300px;
-  text-size-adjust: 13;
-}
-
-.live-stream {
-  height: 300px;
-  max-height: 300px;
-} 
