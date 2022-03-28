@@ -16,15 +16,18 @@
     <div class="col-sm-6 text-left">
       <h5>Image cropper</h5>
       <div style="overflow: hidden;">
-        <img id="image-crop" src="" alt="Picture" style="display: block; max-width: 100%;">
+        <img id="image-crop" src="" alt="Picture" style="max-width: 100%;">
       </div>
     </div>
     <!-- Crop preview -->
     <div class="col-sm-6 text-left">
       <h5>Preview</h5>
-      <div id="preview-crop" style="overflow: hidden; width: 100%; height: 300px;">
+      <div style="overflow: hidden;">
+        <div id="preview-crop" style="overflow: hidden; width: 100%; height: 300px;">
+      </div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -39,7 +42,7 @@
     <!-- Input field -->
     <div class="col-sm-2" style="padding-top: 15px;">
       <div class="input-group">
-        <input type="text" class="form-control" id="input_h" value="0" style="width: 65px;">
+        <input type="text" class="form-control" id="input_h" value="0">
       </div>
     </div>
   </div>
