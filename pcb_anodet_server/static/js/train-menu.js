@@ -10,30 +10,26 @@ function moveEditMenu() {
     var viewImagesText = document.querySelector("#view-images-text");
     var trainProjectText = document.querySelector("#train-project-text");
 
-
-    if (path.startsWith("/edit/crop_camera")) {
-        console.log(1)
+    if (path.startsWith("/edit/crop_camera")) 
+    {
         cropCameraText.style.fontSize = "14px";
         cropCameraText.style.fontWeight = "bold";
         cropCameraText.style.opacity = 1;
-    }
-
-    if (path.startsWith("/edit/take_photo")) {
-        console.log(1)
+    } 
+    else if (path.startsWith("/edit/take_photo")) 
+    {
         takePhotoText.style.fontSize = "14px";
         takePhotoText.style.fontWeight = "bold";
         takePhotoText.style.opacity = 1;
-    }
-
-    if (path.startsWith("/edit/view_images")) {
-        console.log(1)
+    } 
+    else if (path.startsWith("/edit/view_images")) 
+    {
         viewImagesText.style.fontSize = "14px";
         viewImagesText.style.fontWeight = "bold";
         viewImagesText.style.opacity = 1;
-    }
-
-    if (path.startsWith("/edit/train_project")) {
-        console.log(1)
+    } 
+    else if (path.startsWith("/edit/train_project")) 
+    {
         trainProjectText.style.fontSize = "14px";
         trainProjectText.style.fontWeight = "bold";
         trainProjectText.style.opacity = 1;
