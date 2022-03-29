@@ -20,47 +20,27 @@
   <div class="row content">
     <div class="col-sm-12 text-left">
 
-      <div class="imgGallery">
-        <div class="thumbnail" style="width: 150px;">
-          <div class="item">
-            <img src="" alt="wedding" id="myImg">
-            <div class="caption">
-              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="thumbnail" style="width: 150px;">
-          <div class="item">
-            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
-            <div class="caption">
-              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="thumbnail" style="width: 150px;">
-          <div class="item">
-            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
-            <div class="caption">
-              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="thumbnail" style="width: 150px;">
-          <div class="item">
-            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
-            <div class="caption">
-              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="thumbnail" style="width: 150px;">
-          <div class="item">
-            <img src="https://picsum.photos/190/190?1" alt="wedding" id="myImg">
-            <div class="caption">
-              <p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>
-            </div>
-          </div>
-        </div>
+      <div class="imgGallery" id="imgGallery">
+        <script>
+          var ip = ipAdress.concat("get_all_project_images");
+          var xhttp = sendHttpRequest(ip);
+
+          var json_response = JSON.parse(xhttp.responseText);
+          var images = json_response.images;
+
+          // List projects in html
+          for (var i = 0; i < images.length; i++) {
+              document.getElementById("imgGallery").innerHTML += 
+              '<div class="thumbnail" style="width: 150px;">' +
+              '<div class="item">' +
+              '<img src="' + images[i].image_b64 + '" alt="' + images[i].name + '" id="myImg">' +
+              '<div class="caption">' +
+              '<p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+          }
+        </script>
 
       <!-- The Modal -->
       <div id="modal" class="modal">
@@ -89,52 +69,29 @@
 </div>
 
 <script>
-  var modal = document.getElementById("modal");
-  var img = document.getElementById("myImg");
-  var modalImg = document.getElementById("img01");
+var modal = document.getElementById("modal");
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
 
-  // Display modal if click on View or Button
-  function displayImage() {
-    modal.style.display = "block";
-    modalImg.src = img.src;
-  }
-  img.onclick = function() {
-    modal.style.display = "block";
-    modalImg.src = img.src;
-  }
-  
-  // Close button
-  var span = document.getElementsByClassName("close")[0];
-  span.onclick = function() { 
-    modal.style.display = "none";
-  }
-  // Or close by click on image
-  modal.onclick = function() {
-    modal.style.display = "none";
-  }
-</script>
-
-<script>
-function sendHttpRequest(ipAdress) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", ipAdress, false);
-    try {
-        xhttp.send();
-    } catch (error) {
-        console.log(error)
-        return false;
-    }
-    return xhttp;
+// Display modal if click on View or Button
+function displayImage() {
+  modal.style.display = "block";
+  modalImg.src = img.src;
+}
+img.onclick = function() {
+  modal.style.display = "block";
+  modalImg.src = img.src;
 }
 
-var ip = ipAdress.concat("return_saved_photo");
-var xhttp = sendHttpRequest(ip);
-console.log(1);
-
-photo = xhttp.responseText;
-
-document.getElementById('myImg').src = photo;
-
+// Close button
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() { 
+  modal.style.display = "none";
+}
+// Or close by click on image
+modal.onclick = function() {
+  modal.style.display = "none";
+}
 </script>
 {% endblock %}
 
