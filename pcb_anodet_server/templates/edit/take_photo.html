@@ -1,10 +1,10 @@
 {% extends 'edit/base_edit.html' %}
 
+
 {% block head2 %}
 <script type="text/javascript" src="../static/js/stream.js"></script>
-<script type="text/javascript" src="../../static/css/live-stream.css"></script>
+<link rel="stylesheet" type=text/css href="../../static/css/stream.css">
 {% endblock %}
-
 
 {% block content %}
 <!-- Live feed -->
@@ -26,7 +26,6 @@
   <div class="row content">
     <div class="col-sm-12">
       <button type="button" onclick="savePhoto()" class="btn btn-primary btn-block">Take Photo</button>
-      
       <hr>
       <a href="/edit/view_images" class="btn btn-block btn-success">Go to next step</a>
     </div>

@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
+
 {% block head %}
 <script type="text/javascript" src="../static/js/stream.js"></script>
-<script type="text/javascript" src="../static/css/live-stream.css"></script>
+<link rel="stylesheet" type=text/css href="../../static/css/stream.css">
 {% endblock %}
-
 
 {% block content %}
 <!-- Camera field -->
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-6 text-left live-stream"> 
+    <div class="col-sm-6 text-left"> 
       <h5>Live feed</h5>
       <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}"</img>
     </div>
@@ -18,7 +18,7 @@
     <div class="col-sm-6 text-left">
       <h5>Prediction</h5>
       <p id = "demo"></p>
-      <img id="canvas" class="img-responsive fit-image" style="background-color: grey"></canvas></div>
+      <img id="canvas" class="img-responsive" style="background-color: grey"></canvas></div>
   </div>
 </div>
   

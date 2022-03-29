@@ -1,5 +1,8 @@
+/* Used by base_edit.html */
+
+/* Line with circle */
 .line-fat {
-  width: 12.5%;
+  width: 0%;
   height: 12px;
   border-bottom: 3px solid black;
   margin-top: 1px;
@@ -9,8 +12,8 @@
 }
 
 .line-thin {
-  margin-left: 12.5%;
-  width: 87.5%;
+  margin-left: 0%;
+  width: 0%;
   height: 12px;
   border-bottom: 1px solid black;
   position: absolute;
@@ -20,15 +23,16 @@
 }
   
 #circle {
-  width: 14px;
-  height: 14px;
-  -webkit-border-radius: 14px;
-  -moz-border-radius: 14px;
-  border-radius: 14px;
-  margin-top: 5x;
+  width: 12px;
+  height: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  margin-top: 6x;
   background: black;
 }
 
+/* Text above line */
 .train-bar {
   margin-right: 0px; 
   padding-right: 0px; 

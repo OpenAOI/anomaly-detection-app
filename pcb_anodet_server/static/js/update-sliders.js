@@ -4,6 +4,8 @@ var x2;
 var y1;
 var y2;
 
+var minCroppedWidth = 150;
+
 window.onload = function () {
     'use strict';
     
@@ -16,6 +18,7 @@ window.onload = function () {
     var input_field_size = document.getElementById("input_size");
     // Image to crop
     const imageCrop = document.getElementById('image-crop');
+    const imagePreview = document.getElementById('preview-crop');
 
     var Cropper = window.Cropper;
 
@@ -29,6 +32,7 @@ window.onload = function () {
     cropBoxResizable: false,  // crop box resize disable
     zoomOnWheel: false,  // scroll zoom
     aspectRatio: 1,
+    preview: imagePreview,
     ready: function (e) {
         console.log(e.type);
         this.cropper.crop();
@@ -52,6 +56,10 @@ window.onload = function () {
     crop: function (e) {
         console.log(e.type);
         var data = e.detail;
+
+        if (data.width < minCroppedWidth) {
+          cropper.setData({"width": minCroppedWidth});
+        }
 
         // Update sliders + input fields
         input_field_h.value = Math.round(data.x);
