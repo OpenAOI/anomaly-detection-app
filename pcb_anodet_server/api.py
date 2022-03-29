@@ -1,59 +1,9 @@
-from flask import Blueprint, json, render_template, request
+from flask import Blueprint, json, render_template, request, url_for, Response
 import project_functions
 import utils
 
 
 api_blueprint = Blueprint('api_blueprint', __name__)
-
-
-""" Predict page """
-
-
-@api_blueprint.route('/predict', methods=["GET", "POST"])
-def predictv():
-    project_name = request.args.get('project', None)
-    project_functions.change_project(project_name)
-    return render_template("predict.html")
-
-
-""" New project routes """
-
-
-@api_blueprint.route('/edit/crop_camera', methods=["GET", "POST"])
-def crop_camerav():
-    return render_template("edit/crop_camera.html")
-
-
-@api_blueprint.route('/edit/take_photo', methods=["GET", "POST"])
-def take_photov():
-    return render_template("edit/take_photo.html")
-
-
-@api_blueprint.route('/edit/view_images', methods=["GET", "POST"])
-def view_imagesv():
-    return render_template("edit/view_images.html")
-
-
-@api_blueprint.route('/edit/train_project', methods=["GET", "POST"])
-def train_projectv():
-    return render_template("edit/train_project.html")
-
-
-""" Select project page """
-
-
-@api_blueprint.route('/', methods=["GET", "POST"])
-@api_blueprint.route('/select_project', methods=["GET", "POST"])
-def select_projectv():
-    return render_template("select_project.html")
-
-
-""" Error pages """
-
-
-@api_blueprint.errorhandler(404)
-def error_404v(error):
-    return render_template('errors/404.html'), 404
 
 
 @api_blueprint.route("/ping", methods=["GET", "POST"])
@@ -62,10 +12,16 @@ def ping():
     return "pong"
 
 
+@api_blueprint.route('/video_feed')
+def video_feed():
+    return Response(project_functions.gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 @api_blueprint.route("/take_photo", methods=["GET", "POST"])
 def take_photo():
     """Take photo and convert to b_64"""
-    image = project_functions.take_project_photo()
+    image = project_functions.return_latest_photo()
     image_b64 = utils.ndarray_to_b64(image)
     return json.dumps({"image_org_b64": image_b64})
 
@@ -74,14 +30,14 @@ def take_photo():
 def take_photo_and_predict():
     """Take picture, make, prediction and return original,
     heatmap, score and threshhold"""
-    image = project_functions.take_project_photo()
+    image = project_functions.return_latest_photo()
     image_org, image_pred, score, thresh = project_functions.predict_project_photo(image)
     image_org_b64 = utils.ndarray_to_b64(image_org)
     image_pred_b64 = utils.ndarray_to_b64(image_pred)
     return json.dumps({"image_org_b64": image_org_b64,
                        "image_pred_b64": image_pred_b64,
                        "score": score, "thresh": thresh})
-
+    
 
 @api_blueprint.route("/save_photo", methods=["GET", "POST"])
 def save_photo():
@@ -92,6 +48,7 @@ def save_photo():
 
 @api_blueprint.route("/return_saved_photo", methods=["GET", "POST"])
 def return_saved_photo():
+    save_photo() #TODO Fixa!
     image = project_functions.return_saved_project_photo()
     return image
 
@@ -147,3 +104,57 @@ def get_projects():
     """Get all the project names"""
     projects = project_functions.get_all_projects()
     return projects
+
+
+@api_blueprint.route("/get_all_project_images", methods=["GET", "POST"])
+def get_all_project_images():
+    """Get all the project names"""
+    images = project_functions.get_all_project_images()
+    return images
+
+
+"""HTML routes"""
+
+@api_blueprint.route('/predict', methods=["GET", "POST"])
+def predictv():
+    #project_name = request.args.get('project', None)
+    #project_functions.change_project(project_name)
+    return render_template("predict.html")
+
+
+@api_blueprint.route('/edit/crop_camera', methods=["GET", "POST"])
+def crop_camerav():
+    return render_template("edit/crop_camera.html")
+
+
+@api_blueprint.route('/edit/take_photo', methods=["GET", "POST"])
+def take_photov():
+    return render_template("edit/take_photo.html")
+
+
+@api_blueprint.route('/edit/view_images', methods=["GET", "POST"])
+def view_imagesv():
+    return render_template("edit/view_images.html")
+
+
+@api_blueprint.route('/edit/train_project', methods=["GET", "POST"])
+def train_projectv():
+    return render_template("edit/train_project.html")
+
+
+""" Select project page """
+
+
+@api_blueprint.route('/', methods=["GET", "POST"])
+@api_blueprint.route('/select_project', methods=["GET", "POST"])
+def select_projectv():
+    return render_template("select_project.html")
+
+
+""" Error pages """
+
+
+@api_blueprint.errorhandler(404)
+def error_404v(error):
+    return render_template('errors/404.html'), 404
+

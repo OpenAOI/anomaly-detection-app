@@ -46,3 +46,10 @@ def get_all_projects():
     for p in projects:
         project_json["projects"].append({"name": p})
     return json.dumps(project_json)
+
+
+def get_all_image_names(project_name):
+    images = listdir('projects/' + project_name + '/images/')
+    image_names_dict = {"images": [{"name": i} for i in images]}
+    return image_names_dict
+

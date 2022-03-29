@@ -1,5 +1,5 @@
 if (checkCameraConnection()) {
-    setInterval(fetchPhoto, 200)
+    //setInterval(fetchPhoto, 200)
 }
 
 function sendHttpRequest(ipAdress) {
@@ -58,7 +58,6 @@ function takePhotoPredict() {
     photo = json_response.image_pred_b64;
     score = json_response.score;
     thresh = json_response.thresh;
-
     document.getElementById('canvas').src = photo;
     document.getElementById('score-data').innerHTML = score;
     document.getElementById('thresh-data').innerHTML = thresh;
