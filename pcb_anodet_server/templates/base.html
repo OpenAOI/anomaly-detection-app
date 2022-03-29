@@ -19,6 +19,7 @@
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
+    {% block navbar %}
     <div class="navbar-header">
       <a class="navbar-brand">{{ project_id }}</a>
     </div>
@@ -27,6 +28,7 @@
         <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="/select_project">Select project</a></li>
       </ul>
     </div>
+    {% endblock %}
   </div>
 </nav>
 
