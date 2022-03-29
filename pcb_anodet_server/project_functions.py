@@ -17,7 +17,7 @@ PROJECT_NAME = "Ost"
 
 def return_latest_photo():
     """Returns the latest image without claming the camera feed"""
-    return CAMERA.return_latest_image()
+    return CAMERA.return_image()
 
 
 def change_project(selected_project):
@@ -98,7 +98,7 @@ def save_project_photo():
     """Saves an un-evaluated image of a project"""
     path_conf = get_projects.get_path_config(PROJECT_NAME)
     path = path_conf
-    array = utils.take_photo(CAMERA)
+    array = return_latest_photo() #TODO: Fix camera value 0
     cropped_array = crop_project_photo(array.copy())
     image = Image.fromarray(array)
     cropped_image = Image.fromarray(cropped_array)
@@ -110,7 +110,7 @@ def return_saved_project_photo():
     """Fetch photo from disc to display in gui"""
     images = []
     path_conf = get_projects.get_path_config(PROJECT_NAME)
-    img_path = path_conf + '/processed_images'
+    img_path = path_conf + '/images'
     for path in os.listdir(img_path):
         full_path = os.path.join(img_path, path)
         if os.path.isfile(full_path):
@@ -158,5 +158,5 @@ def get_all_project_images():
         with Image.open(image_name) as im:
             b64image = utils.ndarray_to_b64(asarray(im))
         image["image_b64"] = b64image
-    
     return image_names_dict
+

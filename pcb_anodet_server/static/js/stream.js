@@ -1,5 +1,5 @@
 if (checkCameraConnection()) {
-    setInterval(fetchPhoto, 200)
+    //setInterval(fetchPhoto, 200)
 }
 
 function sendHttpRequest(ipAdress) {
