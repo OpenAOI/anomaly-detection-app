@@ -8,7 +8,7 @@ from io import BytesIO
 
 def take_photo(camera):
     """Take photo with the device given"""
-    _, image = camera.read()
+    image = camera.read()
     return image
 
 

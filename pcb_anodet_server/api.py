@@ -1,9 +1,18 @@
-from flask import Blueprint, json, render_template, request
+from flask import Blueprint, json, render_template, request, url_for, Response
 import project_functions
 import utils
 
 
 api_blueprint = Blueprint('api_blueprint', __name__)
+
+
+"""Testing video feed"""
+
+
+@api_blueprint.route('/video_feed')
+def video_feed():
+    return Response(project_functions.gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 """ Predict page """
@@ -74,14 +83,14 @@ def take_photo():
 def take_photo_and_predict():
     """Take picture, make, prediction and return original,
     heatmap, score and threshhold"""
-    image = project_functions.take_project_photo()
+    image = project_functions.return_latest_photo()
     image_org, image_pred, score, thresh = project_functions.predict_project_photo(image)
     image_org_b64 = utils.ndarray_to_b64(image_org)
     image_pred_b64 = utils.ndarray_to_b64(image_pred)
     return json.dumps({"image_org_b64": image_org_b64,
                        "image_pred_b64": image_pred_b64,
                        "score": score, "thresh": thresh})
-
+    
 
 @api_blueprint.route("/save_photo", methods=["GET", "POST"])
 def save_photo():

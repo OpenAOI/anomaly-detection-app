@@ -8,9 +8,16 @@ import get_projects
 import update_projects
 import training
 from numpy import asarray
+from camera_stream import CameraStream
 
-CAMERA = cv2.VideoCapture(0)
-PROJECT_NAME = ""
+PRED_IMAGE = None
+CAMERA = CameraStream()
+PROJECT_NAME = "Ost"
+
+
+def return_latest_photo():
+    """Returns the latest image without claming the camera feed"""
+    return CAMERA.return_latest_image()
 
 
 def change_project(selected_project):
@@ -18,13 +25,14 @@ def change_project(selected_project):
     global PROJECT_NAME, CAMERA
     PROJECT_NAME = selected_project
     cam_conf = get_projects.get_camera_config(selected_project)
+    """
     try:
         CAMERA.release()
     except:
         pass
     finally:
-        CAMERA = cv2.VideoCapture(cam_conf["camera"])
-
+        CAMERA = CameraStream(cam_conf["camera"])
+    """
 
 def init_project(new_project_name):
     """Generate folders and config-files for a new project"""
@@ -63,6 +71,17 @@ def take_project_photo():
     image = utils.take_photo(CAMERA)
     cropped_project_photo = crop_project_photo(image)
     return cropped_project_photo
+
+
+def gen():
+    """Test stream"""
+
+    while True:
+        image = CAMERA.read()
+        _, jpeg = cv2.imencode('.jpg', image)
+        frame = jpeg.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
 def predict_project_photo(image):
@@ -129,3 +148,15 @@ def train():
 
 def get_all_projects():
     return get_projects.get_all_projects()
+
+
+def get_all_project_images():
+    path = get_projects.get_path_config(PROJECT_NAME) + "/images/"
+    image_names_dict = get_projects.get_all_image_names("Ost")
+    for image in image_names_dict["images"]:
+        image_name = path + image["name"]
+        with Image.open(image_name) as im:
+            b64image = utils.ndarray_to_b64(asarray(im))
+        image["image_b64"] = b64image
+    
+    return image_names_dict
