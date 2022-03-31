@@ -8,27 +8,23 @@
 
 {% block content %}
 <!-- Live feed -->
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-3 text-left"></div>
+<div class="row content">
+  <div class="col-sm-3 text-left"></div>
 
-    <div class="col-sm-6 text-left live-stream"> 
-      <h5>Live feed</h5>
-       <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}"</img>
-    </div>
-
-    <div class="col-sm-3 text-left"></div>
+  <div class="col-sm-6 text-left live-stream"> 
+    <h5>Live feed</h5>
+      <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}"</img>
   </div>
+
+  <div class="col-sm-3 text-left"></div>
 </div>
 
 <!-- Buttons -->
-<div class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-12">
-      <button type="button" onclick="savePhoto()" class="btn btn-primary btn-block">Take Photo</button>
-      <hr>
-      <a href="/edit/view_images" class="btn btn-block btn-success">Go to next step</a>
-    </div>
+<div class="row content">
+  <div class="col-sm-12">
+    <button type="button" onclick="savePhoto()" class="btn btn-primary btn-block">Take Photo</button>
+    <hr>
+    <a href="/edit/view_images" class="btn btn-block btn-success">Go to next step</a>
   </div>
 </div>
 {% endblock %}

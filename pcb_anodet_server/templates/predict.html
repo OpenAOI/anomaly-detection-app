@@ -8,34 +8,27 @@
 
 {% block content %}
 <!-- Camera field -->
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-6 text-left"> 
-      <h5>Live feed</h5>
-      <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}"</img>
-    </div>
-    
-    <div class="col-sm-6 text-left">
-      <h5>Prediction</h5>
-      <p id = "demo"></p>
-      <img id="canvas" class="img-responsive" style="background-color: grey"></canvas></div>
+<div class="row content">
+  <div class="col-sm-6 text-left"> 
+    <h5>Live feed</h5>
+    <img id="video_feed" style="width:300px; height:300px;" src=""></img>
   </div>
-</div>
   
+  <div class="col-sm-6 text-left">
+    <h5>Prediction</h5>
+    <p id = "demo"></p>
+    <img id="canvas" class="img-responsive" style="background-color: grey"></canvas></div>
+</div>
+
 <!-- Score info -->
-<div class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-12 text-left">
-      <p>Score: <span id="score-data"></span> &nbsp; &nbsp; Thresh: <span id="thresh-data"></span></p>
-    </div>
+<div class="row content">
+  <div class="col-sm-12 text-left">
+    <p>Score: <span id="score-data"></span> &nbsp; &nbsp; Thresh: <span id="thresh-data"></span></p>
   </div>
 </div>
-  
+
 <!-- Camera buttons -->
-<div class="container-fluid text-center">
-  <div class="row content">
-    <button type="button" onclick="takePhotoPredict()" class="btn btn-primary btn-block">Take Photo</button>
-    <br>
-  </div>
+<div class="row content">
+  <button type="button" onclick="takePhotoPredict()" class="btn btn-primary btn-block">Take Photo</button>
 </div>
 {% endblock %}

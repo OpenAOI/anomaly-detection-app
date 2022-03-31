@@ -6,27 +6,25 @@
 {% endblock %}
 
 {% block content %}
-<!-- Projects list -->
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-12 text-left">
-      <!-- List projects -->
-      <ul class="list-group" id="project-list">
-      </ul>
+<!-- Projects list --> 
+<div class="row content">
+  <div class="col-sm-12 text-left">
+    <!-- List projects -->
+    <ul class="list-group" id="project-list">
+    </ul>
 
-      <div class="gap-20"></div>
+    <div class="gap-20"></div>
 
-      <!-- Create project form -->
-      <form>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Project name" id="project-name">
-          <div class="input-group-btn">
-            <a onclick="createProject()" class="btn btn-block btn-default">Create new project</a>
-          </div>
+    <!-- Create project form -->
+    <form>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Project name" id="project-name">
+        <div class="input-group-btn">
+          <a onclick="createProject()" class="btn btn-block btn-default">Create new project</a>
         </div>
-      </form>
-      
-    </div>
+      </div>
+    </form>
+    
   </div>
 </div>
 
