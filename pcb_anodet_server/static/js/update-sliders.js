@@ -120,11 +120,13 @@ window.onload = function () {
 };
 
 function updateCrop(){
+  path = window.location.search;
+  path2 = path.replace("?", "&"):
   var adress = "update_crop" + "?x_1=" + parseInt(x1) + "&x_2=" + parseInt(x2) + "&y_1=" + parseInt(y1) + "&y_2=" + parseInt(y2);
-  var ip = ipAdress.concat(adress);
+  var ip = ipAdress.concat(adress + path2);
   var xhttp = sendHttpRequest(ip);
 
   if (xhttp.status === 200) {
-      window.location.href = '/edit/take_photo';
+      window.location.href = '/edit/take_photo' + path;
   }
 }

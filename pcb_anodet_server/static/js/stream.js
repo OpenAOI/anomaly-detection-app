@@ -51,7 +51,10 @@ function sendHttpRequest(ipAdress) {
 
 // Predict image button
 function takePhotoPredict() {
-    var ip = ipAdress.concat("take_photo_and_predict")
+    var endPath = window.location.search;
+    alert(endPath);
+    
+    var ip = ipAdress.concat("take_photo_and_predict" + endPath) 
     var xhttp = sendHttpRequest(ip)
 
     var json_response = JSON.parse(xhttp.responseText);

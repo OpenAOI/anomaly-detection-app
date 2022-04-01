@@ -3,7 +3,7 @@ import utils
 import cv2
 import os
 from PIL import Image
-from predict import predict_image
+import predict
 import get_projects
 import update_projects
 import training
@@ -12,7 +12,6 @@ from camera_stream import CameraStream
 
 PRED_IMAGE = None
 CAMERA = CameraStream()
-PROJECT_NAME = "Ost"
 
 
 def return_latest_photo():
@@ -20,6 +19,7 @@ def return_latest_photo():
     return CAMERA.return_image()
 
 
+'''
 def change_project(selected_project):
     """Change the global variable that is the project you are currently working on"""
     global PROJECT_NAME, CAMERA
@@ -33,20 +33,20 @@ def change_project(selected_project):
     finally:
         CAMERA = CameraStream(cam_conf["camera"])
     """
+'''
+
 
 def init_project(new_project_name):
     """Generate folders and config-files for a new project"""
-    global PROJECT_NAME
     success = gen_projects.create_project(new_project_name)
-    PROJECT_NAME = new_project_name
 
     return success
 
 
-def crop_project_photo(image):
+def crop_project_photo(project_name, image):
     """Crops the image to the size specified in projects config json """
 
-    crop_conf = get_projects.get_crop_config(PROJECT_NAME)
+    crop_conf = get_projects.get_crop_config(project_name)
     x_1 = crop_conf["x_1"]  # X start value
     y_1 = crop_conf["y_1"]  # Y start value
     x_2 = crop_conf["x_2"]  # X end value
@@ -55,9 +55,10 @@ def crop_project_photo(image):
     return cropped_image
 
 
-def mask_project_photo(image):
+'''
+def mask_project_photo(project_name, image):
     """Mask out unwanted area of project image"""
-    mask_conf = get_projects.get_mask_config(PROJECT_NAME)
+    mask_conf = get_projects.get_mask_config(project_name)
     x_1 = mask_conf["mask_parameters"]["x_1"]
     x_2 = mask_conf["mask_parameters"]["x_2"]
     y_1 = mask_conf["mask_parameters"]["y_1"]
@@ -71,10 +72,11 @@ def take_project_photo():
     image = utils.take_photo(CAMERA)
     cropped_project_photo = crop_project_photo(image)
     return cropped_project_photo
+'''
 
 
 def gen():
-    """Test stream"""
+    """Generates camera stream"""
 
     while True:
         image = CAMERA.read()
@@ -84,32 +86,31 @@ def gen():
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-def predict_project_photo(image):
+def predict_project_photo(project_name, image):
     """Uses the trained model to make an evaluation of an image of a project"""
-    path_conf = get_projects.get_path_config(PROJECT_NAME)
-    thresh_conf = get_projects.get_threshold_config(PROJECT_NAME)
-    path = path_conf
+    path = get_projects.get_path_config(project_name)
+    thresh_conf = get_projects.get_threshold_config(project_name)
     thresh = thresh_conf["threshold"]
-    heatmap, score = predict_image(image, path, thresh)
+    heatmap, score = predict.predict_image(image, path, thresh)
     return image, heatmap, score, thresh
 
 
-def save_project_photo():
+def save_project_photo(project_name):
     """Saves an un-evaluated image of a project"""
-    path_conf = get_projects.get_path_config(PROJECT_NAME)
+    path_conf = get_projects.get_path_config(project_name)
     path = path_conf
-    array = return_latest_photo() #TODO: Fix camera value 0
-    cropped_array = crop_project_photo(array.copy())
+    array = return_latest_photo()  # TODO: Fix camera value 0
+    cropped_array = crop_project_photo(project_name, array.copy())
     image = Image.fromarray(array)
     cropped_image = Image.fromarray(cropped_array)
-    utils.save_photo(cropped_image, path + '/processed_images/', PROJECT_NAME)
-    return utils.save_photo(image, path + '/images/', PROJECT_NAME)
+    utils.save_photo(cropped_image, path + '/processed_images/', project_name)
+    return utils.save_photo(image, path + '/images/', project_name)
 
 
-def return_saved_project_photo():
+def return_saved_project_photo(project_name):
     """Fetch photo from disc to display in gui"""
     images = []
-    path_conf = get_projects.get_path_config(PROJECT_NAME)
+    path_conf = get_projects.get_path_config(project_name)
     img_path = path_conf + '/images'
     for path in os.listdir(img_path):
         full_path = os.path.join(img_path, path)
@@ -123,26 +124,28 @@ def return_saved_project_photo():
     return b64image
 
 
+"""
 def update_project_camera(camera, camera_type):
-    """Updates the camera configuration"""
+    '''Updates the camera configuration'''
     if camera_type == "USB":
         camera = int(camera)
     update_projects.update_camera(PROJECT_NAME, camera, camera_type)
 
 
 def update_project_threshold(threshold):
-    """Updates the threshold configuration"""
+    '''Updates the threshold configuration'''
     update_projects.update_threshold(PROJECT_NAME, int(threshold))
+"""
 
 
-def update_project_crop(x_1, x_2, y_1, y_2):
+def update_project_crop(project_name, x_1, x_2, y_1, y_2):
     """Updates the camera configuration"""
-    update_projects.update_crop(PROJECT_NAME, int(x_1), int(x_2), int(y_1), int(y_2))
+    update_projects.update_crop(project_name, int(x_1), int(x_2), int(y_1), int(y_2))
 
 
-def train():
+def train(project_name):
     """Trains model on collected images"""
-    path = get_projects.get_path_config(PROJECT_NAME)
+    path = get_projects.get_path_config(project_name)
     training.train(path)
 
 
@@ -150,13 +153,12 @@ def get_all_projects():
     return get_projects.get_all_projects()
 
 
-def get_all_project_images():
-    path = get_projects.get_path_config(PROJECT_NAME) + "/images/"
-    image_names_dict = get_projects.get_all_image_names("Ost")
+def get_all_project_images(project_name):
+    path = get_projects.get_path_config(project_name) + "/images/"
+    image_names_dict = get_projects.get_all_image_names(project_name)
     for image in image_names_dict["images"]:
         image_name = path + image["name"]
         with Image.open(image_name) as im:
             b64image = utils.ndarray_to_b64(asarray(im))
         image["image_b64"] = b64image
     return image_names_dict
-

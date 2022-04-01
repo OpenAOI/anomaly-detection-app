@@ -39,7 +39,7 @@ var projects = json_response.projects;
 
 // List projects in html
 for (var i = 0; i < projects.length; i++) {
-	document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict?project='+ projects[i].name+'">' + projects[i].name + '</a><br></li>';
+	document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict?project_name='+ projects[i].name+'">' + projects[i].name + '</a><br></li>';
 }
 </script>
 {% endblock %}

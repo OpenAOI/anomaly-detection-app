@@ -89,11 +89,13 @@
 <script>
   
   // Take photo and load to crop
-  var ip = ipAdress.concat("save_photo")
+  var path = window.location.search;
+  
+  var ip = ipAdress.concat("save_photo" + path)
   var xhttp = sendHttpRequest(ip)
 
 
-  var ip = ipAdress.concat("return_saved_photo");
+  var ip = ipAdress.concat("return_saved_photo" + path);
   var xhttp = sendHttpRequest(ip);
 
   photo = xhttp.responseText;
