@@ -53,3 +53,11 @@ body {
 h5 {
   margin-bottom: 2px;
 }
+
+.right{
+  float:right;
+}
+
+.left{
+  float:left;
+}
