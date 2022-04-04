@@ -1,5 +1,6 @@
 {% extends 'edit/base_edit.html' %}
 
+
 {% block head2 %}
 <script type="text/javascript" src="../../static/js/cropper.js"></script>
 <link rel="stylesheet" type=text/css href="../../static/css/cropper.css">
@@ -75,23 +76,19 @@
   <div class="col-sm-12">
     <!-- <a onclick="" class="btn btn-block btn-primary">Reset Crop</a> <hr> -->
     <hr>
-    <a onclick="updateCrop()" class="btn btn-block btn-success">Save Crop</a>
+    <a id="save-crop-btn" class="btn btn-block btn-success">Save Crop</a>
   </div>
 </div>
 
 <script>
-  /*
   // Take photo and load to crop
-  var ip = ipAdress.concat("save_photo")
+  var ip = ipAdress.concat("save_photo" + window.location.search)
   var xhttp = sendHttpRequest(ip)
 
-
-  var ip = ipAdress.concat("return_saved_photo");
+  var ip = ipAdress.concat("return_saved_photo" + window.location.search);
   var xhttp = sendHttpRequest(ip);
 
   photo = xhttp.responseText;
-
   document.getElementById('image-crop').src = photo;
-  */
 </script>
 {% endblock %}

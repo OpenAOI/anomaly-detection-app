@@ -14,28 +14,16 @@
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
-    <a onclick="train()" class="btn btn-block btn-success">Start training</a>
+    <a id="start-train-btn" class="btn btn-block btn-success">Start training</a>
   </div>
 </div>
 
 <script>
-function sendHttpRequest(ipAdress) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", ipAdress, false);
-  try {
-      xhttp.send();
-  } catch (error) {
-      console.log(error)
-      return false;
-  }
-  return xhttp;
-}
-
-function train(){
-  var ip = "http://10.10.0.87:5000/".concat("train")
+$("#start-train-btn").click(function(){
+  var ip = ipAdress.concat("train" + window.location.search)
   var xhttp = sendHttpRequest(ip);
 
-  window.location.href = '/predict';
-}
+  window.location.href = '/predict' + window.location.search;
+})
 </script>
 {% endblock %}

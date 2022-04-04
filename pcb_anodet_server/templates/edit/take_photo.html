@@ -2,9 +2,9 @@
 
 
 {% block head2 %}
-<script type="text/javascript" src="../static/js/stream.js"></script>
 <link rel="stylesheet" type=text/css href="../../static/css/stream.css">
 {% endblock %}
+
 
 {% block content %}
 <!-- Live feed -->
@@ -13,7 +13,7 @@
 
   <div class="col-sm-6 text-left live-stream"> 
     <h5>Live feed</h5>
-      <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}"</img>
+      <img id="video_feed" style="width:300px; height:300px;" src="#"</img>
   </div>
 
   <div class="col-sm-3 text-left"></div>
@@ -22,9 +22,30 @@
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
-    <button type="button" onclick="savePhoto()" class="btn btn-primary btn-block">Take Photo</button>
+    <button type="button" id="take-photo-btn" class="btn btn-primary btn-block">Take Photo</button>
     <hr>
     <a href="/edit/view_images" class="btn btn-block btn-success">Go to next step</a>
   </div>
 </div>
+
+<script>
+$("#take-photo-btn").click(function(){
+  var ip = ipAdress.concat("save_photo" + window.location.search)
+  var xhttp = sendHttpRequest(ip)
+
+  // Display response alert
+  if (xhttp.status === 200) {
+      var alert = document.getElementById("saved_image_success_alert");
+      // Add filename to alert
+      var txt = document.getElementById("saved_image_success_alert_text");
+      txt.textContent = xhttp.responseText;
+      
+      alert.style.display = "block";
+      setTimeout(function() {
+          alert.style.display = "none";
+      }, 2500);
+      
+  }
+});
+</script>
 {% endblock %}

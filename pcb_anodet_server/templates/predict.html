@@ -2,19 +2,19 @@
 
 
 {% block head %}
-<script type="text/javascript" src="../static/js/stream.js"></script>
-<link rel="stylesheet" type=text/css href="../../static/css/stream.css">
+<link rel="stylesheet" type=text/css href="../static/css/stream.css">
 {% endblock %}
+
 
 {% block content %}
 <!-- Camera field -->
 <div class="row content">
-  <div class="col-sm-6 text-left"> 
+  <div class="col-sm-6"> 
     <h5>Live feed</h5>
     <img id="video_feed" style="width:300px; height:300px;" src=""></img>
   </div>
   
-  <div class="col-sm-6 text-left">
+  <div class="col-sm-6">
     <h5>Prediction</h5>
     <p id = "demo"></p>
     <img id="canvas" class="img-responsive" style="background-color: grey"></canvas></div>
@@ -22,13 +22,30 @@
 
 <!-- Score info -->
 <div class="row content">
-  <div class="col-sm-12 text-left">
-    <p>Score: <span id="score-data"></span> &nbsp; &nbsp; Thresh: <span id="thresh-data"></span></p>
+  <div class="col-sm-12">
+    <h4>Score: <span id="score-data"></span> &nbsp; &nbsp; Thresh: <span id="thresh-data"></span></h4>
   </div>
 </div>
 
 <!-- Camera buttons -->
 <div class="row content">
-  <button type="button" onclick="takePhotoPredict()" class="btn btn-primary btn-block">Take Photo</button>
+  <button type="button" id="evaluate-btn" class="btn btn-primary btn-block">Take Photo</button>
 </div>
+
+<script>
+  // Evaluate btn
+  $("#evaluate-btn").click(function(){
+    var ip = ipAdress.concat("take_photo_and_predict" + window.location.search)
+    var xhttp = sendHttpRequest(ip)
+  
+    var json_response = JSON.parse(xhttp.responseText);
+    photo = json_response.image_pred_b64;
+    score = json_response.score;
+    thresh = json_response.thresh;
+  
+    document.getElementById('canvas').src = photo;
+    document.getElementById('score-data').innerHTML = score;
+    document.getElementById('thresh-data').innerHTML = thresh;
+  });
+</script>
 {% endblock %}

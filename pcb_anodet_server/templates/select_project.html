@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 
 
-{% block head %}
-<script type="text/javascript" src="../static/js/select-project.js"></script>
-{% endblock %}
-
 {% block content %}
 <!-- Projects list --> 
 <div class="row content">
@@ -14,13 +10,12 @@
     </ul>
 
     <div class="gap-20"></div>
-
     <!-- Create project form -->
     <form>
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Project name" id="project-name">
         <div class="input-group-btn">
-          <a onclick="createProject()" class="btn btn-block btn-default">Create new project</a>
+          <a id="create-project-btn" class="btn btn-block btn-default">Create new project</a>
         </div>
       </div>
     </form>
@@ -29,15 +24,30 @@
 </div>
 
 <script>
-var ip = ipAdress.concat("get_projects")
-var xhttp = sendHttpRequest(ip)
+  window.addEventListener('load', function () {
+    // Load project list
+    var ip = ipAdress.concat("get_projects")
+    var xhttp = sendHttpRequest(ip)
 
-var json_response = JSON.parse(xhttp.responseText);
-var projects = json_response.projects;
+    var json_response = JSON.parse(xhttp.responseText);
+    var projects = json_response.projects;
 
-// List projects in html
-for (var i = 0; i < projects.length; i++) {
-	document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict?project='+ projects[i].name+'">' + projects[i].name + '</a><br></li>';
-}
+    // List projects in html
+    for (var i = 0; i < projects.length; i++) {
+      document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict?project_name='+ projects[i].name+'">' + projects[i].name + '</a><br></li>';
+    }
+  })
+  
+  // Create project Btn
+  $("#create-project-btn").click(function(){
+    var projectName = document.getElementById("project-name");
+    projectName = projectName.value;
+
+    var path = "init_project" + "?new_project_name=" + projectName;
+    var ip = ipAdress.concat(path);
+    var xhttp = sendHttpRequest(ip);
+
+    window.location.href = '/edit/crop_camera';
+  });
 </script>
 {% endblock %}
