@@ -3,7 +3,7 @@ from os import listdir
 
 
 def load_conf(project_name):
-
+    print(project_name)
     with open('projects/' + project_name + '/conf.json') as f:
         conf = json.load(f)
 
@@ -52,4 +52,3 @@ def get_all_image_names(project_name):
     images = listdir('projects/' + project_name + '/images/')
     image_names_dict = {"images": [{"name": i} for i in images]}
     return image_names_dict
-

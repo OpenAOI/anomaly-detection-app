@@ -120,6 +120,8 @@ window.onload = function () {
 };
 
 function updateCrop(){
+  path = window.location.search;
+  path2 = path.replace("?", "&"):
   var adress = "update_crop" + "?x_1=" + parseInt(x1) + "&x_2=" + parseInt(x2) + "&y_1=" + parseInt(y1) + "&y_2=" + parseInt(y2);
   var adress2 = window.location.search.replace("?", "&");
   var ip = ipAdress.concat(adress + adress2);
