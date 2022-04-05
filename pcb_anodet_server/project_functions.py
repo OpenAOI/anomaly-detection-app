@@ -86,13 +86,17 @@ def gen():
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-def predict_project_photo(project_name, image):
+def predict_project_photo(project_name):
     """Uses the trained model to make an evaluation of an image of a project"""
     path = get_projects.get_path_config(project_name)
     thresh_conf = get_projects.get_threshold_config(project_name)
     thresh = thresh_conf["threshold"]
-    heatmap, score = predict.predict_image(image, path, thresh)
-    return image, heatmap, score, thresh
+    array = return_latest_photo()
+    cropped_array = crop_project_photo(project_name, array.copy())
+    image_pred, score = predict.predict_image(cropped_array, path, thresh)
+    image_pred_b64 = utils.ndarray_to_b64(image_pred)
+
+    return image_pred_b64, score, thresh
 
 
 def save_project_photo(project_name):

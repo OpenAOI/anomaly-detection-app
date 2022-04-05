@@ -23,12 +23,8 @@ def take_photo_and_predict():
     """Take picture, make, prediction and return original,
     heatmap, score and threshhold"""
     project_name = request.args.get('project_name', None)
-    image = project_functions.return_latest_photo()
-    image_org, image_pred, score, thresh = project_functions.predict_project_photo(project_name, image)
-    image_org_b64 = utils.ndarray_to_b64(image_org)
-    image_pred_b64 = utils.ndarray_to_b64(image_pred)
-    return json.dumps({"image_org_b64": image_org_b64,
-                       "image_pred_b64": image_pred_b64,
+    image_pred_b64, score, thresh = project_functions.predict_project_photo(project_name)
+    return json.dumps({"image_pred_b64": image_pred_b64,
                        "score": score, "thresh": thresh})
 
 
