@@ -47,7 +47,7 @@
     var ip = ipAdress.concat(path);
     var xhttp = sendHttpRequest(ip);
 
-    window.location.href = '/edit/crop_camera';
+    window.location.href = '/edit/crop_camera?project_name=' + projectName;
   });
 </script>
 {% endblock %}

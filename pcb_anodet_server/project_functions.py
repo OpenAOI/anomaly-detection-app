@@ -154,7 +154,7 @@ def get_all_projects():
 
 
 def get_all_project_images(project_name):
-    path = get_projects.get_path_config(project_name) + "/images/"
+    path = get_projects.get_path_config(project_name) + "/processed_images/"
     image_names_dict = get_projects.get_all_image_names(project_name)
     for image in image_names_dict["images"]:
         image_name = path + image["name"]

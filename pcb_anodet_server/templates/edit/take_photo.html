@@ -1,4 +1,4 @@
-{% extends 'edit/base_edit.html' %}
+﻿{% extends 'edit/base_edit.html' %}
 
 
 {% block head2 %}
@@ -22,9 +22,9 @@
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
-    <button type="button" id="take-photo-btn" class="btn btn-primary btn-block">Take Photo</button>
+    <button type="button" id="take-photo-btn" class="btn btn-primary btn-block">Save to model</button>
     <hr>
-    <a href="/edit/view_images" class="btn btn-block btn-success">Go to next step</a>
+    <a id="go-next-btn" class="btn btn-block btn-success">Go to next step</a>
   </div>
 </div>
 
@@ -46,6 +46,10 @@ $("#take-photo-btn").click(function(){
       }, 2500);
       
   }
+});
+$("#go-next-btn").click(function(){
+  window.location.href = '/edit/view_images' + window.location.search;
+      
 });
 </script>
 {% endblock %}

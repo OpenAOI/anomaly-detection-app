@@ -3,7 +3,6 @@ from os import listdir
 
 
 def load_conf(project_name):
-    print(project_name)
     with open('projects/' + project_name + '/conf.json') as f:
         conf = json.load(f)
 

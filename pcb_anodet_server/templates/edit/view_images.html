@@ -47,9 +47,9 @@
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
-    <a href="/edit/take_photo" class="btn btn-block btn-primary">Take more photos</a>
+    <a id="take-more-photos-btn" class="btn btn-block btn-primary">Take more photos</a>
     <hr>
-    <a href="/edit/train_project" class="btn btn-block btn-success">Go to next step</a>
+    <a id="go-next-btn" class="btn btn-block btn-success">Go to next step</a>
   </div>
 </div>
 
@@ -77,6 +77,7 @@
     $$(".close:eq(0)").click(function(){
         $("#modal").css("display", "none");
     });
+
   });
 
   function loadImageGallery() {
@@ -94,11 +95,16 @@
         '<img href="#" src="' + images[i].image_b64 + '" alt="' + images[i].name + '" id="myImg">' +
         '<div class="caption">' +
         '<span class="right"><a href="#">Delete</a></span><span class="left"><a href="#">View</a></span>​​' +
-        '<p style="text-align:left;"><a href="#" onclick="displayImage()">View</a></p>' +
         '</div>' +
         '</div>' +
         '</div>';
     }
   }
+    $("#take-more-photos-btn").click(function(){
+  	window.location.href = '/edit/take_photo' + window.location.search;
+    });
+    $("#go-next-btn").click(function(){
+  	window.location.href = '/edit/train_project' + window.location.search;
+    });
 </script>
 {% endblock %}

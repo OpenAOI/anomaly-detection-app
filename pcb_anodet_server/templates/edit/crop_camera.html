@@ -5,7 +5,6 @@
 <script type="text/javascript" src="../../static/js/cropper.js"></script>
 <link rel="stylesheet" type=text/css href="../../static/css/cropper.css">
 
-<script type="text/javascript" src="../../static/js/update-sliders.js"></script>
 {% endblock %}
 
 
@@ -76,7 +75,7 @@
   <div class="col-sm-12">
     <!-- <a onclick="" class="btn btn-block btn-primary">Reset Crop</a> <hr> -->
     <hr>
-    <a id="save-crop-btn" class="btn btn-block btn-success">Save Crop</a>
+    <a id="save-crop-btn" class="btn btn-block btn-success">Save Crop Parameters</a>
   </div>
 </div>
 
@@ -91,4 +90,5 @@
   photo = xhttp.responseText;
   document.getElementById('image-crop').src = photo;
 </script>
+<script type="text/javascript" src="../../static/js/update-sliders.js"></script>
 {% endblock %}
