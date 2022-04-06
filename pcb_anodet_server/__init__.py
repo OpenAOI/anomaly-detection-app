@@ -1,1 +1,1 @@
-instance_relative_config=True
+instance_relative_config = True

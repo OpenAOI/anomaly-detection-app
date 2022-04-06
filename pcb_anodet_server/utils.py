@@ -17,7 +17,7 @@ def save_photo(image, path, project_name):
     image_path = path
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d-%X")
-    file_name = (project_name + date_str + ".jpg")
+    file_name = project_name + date_str + ".jpg"
     image.save(image_path + file_name)
     return file_name
 
@@ -39,17 +39,18 @@ def mask(image, x_1, x_2, y_1, y_2, color):
 
 def ndarray_to_b64(numpy_array):
     """Turns array into base64"""
-    _, buff = cv2.imencode('.jpg', numpy_array)
+    _, buff = cv2.imencode(".jpg", numpy_array)
     jpg_as_text = b64encode(buff)
-    b64_image_string = "data:image/" + "JPEG" + ";base64," \
-        + str(jpg_as_text.decode("utf-8"))
+    b64_image_string = (
+        "data:image/" + "JPEG" + ";base64," + str(jpg_as_text.decode("utf-8"))
+    )
 
     return b64_image_string
 
 
 def b64_to_ndarray(b64_image_string):
     """Turns base64 into array"""
-    b64 = b64_image_string[b64_image_string.find(','):]
+    b64 = b64_image_string[b64_image_string.find(",") :]
     img = Image.open(BytesIO(b64decode(b64)))
     numpy_array = np.array(img)
     return numpy_array

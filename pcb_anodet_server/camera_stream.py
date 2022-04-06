@@ -17,8 +17,8 @@ class CameraStream:
         # reading a single image from camera stream for initializing
         self.success, self.image = self.camera.read()
         if self.success is False:
-            print('[Exiting] No more images to read')
-            exit(0)        # self.stopped is initialized to False
+            print("[Exiting] No more images to read")
+            exit(0)  # self.stopped is initialized to False
         self.stopped = True  # thread instantiation
         self.t = Thread(target=self.update, args=())
         self.t.daemon = True  # daemon threads run in background
@@ -26,7 +26,7 @@ class CameraStream:
     # method to start thread
     def start(self):
         self.stopped = False
-        self.t.start()    # method passed to thread to read next available image
+        self.t.start()  # method passed to thread to read next available image
 
     def update(self):
         while True:
@@ -34,14 +34,14 @@ class CameraStream:
                 break
             self.success, self.image = self.camera.read()
             if self.success is False:
-                print('[Exiting] No more images to read')
+                print("[Exiting] No more images to read")
                 self.stopped = True
                 break
-        self.camera.release()    # method to return latest read image
+        self.camera.release()  # method to return latest read image
 
     def read(self):
         _, self.image = self.camera.read()
-        return self.image    # method to stop reading images
+        return self.image  # method to read images
 
     def stop(self):
         self.stopped = True
