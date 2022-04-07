@@ -9,7 +9,7 @@ def train(path):
     dataset = anodet.AnodetDataset(os.path.join(path, "processed_images"))
     dataloader = DataLoader(dataset, batch_size=32)
 
-    padim = anodet.Padim(backbone='resnet18')
+    padim = anodet.Padim(backbone="resnet18")
 
     padim.fit(dataloader)
 

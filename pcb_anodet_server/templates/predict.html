@@ -7,6 +7,7 @@
 
 
 {% block content %}
+
 <!-- Camera field -->
 <div class="row content">
   <div class="col-sm-6"> 
@@ -46,6 +47,11 @@
     document.getElementById('canvas').src = photo;
     document.getElementById('score-data').innerHTML = score;
     document.getElementById('thresh-data').innerHTML = thresh;
-  });
+
+  })
+/*var empty = ""
+var project = window.location.search.split("=")[1];
+var source = empty.concat("{", "{", " url_for('api_blueprint.video_feed(",project,")') ", "}", "}");
+document.getElementById('video_feed').src = source;*/
 </script>
 {% endblock %}

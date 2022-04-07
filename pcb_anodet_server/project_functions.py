@@ -14,26 +14,17 @@ PRED_IMAGE = None
 CAMERA = CameraStream()
 
 
-def return_latest_photo():
-    """Returns the latest image without claming the camera feed"""
+def return_latest_image_array():
+    """Returns the latest array from camera class without claming the camera feed"""
     return CAMERA.return_image()
 
 
-'''
-def change_project(selected_project):
-    """Change the global variable that is the project you are currently working on"""
-    global PROJECT_NAME, CAMERA
-    PROJECT_NAME = selected_project
-    cam_conf = get_projects.get_camera_config(selected_project)
-    """
-    try:
-        CAMERA.release()
-    except:
-        pass
-    finally:
-        CAMERA = CameraStream(cam_conf["camera"])
-    """
-'''
+def return_latest_photo():
+    """Returns the latest array as an image from camera class without claming the camera feed"""
+    CAMERA.read()
+    array = CAMERA.return_image()
+    image_b64 = utils.ndarray_to_b64(array)
+    return image_b64
 
 
 def init_project(new_project_name):
@@ -44,7 +35,7 @@ def init_project(new_project_name):
 
 
 def crop_project_photo(project_name, image):
-    """Crops the image to the size specified in projects config json """
+    """Crops the image to the size specified in projects config json"""
 
     crop_conf = get_projects.get_crop_config(project_name)
     x_1 = crop_conf["x_1"]  # X start value
@@ -75,43 +66,47 @@ def take_project_photo():
 '''
 
 
-def gen():
+def gen(project_name):
     """Generates camera stream"""
 
     while True:
         image = CAMERA.read()
-        _, jpeg = cv2.imencode('.jpg', image)
+        cropped_image = crop_project_photo(project_name, image)
+        _, jpeg = cv2.imencode(".jpg", cropped_image)
         frame = jpeg.tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 
 
-def predict_project_photo(project_name, image):
+def predict_project_photo(project_name):
     """Uses the trained model to make an evaluation of an image of a project"""
     path = get_projects.get_path_config(project_name)
     thresh_conf = get_projects.get_threshold_config(project_name)
     thresh = thresh_conf["threshold"]
-    heatmap, score = predict.predict_image(image, path, thresh)
-    return image, heatmap, score, thresh
+    array = return_latest_image_array()
+    cropped_array = crop_project_photo(project_name, array.copy())
+    image_pred, score = predict.predict_image(cropped_array, path, thresh)
+    image_pred_b64 = utils.ndarray_to_b64(image_pred)
+
+    return image_pred_b64, score, thresh
 
 
 def save_project_photo(project_name):
     """Saves an un-evaluated image of a project"""
     path_conf = get_projects.get_path_config(project_name)
     path = path_conf
-    array = return_latest_photo()  # TODO: Fix camera value 0
+    array = return_latest_image_array()  # TODO: Fix camera value 0
     cropped_array = crop_project_photo(project_name, array.copy())
     image = Image.fromarray(array)
     cropped_image = Image.fromarray(cropped_array)
-    utils.save_photo(cropped_image, path + '/processed_images/', project_name)
-    return utils.save_photo(image, path + '/images/', project_name)
+    utils.save_photo(cropped_image, path + "/processed_images/", project_name)
+    return utils.save_photo(image, path + "/images/", project_name)
 
 
 def return_saved_project_photo(project_name):
     """Fetch photo from disc to display in gui"""
     images = []
     path_conf = get_projects.get_path_config(project_name)
-    img_path = path_conf + '/images'
+    img_path = path_conf + "/images"
     for path in os.listdir(img_path):
         full_path = os.path.join(img_path, path)
         if os.path.isfile(full_path):

@@ -15,7 +15,7 @@
   <div class="col-sm-6 text-left">
     <h5>Image cropper</h5>
     <div style="overflow: hidden;">
-      <img id="image-crop" src="" alt="Picture" style="max-width: 100%;">
+	    <img id="image-crop" alt="Picture" style="max-width: 100%;">
     </div>
   </div>
   <!-- Crop preview -->
@@ -80,15 +80,10 @@
 </div>
 
 <script>
-  // Take photo and load to crop
-  var ip = ipAdress.concat("save_photo" + window.location.search)
-  var xhttp = sendHttpRequest(ip)
-
-  var ip = ipAdress.concat("return_saved_photo" + window.location.search);
-  var xhttp = sendHttpRequest(ip);
-
-  photo = xhttp.responseText;
-  document.getElementById('image-crop').src = photo;
+	var ip = ipAdress.concat("latest_photo");
+	var xhttp = sendHttpRequest(ip);
+	photo = xhttp.responseText;
+  	document.getElementById('image-crop').src = photo;
 </script>
 <script type="text/javascript" src="../../static/js/update-sliders.js"></script>
 {% endblock %}
