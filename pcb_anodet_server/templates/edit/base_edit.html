@@ -15,10 +15,33 @@
 <div class="" id="myNavbar">
   <ul class="nav navbar-right">
     <li>
-      <a class="btn btn-danger btn-xs" href="#" style="margin-top: 5px; margin-right: 5px;">Cancel project</a>
+      <!-- Cancel project - Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Cancel project</h4>
+            </div>
+            <div class="modal-body">
+              <p>All settings and images for this project will be lost.</p> 
+              <p>Do you want to continue?</p>
+            </div>
+            <div class="modal-footer">
+              <span class="right"><a href="#"><button type="button" class="btn btn-default" data-dismiss="modal">Abort</button></a></span><span class="left"><a href="#"><button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button></a></span>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Cancel project btn -->
+      <button  class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="margin-top: 8px; margin-right: 8px;">Cancel Project</button>
     </li>
   </ul>
 </div>
+
+
 {% endblock %}
 
 
