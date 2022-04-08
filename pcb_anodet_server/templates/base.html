@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-
   <link rel="stylesheet" type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
   <link rel="stylesheet" type=text/css href="/static/css/main.css">
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
   {% block head %}
   {% endblock %}
 </head>
@@ -17,7 +16,7 @@
 <body>
 <!-- Script -->
 <script>
-  const ipAdress = "http://10.10.0.87:5000/"
+  const ipAdress = "http://10.10.1.197:5000/"
 
   function sendHttpRequest(ipAdress) {
     var xhttp = new XMLHttpRequest();
