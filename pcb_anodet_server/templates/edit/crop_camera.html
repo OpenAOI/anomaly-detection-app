@@ -2,9 +2,8 @@
 
 
 {% block head2 %}
-<script type="text/javascript" src="../../static/js/cropper.js"></script>
-<link rel="stylesheet" type=text/css href="../../static/css/cropper.css">
-
+<script type="text/javascript" src="{{ url_for('static', filename='js/cropper.js') }}"></script>
+<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/cropper.css') }}">
 {% endblock %}
 
 
