@@ -19,27 +19,39 @@
   <div class="col-sm-12 text-left">
 
     <div class="imgGallery" id="imgGallery">
-      <!--
-      <div class="thumbnail" style="width: 150px;">
-        <div class="item">
-          <img href="#" src="../../static/images/test/test.jpg" alt="" id="img1">
-          <div class="caption">
-            <span class="right"><a href="#">Delete</a></span><span class="left"><a href="#" id="view-txt">View</a></span>​
+      {% for image in images.images %}
+        <div class="thumbnail" style="width: 150px;">
+          <div class="item">
+            <img href="#" src="{{ image.image_b64 }}" alt="{{ image.name }}" id="img-{{ loop.index }}">
+            <div class="caption">
+              <span class="right"><a href="#">Delete</a></span><span class="left"><a href="#" id="view-{{ loop.index }}">View</a></span>​
+            </div>
           </div>
         </div>
-      </div>
-      -->
+        <script>
+          // View modal on image click
+          $("#img-{{ loop.index }}").click(function(){
+            $("#image-modal-content").attr("src", $(this).attr('src'));
+            $("#image-modal").css("display", "block");
+          });
+          // View modal on view text
+          $("#view-{{ loop.index }}").click(function(){
+            $("#image-modal-content").attr("src", $("#img-{{ loop.index }}").attr('src'));
+            $("#image-modal").css("display", "block");
+          });
+        </script>
+      {% endfor %}
     </div>
 
   </div>
 </div>
 
 <!-- The Modal -->
-<div id="modal" class="modal">
+<div id="image-modal" class="modal">
   <!-- The Close Button -->
   <span class="close">&times;</span>
   <!-- Modal Content (The Image) -->
-  <img class="modal-content" id="imgModal">
+  <img class="modal-content" id="image-modal-content">
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
 </div>
@@ -54,57 +66,21 @@
 </div>
 
 <script>
-  $(document).ready(function(){
-    // Load images to gallery grid
-    loadImageGallery();
-    
-    // Show modal when click on image
-    $("#img1").click(function(){
-        $("#imgModal").attr("src", $(this).attr('src'));
-        $("#modal").css("display", "block");
-    });
-    // Show modal when click on View
-    $("#view-txt").click(function(){
-        $("#imgModal").attr("src", $(this).attr('src'));
-        $("#modal").css("display", "block");
-    });
-
-    // Hide modal when click on image
-    $("#modal").click(function(){
-        $("#modal").css("display", "none");
-    });
-    // Hide modal on X button
-    $$(".close:eq(0)").click(function(){
-        $("#modal").css("display", "none");
-    });
-
+  // Hide modal when click on image
+  $("#image-modal").click(function(){
+      $("#image-modal").css("display", "none");
   });
-
-  function loadImageGallery() {
-    var ip = ipAdress.concat("get_all_project_images" + window.location.search);
-    var xhttp = sendHttpRequest(ip);
-
-    var json_response = JSON.parse(xhttp.responseText);
-    var images = json_response.images;
-
-    // List projects in html
-    for (var i = 0; i < images.length; i++) {
-        document.getElementById("imgGallery").innerHTML += 
-        '<div class="thumbnail" style="width: 150px;">' +
-        '<div class="item">' +
-        '<img href="#" src="' + images[i].image_b64 + '" alt="' + images[i].name + '" id="myImg">' +
-        '<div class="caption">' +
-        '<span class="right"><a href="#">Delete</a></span><span class="left"><a href="#">View</a></span>​​' +
-        '</div>' +
-        '</div>' +
-        '</div>';
-    }
-  }
-    $("#take-more-photos-btn").click(function(){
-  	window.location.href = '/edit/take_photo' + window.location.search;
-    });
-    $("#go-next-btn").click(function(){
-  	window.location.href = '/edit/train_project' + window.location.search;
-    });
+  // Hide modal on X button
+  $(".close:eq(0)").click(function(){
+      $("#image-modal").css("display", "none");
+  });
+ 
+  // Replace jinja
+  $("#take-more-photos-btn").click(function(){
+  window.location.href = '/edit/take_photo' + window.location.search;
+  });
+  $("#go-next-btn").click(function(){
+  window.location.href = '/edit/train_project' + window.location.search;
+  });
 </script>
 {% endblock %}
