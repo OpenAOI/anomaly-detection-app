@@ -33,10 +33,10 @@
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    {% block navbar %}
-    <div class="navbar-header">
-      <a class="navbar-brand">{{ project_id }}</a>
+    <div class="navbar-header" style="color: white;">
+      <h3 style="margin-top: 12px;">{{ project_name }}</h3>
     </div>
+    {% block navbar %}
     <div class="" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="/select_project">Select project</a></li>
