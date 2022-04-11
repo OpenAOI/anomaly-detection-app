@@ -7,7 +7,20 @@
   <div class="col-sm-12 text-left">
     <!-- List projects -->
     <ul class="list-group" id="project-list">
+	{% for p in projects.projects %}
+	<li class="list-group-item"><a id="{{ p.name }}">{{ p.name }}</a><br></li>
+			<script>
+			$("#{{ p.name }}").click(function(){
+				var path = "set_project_route" + "?project_name=" + "{{ p.name }}";
+    				var ip = ipAdress.concat(path);
+ 				var xhttp = sendHttpRequest(ip);
+				window.location.href = "/predict"
+			});
+		</script>
+	{% endfor %}
+
     </ul>
+
 
     <div class="gap-20"></div>
     <!-- Create project form -->
@@ -24,6 +37,7 @@
 </div>
 
 <script>
+  /*
   window.addEventListener('load', function () {
     // Load project list
     var ip = ipAdress.concat("get_projects")
@@ -37,6 +51,7 @@
       document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict?project_name='+ projects[i].name+'">' + projects[i].name + '</a><br></li>';
     }
   })
+  */
 function createProjectForm() {
     var projectName = document.getElementById("project-name");
     projectName = projectName.value;

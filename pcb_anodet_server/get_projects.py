@@ -44,7 +44,7 @@ def get_all_projects():
     project_json = {"projects": []}
     for p in projects:
         project_json["projects"].append({"name": p})
-    return json.dumps(project_json)
+    return project_json
 
 
 def get_all_image_names(project_name):

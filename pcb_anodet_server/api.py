@@ -18,6 +18,13 @@ def set_project(project_name):
     session["project_name"] = project_name
 
 
+@api_blueprint.route("/set_project_route", methods=["GET", "POST"])
+def set_project_route():
+    """Save project-name to session cookie"""
+    project_name = request.args.get("project_name", None)
+    session["project_name"] = project_name
+
+
 def get_project():
     """Get the project-name in session cookie"""
     return session["project_name"]
@@ -57,7 +64,7 @@ def video_feed():
 def take_photo_and_predict():
     """Take picture, make, prediction and return original,
     heatmap, score and threshhold"""
-    project_name = request.args.get("project_name", None)
+    project_name = session["project_name"]
     image_pred_b64, score, thresh = project_functions.predict_project_photo(
         project_name
     )
@@ -123,7 +130,6 @@ def update_threshold():
 def change_project():
     project_name = request.args.get("project_name", None)
     set_project(project_name)
-    project_functions.change_project(project_name)
     return "success"
 
 
@@ -149,8 +155,8 @@ def get_projects():
 @api_blueprint.route("/select_project", methods=["GET", "POST"])
 def select_projectv():
     clear_session()
-
-    return render_template("select_project.html")
+    projects = project_functions.get_all_projects()
+    return render_template("select_project.html", func=set_project, projects=projects)
 
 
 @api_blueprint.route("/predict", methods=["GET", "POST"])
