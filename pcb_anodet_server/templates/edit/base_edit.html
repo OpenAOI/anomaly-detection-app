@@ -2,21 +2,20 @@
 
 
 {% block head %}
-<link rel="stylesheet" type=text/css href="../../static/css/train-menu-overview.css">
+<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/train-menu-overview.css') }}">
 {% block head2 %}
 {% endblock %}
 {% endblock %}
 
 
 {% block navbar %}
-<div class="navbar-header">
-  <a class="navbar-brand">{{ project_id }}</a>
-</div>
 <div class="" id="myNavbar">
   <ul class="nav navbar-right">
     <li>
+      <!-- Cancel project - btn -->
+      <button  class="btn btn-danger" data-toggle="modal" data-target="#cancel-modal" style="margin-top: 8px; margin-right: 8px;">Cancel Project</button>
       <!-- Cancel project - Modal -->
-      <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal fade" id="cancel-modal" role="dialog">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
@@ -28,15 +27,13 @@
               <p>Do you want to continue?</p>
             </div>
             <div class="modal-footer">
-		    <span class="right"><a href="#"><button type="button" class="btn btn-default" data-dismiss="modal">Abort</button></a></span><span class="left"><button type="button" id="delete-btn" class="btn btn-danger btn-block">Yes, delete</button></span>
-              
-              
+              <span class="right"><a href="#"><button type="button" class="btn btn-default" data-dismiss="modal">Abort</button></a></span><span class="left"><a href="#"><button type="button" class="btn btn-danger" data-dismiss="modal">Yes, delete</button></a></span>
+
             </div>
           </div>
         </div>
       </div>
-      <!-- Cancel project btn -->
-      <button  class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="margin-top: 8px; margin-right: 8px;">Cancel Project</button>
+      
     </li>
   </ul>
 </div>

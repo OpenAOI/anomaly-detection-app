@@ -18,6 +18,11 @@ def set_project(project_name):
     session["project_name"] = project_name
 
 
+def get_project():
+    """Get the project-name in session cookie"""
+    return session["project_name"]
+
+
 def clear_session():
     """Clear the project-name in session cookie"""
     session.clear()
@@ -137,52 +142,52 @@ def get_projects():
     return projects
 
 
-@api_blueprint.route("/get_all_project_images", methods=["GET", "POST"])
-def get_all_project_images():
-    """Get all the project names"""
-    project_name = request.args.get("project_name", None)
-    images = project_functions.get_all_project_images(project_name)
-    return images
-
-
 """HTML routes"""
-
-
-@api_blueprint.route("/predict", methods=["GET", "POST"])
-def predictv():
-    # project_name = request.args.get('project', None)
-    # project_functions.change_project(project_name)
-    return render_template("predict.html")
-
-
-@api_blueprint.route("/edit/crop_camera", methods=["GET", "POST"])
-def crop_camerav():
-    return render_template("edit/crop_camera.html")
-
-
-@api_blueprint.route("/edit/take_photo", methods=["GET", "POST"])
-def take_photov():
-    return render_template("edit/take_photo.html")
-
-
-@api_blueprint.route("/edit/view_images", methods=["GET", "POST"])
-def view_imagesv():
-    return render_template("edit/view_images.html")
-
-
-@api_blueprint.route("/edit/train_project", methods=["GET", "POST"])
-def train_projectv():
-    return render_template("edit/train_project.html")
-
-
-""" Select project page """
 
 
 @api_blueprint.route("/", methods=["GET", "POST"])
 @api_blueprint.route("/select_project", methods=["GET", "POST"])
 def select_projectv():
-    session.clear()
+    clear_session()
+
     return render_template("select_project.html")
+
+
+@api_blueprint.route("/predict", methods=["GET", "POST"])
+def predictv():
+    project_name = get_project()
+    
+    return render_template("predict.html", project_name=project_name)
+
+
+@api_blueprint.route("/edit/crop_camera", methods=["GET", "POST"])
+def crop_camerav():
+    project_name = get_project()
+
+    return render_template("edit/crop_camera.html", project_name=project_name)
+
+
+@api_blueprint.route("/edit/take_photo", methods=["GET", "POST"])
+def take_photov():
+    project_name = get_project()
+
+    return render_template("edit/take_photo.html", project_name=project_name)
+
+
+@api_blueprint.route("/edit/view_images", methods=["GET", "POST"])
+def view_imagesv():
+    project_name = get_project()
+    # Load images
+    images = project_functions.get_all_project_images(project_name)
+
+    return render_template("edit/view_images.html", project_name=project_name, images=images)
+
+
+@api_blueprint.route("/edit/train_project", methods=["GET", "POST"])
+def train_projectv():
+    project_name = get_project()
+
+    return render_template("edit/train_project.html", project_name=project_name)
 
 
 """ Error pages """
