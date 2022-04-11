@@ -2,12 +2,11 @@
 
 
 {% block head %}
-<link rel="stylesheet" type=text/css href="../static/css/stream.css">
+<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/stream.css') }}">
 {% endblock %}
 
 
 {% block content %}
-
 <!-- Camera field -->
 <div class="row content">
   <div class="col-sm-6"> 
