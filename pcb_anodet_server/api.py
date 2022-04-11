@@ -6,6 +6,13 @@ import utils
 api_blueprint = Blueprint("api_blueprint", __name__)
 
 
+@api_blueprint.route("/delete_project", methods=["GET", "POST"])
+def delete_project():
+    """Delete project"""
+    project_name = session["project_name"]
+    project_functions.delete_project(project_name)
+
+
 def set_project(project_name):
     """Save project-name to session cookie"""
     session["project_name"] = project_name
@@ -95,7 +102,6 @@ def update_camera():
 def init_project():
     new_project_name = request.args.get("new_project_name", None)
     set_project(new_project_name)
-    print(session.get("project_name"))
     project_functions.init_project(new_project_name)
     return "success"
 
@@ -111,6 +117,7 @@ def update_threshold():
 @api_blueprint.route("/change_project", methods=["GET", "POST"])
 def change_project():
     project_name = request.args.get("project_name", None)
+    set_project(project_name)
     project_functions.change_project(project_name)
     return "success"
 

@@ -2,6 +2,7 @@ import gen_projects
 import utils
 import cv2
 import os
+import shutil
 from PIL import Image
 import predict
 import get_projects
@@ -14,8 +15,14 @@ PRED_IMAGE = None
 CAMERA = CameraStream()
 
 
+def delete_project(project_name):
+    """Delete project"""
+    path = get_projects.get_path_config(project_name)
+    shutil.rmtree(path)
+
+
 def return_latest_image_array():
-    """Returns the latest array from camera class without claming the camera feed"""
+    """Return the latest array from camera class without claming the camera feed"""
     return CAMERA.return_image()
 
 

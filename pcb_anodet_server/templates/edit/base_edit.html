@@ -28,7 +28,7 @@
               <p>Do you want to continue?</p>
             </div>
             <div class="modal-footer">
-              <span class="right"><a href="#"><button type="button" class="btn btn-default" data-dismiss="modal">Abort</button></a></span><span class="left"><a href="#"><button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button></a></span>
+		    <span class="right"><a href="#"><button type="button" class="btn btn-default" data-dismiss="modal">Abort</button></a></span><span class="left"><button type="button" id="delete-btn" class="btn btn-danger btn-block">Yes, delete</button></span>
               
               
             </div>
@@ -137,5 +137,11 @@
         lineThin.style.width = "12.5%";
     }
   }
+
+  $("#delete-btn").click(function(){
+    var ip = ipAdress.concat("delete_project")
+    var xhttp = sendHttpRequest(ip)
+    window.location.href="../select_project"
+});
 </script>
 {% endblock %}
