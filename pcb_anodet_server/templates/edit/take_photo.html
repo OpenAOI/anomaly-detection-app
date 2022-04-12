@@ -30,7 +30,7 @@
 
 <script>
 $("#take-photo-btn").click(function(){
-  var ip = ipAdress.concat("save_photo" + window.location.search)
+  var ip = ipAdress.concat("save_photo?project_name=" + "{{ project_name }}")
   var xhttp = sendHttpRequest(ip)
 
   // Display response alert
@@ -48,7 +48,7 @@ $("#take-photo-btn").click(function(){
   }
 });
 $("#go-next-btn").click(function(){
-  window.location.href = '/edit/view_images' + window.location.search;
+  window.location.href = '/edit/view_images';
       
 });
 </script>

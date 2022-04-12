@@ -20,10 +20,10 @@
 
 <script>
 $("#start-train-btn").click(function(){
-  var ip = ipAdress.concat("train" + window.location.search)
+  var ip = ipAdress.concat("train?project_name=" + "{{ project_name }}")
   var xhttp = sendHttpRequest(ip);
 
-  window.location.href = '/predict' + window.location.search;
+  window.location.href = '/predict';
 })
 </script>
 {% endblock %}

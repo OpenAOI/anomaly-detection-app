@@ -16,7 +16,7 @@
 <body>
 <!-- Script -->
 <script>
-  const ipAdress = "http://10.10.0.87:5000/"
+  const ipAdress = "http://10.10.1.197:5000/"
 
   function sendHttpRequest(ipAdress) {
     var xhttp = new XMLHttpRequest();
@@ -39,6 +39,7 @@
     {% block navbar %}
     <div class="" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
+        <li><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#help-guide" style="margin-top: 8px; margin-right: 8px;">Help</button></li>
         <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="/select_project">Select project</a></li>
       </ul>
     </div>
@@ -46,13 +47,23 @@
   </div>
 </nav>
 
+<!-- Help guide collapse -->
+<div id="help-guide" class="collapse">
+  <div class="container-fluid text-left">
+    {% block help_guide %}
+    {% endblock %}
+    <hr>
+  </div>
+</div>
+
+<!-- Page menu overview for edit pages -->
 {% block train_menu %}
 {% endblock %}
 
 <!-- Page content -->
 <div class="container-fluid text-left">
-{% block content %}
-{% endblock %}
+  {% block content %}
+  {% endblock %}
 </div>
 </body>
 </html>

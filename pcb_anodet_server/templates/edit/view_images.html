@@ -24,7 +24,8 @@
           <div class="item">
             <img href="#" src="{{ image.image_b64 }}" alt="{{ image.name }}" id="img-{{ loop.index }}">
             <div class="caption">
-              <span class="right"><a href="#">Delete</a></span><span class="left"><a href="#" id="view-{{ loop.index }}">View</a></span>​
+              <span class="right"><a href="#" id="delete-{{ loop.index }}">Delete</a></span>
+              <span class="left"><a href="#" id="view-{{ loop.index }}">View</a></span>​
             </div>
           </div>
         </div>
@@ -38,6 +39,12 @@
           $("#view-{{ loop.index }}").click(function(){
             $("#image-modal-content").attr("src", $("#img-{{ loop.index }}").attr('src'));
             $("#image-modal").css("display", "block");
+          });
+          // Delete modal on view text
+          $("#delete-{{ loop.index }}").click(function(){
+            var image_name = $("#img-{{ loop.index }}").attr('alt');
+            alert(image_name);
+            // TODO: send del-info
           });
         </script>
       {% endfor %}

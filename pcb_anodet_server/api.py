@@ -1,6 +1,7 @@
-from flask import Blueprint, json, render_template, request, url_for, Response, session
+from flask import Blueprint, redirect, json, render_template, request, url_for, Response, session
 import project_functions
 import utils
+from forms import ProjectForm
 
 
 api_blueprint = Blueprint("api_blueprint", __name__)
@@ -110,14 +111,6 @@ def update_camera():
     return "success"
 
 
-@api_blueprint.route("/init_project", methods=["GET", "POST"])
-def init_project():
-    new_project_name = request.args.get("new_project_name", None)
-    set_project(new_project_name)
-    project_functions.init_project(new_project_name)
-    return "success"
-
-
 @api_blueprint.route("/update_threshold", methods=["GET", "POST"])
 def update_threshold():
     project_name = request.args.get("project_name", None)
@@ -154,9 +147,18 @@ def get_projects():
 @api_blueprint.route("/", methods=["GET", "POST"])
 @api_blueprint.route("/select_project", methods=["GET", "POST"])
 def select_projectv():
-    clear_session()
+    """Select or create new project page"""
     projects = project_functions.get_all_projects()
-    return render_template("select_project.html", func=set_project, projects=projects)
+    form = ProjectForm()
+    
+    if request.method == 'POST' and form.validate_on_submit():
+        # Set project
+        project_name = form.project_name.data
+        set_project(project_name)
+        project_functions.init_project(project_name)
+        return redirect(url_for('api_blueprint.crop_camerav'))
+
+    return render_template("select_project.html", form=form, projects=projects)
 
 
 @api_blueprint.route("/predict", methods=["GET", "POST"])

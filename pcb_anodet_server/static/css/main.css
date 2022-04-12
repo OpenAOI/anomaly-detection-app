@@ -17,6 +17,10 @@ body {
   margin-right: 30px;
 }
 
+hr {
+  border-color: #bfbfbf;
+}
+
 /* Empty gaps */
 .gap-10 {
   width: 100%;
