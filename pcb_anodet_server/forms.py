@@ -10,5 +10,8 @@ def validate_project_name(form, field):
 
 
 class ProjectForm(FlaskForm):
-    project_name = StringField("project_name", validators=[InputRequired(), Length(min=1, max=55), validate_project_name])
+    project_name = StringField(
+        "project_name",
+        validators=[InputRequired(), Length(min=1, max=55), validate_project_name],
+    )
     submit = SubmitField("Create project")

@@ -1,23 +1,25 @@
-import gen_projects
-import utils
+from pcb_anodet_server import gen_projects
+from pcb_anodet_server import utils
+from pcb_anodet_server import predict
+from pcb_anodet_server import get_projects
+from pcb_anodet_server import update_projects
+from pcb_anodet_server import training
 import cv2
 import os
 import shutil
 from PIL import Image
-import predict
-import get_projects
-import update_projects
-import training
 from numpy import asarray
-from camera_stream import CameraStream
+from pcb_anodet_server import camera_stream
+from pcb_anodet_server.config import server_path, project_path
+
 
 PRED_IMAGE = None
-CAMERA = CameraStream()
+CAMERA = camera_stream.CameraStream()
 
 
 def delete_project(project_name):
     """Delete project"""
-    path = get_projects.get_path_config(project_name)
+    path = project_path + project_name
     shutil.rmtree(path)
 
 
@@ -86,7 +88,7 @@ def gen(project_name):
 
 def predict_project_photo(project_name):
     """Uses the trained model to make an evaluation of an image of a project"""
-    path = get_projects.get_path_config(project_name)
+    path = project_path + project_name
     thresh_conf = get_projects.get_threshold_config(project_name)
     thresh = thresh_conf["threshold"]
     array = return_latest_image_array()
@@ -99,20 +101,22 @@ def predict_project_photo(project_name):
 
 def save_project_photo(project_name):
     """Saves an un-evaluated image of a project"""
-    path_conf = get_projects.get_path_config(project_name)
-    path = path_conf
     array = return_latest_image_array()  # TODO: Fix camera value 0
     cropped_array = crop_project_photo(project_name, array.copy())
     image = Image.fromarray(array)
     cropped_image = Image.fromarray(cropped_array)
-    utils.save_photo(cropped_image, path + "/processed_images/", project_name)
-    return utils.save_photo(image, path + "/images/", project_name)
+    utils.save_photo(
+        cropped_image, project_path + project_name + "/processed_images/", project_name
+    )
+    return utils.save_photo(
+        image, project_path + project_name + "/images/", project_name
+    )
 
 
+"""
 def return_saved_project_photo(project_name):
-    """Fetch photo from disc to display in gui"""
     images = []
-    path_conf = get_projects.get_path_config(project_name)
+
     img_path = path_conf + "/images"
     for path in os.listdir(img_path):
         full_path = os.path.join(img_path, path)
@@ -126,7 +130,7 @@ def return_saved_project_photo(project_name):
     return b64image
 
 
-"""
+
 def update_project_camera(camera, camera_type):
     '''Updates the camera configuration'''
     if camera_type == "USB":
@@ -147,7 +151,7 @@ def update_project_crop(project_name, x_1, x_2, y_1, y_2):
 
 def train(project_name):
     """Trains model on collected images"""
-    path = get_projects.get_path_config(project_name)
+    path = project_path + project_name
     training.train(path)
 
 
@@ -156,11 +160,11 @@ def get_all_projects():
 
 
 def get_all_project_images(project_name):
-    path = get_projects.get_path_config(project_name) + "/processed_images/"
+    path = project_path + project_name + "/processed_images/"
     image_names_dict = get_projects.get_all_image_names(project_name)
     for image in image_names_dict["images"]:
-        image_name = path + image["name"]
-        with Image.open(image_name) as im:
+        image_name_path = path + image["name"]
+        with Image.open(image_name_path) as im:
             b64image = utils.ndarray_to_b64(asarray(im))
         image["image_b64"] = b64image
     return image_names_dict
