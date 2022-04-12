@@ -17,7 +17,7 @@ def save_photo(image, path, project_name):
     image_path = path
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d-%X")
-    file_name = project_name + date_str + ".jpg"
+    file_name = project_name + "-" + date_str + ".jpg"
     image.save(image_path + file_name)
     return file_name
 

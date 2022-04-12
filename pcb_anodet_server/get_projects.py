@@ -1,9 +1,10 @@
 import json
 from os import listdir
+from pcb_anodet_server.config import project_path
 
 
 def load_conf(project_name):
-    with open("projects/" + project_name + "/conf.json") as f:
+    with open(project_path + project_name + "/conf.json") as f:
         conf = json.load(f)
 
     return conf
@@ -21,12 +22,6 @@ def get_mask_config(project_name):
     return conf["mask_config"]
 
 
-def get_path_config(project_name):
-    conf = load_conf(project_name)
-
-    return conf["path_config"]["path"] + project_name
-
-
 def get_camera_config(project_name):
     conf = load_conf(project_name)
 
@@ -40,7 +35,7 @@ def get_threshold_config(project_name):
 
 
 def get_all_projects():
-    projects = listdir("projects/")
+    projects = listdir("pcb_anodet_server/projects/")
     project_json = {"projects": []}
     for p in projects:
         project_json["projects"].append({"name": p})
@@ -48,6 +43,6 @@ def get_all_projects():
 
 
 def get_all_image_names(project_name):
-    images = listdir("projects/" + project_name + "/images/")
+    images = listdir(project_path + project_name + "/images/")
     image_names_dict = {"images": [{"name": i} for i in images]}
     return image_names_dict

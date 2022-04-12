@@ -1,14 +1,15 @@
-from get_projects import load_conf
+from pcb_anodet_server.config import project_path
+from pcb_anodet_server import get_projects
 import json
 
 
 def update(project_name, settings):
-    with open(settings["path_config"]["path"] + project_name + "/conf.json", "w") as f:
+    with open(project_path + project_name + "/conf.json", "w") as f:
         json.dump(settings, f, indent=4)
 
 
 def update_crop(project_name, x_1, x_2, y_1, y_2):
-    conf = load_conf(project_name)
+    conf = get_projects.load_conf(project_name)
     conf["crop_config"]["crop_parameters"] = {
         "x_1": x_1,
         "x_2": x_2,
@@ -19,7 +20,7 @@ def update_crop(project_name, x_1, x_2, y_1, y_2):
 
 
 def update_mask(project_name, x_1, x_2, y_1, y_2, color=255):
-    conf = load_conf(project_name)
+    conf = get_projects.load_conf(project_name)
     conf["mask_config"]["mask_parameters"] = {
         "x_1": x_1,
         "x_2": x_2,
@@ -31,7 +32,7 @@ def update_mask(project_name, x_1, x_2, y_1, y_2, color=255):
 
 
 def update_camera(project_name, camera, camera_type):
-    conf = load_conf(project_name)
+    conf = get_projects.load_conf(project_name)
     conf["camera_config"]["camera"] = camera
     conf["camera_config"]["camera_type"] = camera_type
 
@@ -39,6 +40,6 @@ def update_camera(project_name, camera, camera_type):
 
 
 def update_threshold(project_name, thresh):
-    conf = load_conf(project_name)
+    conf = get_projects.load_conf(project_name)
     conf["threshold_config"]["threshold"] = thresh
     update(project_name, conf)

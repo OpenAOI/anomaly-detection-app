@@ -1,8 +1,15 @@
-from flask import Blueprint, redirect, json, render_template, request, url_for, Response, session
-import project_functions
-import utils
-from forms import ProjectForm
-
+from flask import (
+    Blueprint,
+    redirect,
+    json,
+    render_template,
+    request,
+    url_for,
+    Response,
+    session,
+)
+from pcb_anodet_server import project_functions, utils, forms
+from pcb_anodet_server.config import ip_address
 
 api_blueprint = Blueprint("api_blueprint", __name__)
 
@@ -149,37 +156,45 @@ def get_projects():
 def select_projectv():
     """Select or create new project page"""
     projects = project_functions.get_all_projects()
-    form = ProjectForm()
-    
-    if request.method == 'POST' and form.validate_on_submit():
+    form = forms.ProjectForm()
+
+    if request.method == "POST" and form.validate_on_submit():
         # Set project
         project_name = form.project_name.data
         set_project(project_name)
         project_functions.init_project(project_name)
-        return redirect(url_for('api_blueprint.crop_camerav'))
+        return redirect(url_for("api_blueprint.crop_camerav"))
 
-    return render_template("select_project.html", form=form, projects=projects)
+    return render_template(
+        "select_project.html", form=form, projects=projects, ip_address=ip_address
+    )
 
 
 @api_blueprint.route("/predict", methods=["GET", "POST"])
 def predictv():
     project_name = get_project()
-    
-    return render_template("predict.html", project_name=project_name)
+
+    return render_template(
+        "predict.html", project_name=project_name, ip_address=ip_address
+    )
 
 
 @api_blueprint.route("/edit/crop_camera", methods=["GET", "POST"])
 def crop_camerav():
     project_name = get_project()
 
-    return render_template("edit/crop_camera.html", project_name=project_name)
+    return render_template(
+        "edit/crop_camera.html", project_name=project_name, ip_address=ip_address
+    )
 
 
 @api_blueprint.route("/edit/take_photo", methods=["GET", "POST"])
 def take_photov():
     project_name = get_project()
 
-    return render_template("edit/take_photo.html", project_name=project_name)
+    return render_template(
+        "edit/take_photo.html", project_name=project_name, ip_address=ip_address
+    )
 
 
 @api_blueprint.route("/edit/view_images", methods=["GET", "POST"])
@@ -188,14 +203,21 @@ def view_imagesv():
     # Load images
     images = project_functions.get_all_project_images(project_name)
 
-    return render_template("edit/view_images.html", project_name=project_name, images=images)
+    return render_template(
+        "edit/view_images.html",
+        project_name=project_name,
+        images=images,
+        ip_address=ip_address,
+    )
 
 
 @api_blueprint.route("/edit/train_project", methods=["GET", "POST"])
 def train_projectv():
     project_name = get_project()
 
-    return render_template("edit/train_project.html", project_name=project_name)
+    return render_template(
+        "edit/train_project.html", project_name=project_name, ip_address=ip_address
+    )
 
 
 """ Error pages """
