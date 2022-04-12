@@ -1,10 +1,11 @@
 from os import path, mkdir
 
-server_path = "/home/plejd/Desktop/AOI/pcb-anodet-server/hidden_aoi/pcb_anodet_server/"
+server_path = path.dirname(__file__)
+
 
 
 def create_project(project_name):
-    full_path = server_path + "projects/" + project_name
+    full_path = server_path + "/projects/" + project_name
     if path.isdir(full_path):
         return False  # returns False if path already exists
 
@@ -12,8 +13,8 @@ def create_project(project_name):
     mkdir(full_path + "/distributions")
     mkdir(full_path + "/images")
     mkdir(full_path + "/processed_images")
-
-    with open(server_path + "conf_template.json", "r") as f, open(
+    print(server_path)
+    with open(server_path + "/conf_template.json", "r") as f, open(
         full_path + "/conf.json", "w"
     ) as to:
 
