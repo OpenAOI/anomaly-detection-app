@@ -1,12 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
+from pcb_anodet_server.project_functions import get_all_projects
 
 
 def validate_project_name(form, field):
-    # TODO: Check if project name exist
-    # raise ValidationError('Project name already exists')
-    pass
+    projects_object = get_all_projects()
+    project = [i["name"] for i in projects_object['projects']]
+    if field.data in project:
+        raise ValidationError("Project name already exists")
 
 
 class ProjectForm(FlaskForm):

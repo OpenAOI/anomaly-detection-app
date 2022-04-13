@@ -36,10 +36,10 @@ def get_threshold_config(project_name):
 
 def get_all_projects():
     projects = listdir("pcb_anodet_server/projects/")
-    project_json = {"projects": []}
+    project_dict = {"projects": []}
     for p in projects:
-        project_json["projects"].append({"name": p})
-    return project_json
+        project_dict["projects"].append({"name": p})
+    return project_dict
 
 
 def get_all_image_names(project_name):
