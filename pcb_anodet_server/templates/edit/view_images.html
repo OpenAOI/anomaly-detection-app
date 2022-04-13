@@ -30,23 +30,6 @@
           </div>
         </div>
         <script>
-
-          var image1=new Image()
-          image1.src="images/one.jpg"
-
-          var step=1
-          function slideit(){
-          document.images.slide.src=eval("image"+step+".src")
-            if (step<3)
-              step++
-            else
-              step=1
-            //call function "slideit()" every 2.5 seconds
-            setTimeout("slideit()",2500)
-          }
-          slideit()
-
-
           // View modal on image click
           $("#img-{{ loop.index }}").click(function(){
             $("#image-modal-content").attr("src", $(this).attr('src'));
