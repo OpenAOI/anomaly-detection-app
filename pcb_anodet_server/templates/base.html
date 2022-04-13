@@ -40,7 +40,7 @@
     <div class="" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#help-guide" style="margin-top: 8px; margin-right: 8px;">Info</button></li>
-        <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="{{ url_for('select_projectv') }}">Change project</a></li>
+        <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="{{ url_for('api_blueprint.select_projectv') }}">Change project</a></li>
       </ul>
     </div>
     {% endblock %}
