@@ -50,7 +50,7 @@ def ndarray_to_b64(numpy_array):
 
 def b64_to_ndarray(b64_image_string):
     """Turns base64 into array"""
-    b64 = b64_image_string[b64_image_string.find(",") :]
+    b64 = b64_image_string[b64_image_string.find(","):]
     img = Image.open(BytesIO(b64decode(b64)))
     numpy_array = np.array(img)
     return numpy_array

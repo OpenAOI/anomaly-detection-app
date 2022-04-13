@@ -8,7 +8,7 @@ from flask import (
     Response,
     session,
 )
-from pcb_anodet_server import project_functions, utils, forms
+from pcb_anodet_server import project_functions, forms
 from pcb_anodet_server.config import ip_address
 
 api_blueprint = Blueprint("api_blueprint", __name__)
