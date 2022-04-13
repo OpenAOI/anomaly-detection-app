@@ -20,7 +20,8 @@
 <!-- Topic -->  
 <div class="row content">
   <div class="col-sm-12 text-left">
-    <h4>Total images: {{ total_images }}</h4>
+    <h4>Total images: </h4>
+    <h4 id="total-images-count">{{ total_images }}</h4>
   </div>
 </div>
 
@@ -55,11 +56,12 @@
             var image_name = $("#img-{{ loop.index }}").attr('alt');
             var ip = ipAdress.concat("delete_image?image_name=" + image_name);
             var xhttp = sendHttpRequest(ip);
-
             // Hide image
             $("#thumbnail-id-{{ loop.index }}").css("display", "none");
-            
-            // TODO: Update total images counter
+            // Update image counter
+            var totalImagesCount = $("#total-images-count").text();
+            var totalImagesCount = parseInt(totalImagesCount) - 1;
+            $("#total-images-count").html(totalImagesCount);
           });
         </script>
       {% endfor %}
