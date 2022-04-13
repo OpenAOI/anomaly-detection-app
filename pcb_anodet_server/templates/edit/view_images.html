@@ -7,6 +7,16 @@
 
 
 {% block content %}
+<!-- Buttons -->
+<div class="row content">
+  <div class="col-sm-12">
+    <br>
+    <a id="take-more-photos-btn" class="btn btn-block btn-primary" href="{{ url_for('api_blueprint.take_photov') }}">Take more photos</a>
+    <hr>
+    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('api_blueprint.train_projectv') }}">Go to next step</a>
+  </div>
+</div>
+
 <!-- Topic -->  
 <div class="row content">
   <div class="col-sm-12 text-left">
@@ -61,16 +71,6 @@
   <img class="modal-content" id="image-modal-content">
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
-</div>
-
-<!-- Buttons -->
-<div class="row content">
-  <div class="col-sm-12">
-    <a id="take-more-photos-btn" class="btn btn-block btn-primary" href="{{ url_for('api_blueprint.take_photov') }}">Take more photos</a>
-    <br>
-    <hr>
-    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('api_blueprint.train_projectv') }}">Go to next step</a>
-  </div>
 </div>
 
 <script>
