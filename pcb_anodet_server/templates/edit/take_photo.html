@@ -32,7 +32,7 @@
       <span id="save-info-txt">	&nbsp;</span>
     </div>
     <hr>
-    <a id="go-next-btn" class="btn btn-block btn-success">Go to next step</a>
+    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('api_blueprint.view_imagesv') }}">Go to next step</a>
   </div>
 </div>
 
@@ -48,11 +48,6 @@
         var saveInfoTxt = document.getElementById("save-info-txt");
         saveInfoTxt.textContent = "Image saved as " + xhttp.responseText;
     }
-  });
-  
-  $("#go-next-btn").click(function(){
-    window.location.href = '/edit/view_images';
-        
   });
 </script>
 {% endblock %}
