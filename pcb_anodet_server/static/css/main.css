@@ -7,14 +7,16 @@ body {
 /* Page width */
 .container-fluid {
   max-width: 1000px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .row {
   margin-top: 15px;
   margin-bottom: 15px;
   
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 hr {
