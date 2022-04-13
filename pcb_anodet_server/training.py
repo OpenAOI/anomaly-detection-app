@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 
 def train(path):
 
-    dataset = anodet.AnodetDataset(os.path.join(path, "processed_images"))
+    dataset = anodet.AnodetDataset(os.path.join(path, "images"))
     dataloader = DataLoader(dataset, batch_size=32)
 
     padim = anodet.Padim(backbone="resnet18")
