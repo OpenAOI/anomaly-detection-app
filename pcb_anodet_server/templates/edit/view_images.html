@@ -10,7 +10,7 @@
 <!-- Topic -->  
 <div class="row content">
   <div class="col-sm-12 text-left">
-    <h4>Total images: 100</h4>
+    <h4>Total images: {{ total_images }}</h4>
   </div>
 </div>
 
@@ -30,6 +30,23 @@
           </div>
         </div>
         <script>
+
+          var image1=new Image()
+          image1.src="images/one.jpg"
+
+          var step=1
+          function slideit(){
+          document.images.slide.src=eval("image"+step+".src")
+            if (step<3)
+              step++
+            else
+              step=1
+            //call function "slideit()" every 2.5 seconds
+            setTimeout("slideit()",2500)
+          }
+          slideit()
+
+
           // View modal on image click
           $("#img-{{ loop.index }}").click(function(){
             $("#image-modal-content").attr("src", $(this).attr('src'));
@@ -66,9 +83,10 @@
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
-    <a id="take-more-photos-btn" class="btn btn-block btn-primary">Take more photos</a>
+    <a id="take-more-photos-btn" class="btn btn-block btn-primary" href="{{ url_for('api_blueprint.take_photov') }}">Take more photos</a>
+    <br>
     <hr>
-    <a id="go-next-btn" class="btn btn-block btn-success">Go to next step</a>
+    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('api_blueprint.train_projectv') }}">Go to next step</a>
   </div>
 </div>
 
@@ -80,13 +98,6 @@
   // Hide modal on X button
   $(".close:eq(0)").click(function(){
       $("#image-modal").css("display", "none");
-  });
-
-  $("#take-more-photos-btn").click(function(){
-  window.location.href = '/edit/take_photo' + window.location.search;
-  });
-  $("#go-next-btn").click(function(){
-  window.location.href = '/edit/train_project' + window.location.search;
   });
 </script>
 {% endblock %}
