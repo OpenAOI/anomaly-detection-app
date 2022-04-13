@@ -118,7 +118,7 @@
     cropBoxMovable: true,  // crop box move disable
     cropBoxResizable: false,  // crop box resize disable
     zoomOnWheel: false,  // scroll zoom
-    aspectRatio: 1,
+    aspectRatio: 1, // square
     preview: imagePreview,
     ready: function (e) {
         console.log(e.type);
@@ -143,19 +143,26 @@
     crop: function (e) {
         console.log(e.type);
         var data = e.detail;
+        var canvasData = cropper.getCanvasData();
 
+        // Force min width
         if (data.width < minCroppedWidth) {
           cropper.setData({"width": minCroppedWidth});
         }
 
-        // Update sliders + input fields
+        // Update input fields value
         input_field_h.value = Math.round(data.x);
         input_field_v.value = Math.round(data.y);
         input_field_size.value = Math.round(data.width);
 
+        // Update sliders value
         slider_h.value = Math.round(data.x);
         slider_v.value = Math.round(data.y);
         slider_size.value = Math.round(data.width);
+
+        // Update sliders max value
+        slider_h.max = Math.round(canvasData.naturalWidth) - Math.round(data.width);
+        slider_v.max = Math.round(canvasData.naturalHeight) - Math.round(data.height);
 
         // Update global crop data
         x1 = data["x"];
