@@ -30,7 +30,7 @@
 
     <div class="imgGallery" id="imgGallery">
       {% for image in images.images %}
-        <div class="thumbnail" style="width: 150px;">
+        <div class="thumbnail" style="width: 150px;" id="thumbnail-id-{{ loop.index }}" style="display: block;">
           <div class="item">
             <img href="#" src="{{ image.image_b64 }}" alt="{{ image.name }}" id="img-{{ loop.index }}">
             <div class="caption">
@@ -53,8 +53,13 @@
           // Delete modal on view text
           $("#delete-{{ loop.index }}").click(function(){
             var image_name = $("#img-{{ loop.index }}").attr('alt');
-            alert(image_name);
-            // TODO: send del-info
+            var ip = ipAdress.concat("delete_image?image_name=" + image_name);
+            var xhttp = sendHttpRequest(ip);
+
+            // Hide image
+            $("#thumbnail-id-{{ loop.index }}").css("display", "none");
+            
+            // TODO: Update total images counter
           });
         </script>
       {% endfor %}

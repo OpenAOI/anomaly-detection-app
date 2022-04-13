@@ -148,6 +148,16 @@ def get_projects():
     return projects
 
 
+@api_blueprint.route("/delete_image", methods=["GET", "POST"])
+def delete_image():
+    """Delete an image in project"""
+    project_name = get_project()
+    image_name = request.args.get("image_name", None)
+    project_functions.delete_image(project_name, image_name)
+    
+    return "success"
+
+
 """HTML routes"""
 
 
