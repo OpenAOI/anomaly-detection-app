@@ -23,9 +23,6 @@ def delete_project(project_name):
 
 
 def delete_image(project_name, image_name):
-    # TODO: Only delete from one folder
-    file_path = project_path + project_name + "/processed_images/" + image_name
-    utils.delete_file(file_path)
     file_path = project_path + project_name + "/images/" + image_name
     utils.delete_file(file_path)
 
