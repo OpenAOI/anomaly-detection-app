@@ -4,12 +4,17 @@ import cv2
 from datetime import datetime
 from PIL import Image
 from io import BytesIO
+import os
 
 
 def take_photo(camera):
     """Take photo with the device given"""
     image = camera.read()
     return image
+
+
+def delete_file(file_path):
+    os.remove(file_path)
 
 
 def save_photo(image, path, project_name):

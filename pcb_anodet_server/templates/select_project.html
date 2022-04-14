@@ -5,6 +5,28 @@
 <!-- Projects list --> 
 <div class="row content">
   <div class="col-sm-12 text-left">
+    <!-- Create project form -->
+    <form action="{{ url_for('api_blueprint.select_projectv') }}" method="post" enctype="multipart/form-data" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="input-group">
+        {% if form.project_name.errors %}
+          {{ form.project_name(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.project_name.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %}
+            {{ form.project_name(class="form-control", placeholder="Project name") }}
+        {% endif %}
+        <div class="input-group-btn">
+          {{ form.submit(class="btn btn-block btn-default") }}
+        </div>
+      </div>
+    </form>
+
+    <div class="gap-20"></div>
+
     <!-- List projects -->
     <ul class="list-group" id="project-list">
       {% for p in projects.projects %}
@@ -18,29 +40,7 @@
           });
         </script>
       {% endfor %}
-
     </ul>
-
-  <div class="gap-20"></div>
-  <!-- Create project form -->
-  <form action="{{ url_for('api_blueprint.select_projectv') }}" method="post" enctype="multipart/form-data" novalidate>
-    {{ form.hidden_tag() }}
-    <div class="input-group">
-      {% if form.project_name.errors %}
-        {{ form.project_name(class="form-control form-control-lg is-invalid") }}
-        <div class="invalid-feedback">
-          {% for error in form.project_name.errors %}
-            <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-        {% else %}
-          {{ form.project_name(class="form-control", placeholder="Project name") }}
-      {% endif %}
-      <div class="input-group-btn">
-        {{ form.submit(class="btn btn-block btn-default") }}
-      </div>
-    </div>
   </div>
-
 </div>
 {% endblock %}

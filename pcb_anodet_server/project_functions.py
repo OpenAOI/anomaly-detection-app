@@ -22,6 +22,14 @@ def delete_project(project_name):
     shutil.rmtree(path)
 
 
+def delete_image(project_name, image_name):
+    # TODO: Only delete from one folder
+    file_path = project_path + project_name + "/processed_images/" + image_name
+    utils.delete_file(file_path)
+    file_path = project_path + project_name + "/images/" + image_name
+    utils.delete_file(file_path)
+
+
 def return_latest_image_array():
     """Return the latest array from camera class without claming the camera feed"""
     return CAMERA.return_image()

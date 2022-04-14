@@ -9,12 +9,17 @@ body {
   max-width: 1000px;
 }
 
+.navbar {
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
 .row {
   margin-top: 15px;
   margin-bottom: 15px;
   
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 hr {
