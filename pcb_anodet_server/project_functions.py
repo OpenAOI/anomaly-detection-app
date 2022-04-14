@@ -5,12 +5,11 @@ from pcb_anodet_server import get_projects
 from pcb_anodet_server import update_projects
 from pcb_anodet_server import training
 import cv2
-import os
 import shutil
 from PIL import Image
 from numpy import asarray
 from pcb_anodet_server import camera_stream
-from pcb_anodet_server.config import server_path, project_path
+from pcb_anodet_server.config import project_path
 
 
 PRED_IMAGE = None
@@ -103,14 +102,11 @@ def save_project_photo(project_name):
     """Saves an un-evaluated image of a project"""
     array = return_latest_image_array()  # TODO: Fix camera value 0
     cropped_array = crop_project_photo(project_name, array.copy())
-    image = Image.fromarray(array)
     cropped_image = Image.fromarray(cropped_array)
-    utils.save_photo(
-        cropped_image, project_path + project_name + "/processed_images/", project_name
+    file_name = utils.save_photo(
+        cropped_image, project_path + project_name + "/images/", project_name
     )
-    return utils.save_photo(
-        image, project_path + project_name + "/images/", project_name
-    )
+    return file_name
 
 
 """
@@ -160,7 +156,7 @@ def get_all_projects():
 
 
 def get_all_project_images(project_name):
-    path = project_path + project_name + "/processed_images/"
+    path = project_path + project_name + "/images/"
     image_names_dict = get_projects.get_all_image_names(project_name)
     for image in image_names_dict["images"]:
         image_name_path = path + image["name"]

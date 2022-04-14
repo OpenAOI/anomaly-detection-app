@@ -11,7 +11,7 @@ class CameraStream:
         if self.camera.isOpened() is False:
             print("[Exiting]: Error accessing webcam stream.")
             exit(0)
-        fps_input_stream = int(self.camera.get(5))  # hardware fps
+        fps_input_stream = int(self.camera.get(24))  # hardware fps
         print("FPS of input stream: {}".format(fps_input_stream))
 
         # reading a single image from camera stream for initializing
