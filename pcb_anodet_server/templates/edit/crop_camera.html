@@ -25,7 +25,6 @@
     </div>
     </div>
   </div>
-
 </div>
 
 <!-- Crop settings -->
@@ -69,113 +68,119 @@
   </div>
 </div>
 
+<div class="gap-5"></div>
+
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
-    <!-- <a onclick="" class="btn btn-block btn-primary">Reset Crop</a> <hr> -->
+    <a id="refresh-camera-btn" class="btn btn-block btn-primary">Refresh camera</a>
     <hr>
     <a id="save-crop-btn" class="btn btn-block btn-success">Save Crop Parameters</a>
   </div>
 </div>
 
 <script>
-  function getPhoto() {
-    var ip = ipAdress.concat("latest_photo");
-    var xhttp = sendHttpRequest(ip);
-    photo = xhttp.responseText;
-    document.getElementById('image-crop').src = photo;
-  }
-
-  // Load current picture from camera
-  getPhoto()
-
   // Crop info to be sent to server
   var x1;
   var x2;
   var y1;
   var y2;
 
-  var minCroppedWidth = 150;
-
-  // Sliders + input fields
+  // Sliders + input fields elements
   var slider_h = document.getElementById("slider_h");
   var slider_v = document.getElementById("slider_v");
   var slider_size = document.getElementById("slider_size");
   var input_field_v = document.getElementById("input_v");
   var input_field_h = document.getElementById("input_h");
   var input_field_size = document.getElementById("input_size");
+  
   // Image elements for cropper
   const imageCrop = document.getElementById('image-crop');
   const imagePreview = document.getElementById('preview-crop');
 
-  var Cropper = window.Cropper;
-  const cropper = new Cropper(imageCrop, {
-    autoCrop: false,
-    viewMode: 1, // zoom as free
-    guides: false,  // hide guid lines
-    dragMode: 'none',  // dragging mode of cropper
-    movable: false,  // enable image move
-    cropBoxMovable: true,  // crop box move disable
-    cropBoxResizable: false,  // crop box resize disable
-    zoomOnWheel: false,  // scroll zoom
-    aspectRatio: 1, // square
-    preview: imagePreview,
-    ready: function (e) {
-        console.log(e.type);
-        this.cropper.crop();
+  function createCropper() {
+    var Cropper = window.Cropper;
+    var cropper = new Cropper(imageCrop, {
+      autoCrop: false,
+      viewMode: 1, // zoom as free
+      guides: false,  // hide guid lines
+      dragMode: 'none',  // dragging mode of cropper
+      movable: false,  // enable image move
+      cropBoxMovable: true,  // crop box move disable
+      cropBoxResizable: false,  // crop box resize disable
+      zoomOnWheel: false,  // scroll zoom
+      aspectRatio: 1, // square
+      preview: imagePreview,
+      ready: function (e) {
+          this.cropper.crop();
 
-        // Update global crop data
-        var data = cropper.getData();
-        x1 = data["x"];
-        x2 = data["x"] + data["width"];
-        y1 = data["y"];
-        y2 = data["y"] + data["height"];
-    },
-    cropstart: function (e) {
-        console.log(e.type, e.detail.action);
-    },
-    cropmove: function (e) {
-        console.log(e.type, e.detail.action);
-    },
-    cropend: function (e) {
-        console.log(e.type, e.detail.action);
-    },
-    crop: function (e) {
-        console.log(e.type);
-        var data = e.detail;
-        var canvasData = cropper.getCanvasData();
+          // Update global crop data
+          var data = cropper.getData();
+          x1 = data["x"];
+          x2 = data["x"] + data["width"];
+          y1 = data["y"];
+          y2 = data["y"] + data["height"];
+      },
+      crop: function (e) {
+          var data = e.detail;
+          var canvasData = cropper.getCanvasData();
 
-        // Force min width
-        if (data.width < minCroppedWidth) {
-          cropper.setData({"width": minCroppedWidth});
-        }
+          // Update input fields value
+          input_field_h.value = Math.round(data.x);
+          input_field_v.value = Math.round(data.y);
+          input_field_size.value = Math.round(data.width);
 
-        // Update input fields value
-        input_field_h.value = Math.round(data.x);
-        input_field_v.value = Math.round(data.y);
-        input_field_size.value = Math.round(data.width);
+          // Update sliders value
+          slider_h.value = Math.round(data.x);
+          slider_v.value = Math.round(data.y);
+          slider_size.value = Math.round(data.width);
 
-        // Update sliders value
-        slider_h.value = Math.round(data.x);
-        slider_v.value = Math.round(data.y);
-        slider_size.value = Math.round(data.width);
+          // Update sliders max value
+          slider_h.max = Math.round(canvasData.naturalWidth) - Math.round(data.width);
+          slider_v.max = Math.round(canvasData.naturalHeight) - Math.round(data.height);
 
-        // Update sliders max value
-        slider_h.max = Math.round(canvasData.naturalWidth) - Math.round(data.width);
-        slider_v.max = Math.round(canvasData.naturalHeight) - Math.round(data.height);
+          // Update global crop data
+          x1 = data["x"];
+          x2 = data["x"] + data["width"];
+          y1 = data["y"];
+          y2 = data["y"] + data["height"];
+      }
+    });
 
-        // Update global crop data
-        x1 = data["x"];
-        x2 = data["x"] + data["width"];
-        y1 = data["y"];
-        y2 = data["y"] + data["height"];
-    },
-    zoom: function (e) {
-        console.log(e.type, e.detail.ratio);
-    }
-  });
+    return cropper;
+  };
+
+  function getLatestPhoto() {
+    var ip = ipAdress.concat("latest_photo");
+    var xhttp = sendHttpRequest(ip);
+    return xhttp.responseText;
+  }
+
+  function sendCropInfo(){
+    var adress = "update_crop" + "?x_1=" + parseInt(x1) + "&x_2=" + parseInt(x2) + "&y_1=" + parseInt(y1) + "&y_2=" + parseInt(y2) + "&project_name=" + "{{ project_name }}";
+    var ip = ipAdress.concat(adress);
+    var xhttp = sendHttpRequest(ip);
+  }
+
+
+  // Load current picture from camera to image-crop
+  imageCrop.src = getLatestPhoto();
+  // Init cropper
+  var cropper = createCropper();
+
+  $("#save-crop-btn").click(function(){
+    sendCropInfo();
+    window.location.href = '/edit/take_photo' + window.location.search;
+  })
+
+  $("#refresh-camera-btn").click(function(){
+    var photo = getLatestPhoto();
+    cropper.replace(photo, true);
+  })
+
 
   // Create link between sliders and input fields
+
   // Horizontal
   slider_h.oninput = function() {
     input_field_h.value = this.value;
@@ -207,19 +212,5 @@
       slider_size.value = this.value;
       cropper.setData({"width": parseInt(this.value), "height": parseInt(this.value)});
   }
-
-  function updateCrop(){
-    var adress = "update_crop" + "?x_1=" + parseInt(x1) + "&x_2=" + parseInt(x2) + "&y_1=" + parseInt(y1) + "&y_2=" + parseInt(y2) + "&project_name=" + "{{ project_name }}";
-    var ip = ipAdress.concat(adress);
-    var xhttp = sendHttpRequest(ip);
-
-    if (xhttp.status === 200) {
-        window.location.href = '/edit/take_photo' + window.location.search;
-    }
-  }
-
-  $("#save-crop-btn").click(function(){
-    updateCrop();
-  })
 </script>
 {% endblock %}
