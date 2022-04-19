@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 
 
 def create_app():
@@ -8,5 +9,6 @@ def create_app():
     app.register_blueprint(api_blueprint)
     app.secret_key = "AOI"
     app.config["SESSION_TYPE"] = "filesystem"
+    CORS(app)  # https://flask-cors.readthedocs.io/en/latest/
 
     return app
