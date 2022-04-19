@@ -15,36 +15,36 @@ api_blueprint = Blueprint("api_blueprint", __name__)
 
 
 @api_blueprint.route("/delete_project", methods=["GET", "POST"])
-def delete_project():
+def delete_project() -> None:
     """Delete project"""
     project_name = session["project_name"]
     project_functions.delete_project(project_name)
 
 
-def set_project(project_name):
+def set_project(project_name: str) -> None:
     """Save project-name to session cookie"""
     session["project_name"] = project_name
 
 
 @api_blueprint.route("/set_project_route", methods=["GET", "POST"])
-def set_project_route():
+def set_project_route() -> None:
     """Save project-name to session cookie"""
     project_name = request.args.get("project_name", None)
     session["project_name"] = project_name
 
 
-def get_project():
+def get_project() -> str:
     """Get the project-name in session cookie"""
     return session["project_name"]
 
 
-def clear_session():
+def clear_session() -> None:
     """Clear the project-name in session cookie"""
     session.clear()
 
 
 @api_blueprint.route("/ping", methods=["GET", "POST"])
-def ping():
+def ping() -> str:
     """Ping to check connection to server"""
     return "pong"
 
@@ -52,6 +52,9 @@ def ping():
 @api_blueprint.route("/latest_photo", methods=["GET", "POST"])
 def latest_photo():
     """Return latest photo"""
+    print(Response(
+        project_functions.return_latest_photo(),
+        mimetype="multipart/x-mixed-replace; boundary=frame"))
     return Response(
         project_functions.return_latest_photo(),
         mimetype="multipart/x-mixed-replace; boundary=frame",
