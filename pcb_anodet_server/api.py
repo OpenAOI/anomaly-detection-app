@@ -10,6 +10,7 @@ from flask import (
 )
 from pcb_anodet_server import project_functions, forms
 from pcb_anodet_server.config import ip_address
+from typing import Union
 
 api_blueprint = Blueprint("api_blueprint", __name__)
 
@@ -31,6 +32,7 @@ def set_project_route() -> None:
     """Save project-name to session cookie"""
     project_name = request.args.get("project_name", None)
     session["project_name"] = project_name
+    return "Success"
 
 
 def get_project() -> str:
@@ -50,11 +52,8 @@ def ping() -> str:
 
 
 @api_blueprint.route("/latest_photo", methods=["GET", "POST"])
-def latest_photo():
+def latest_photo() -> Response:
     """Return latest photo"""
-    print(Response(
-        project_functions.return_latest_photo(),
-        mimetype="multipart/x-mixed-replace; boundary=frame"))
     return Response(
         project_functions.return_latest_photo(),
         mimetype="multipart/x-mixed-replace; boundary=frame",
@@ -62,7 +61,7 @@ def latest_photo():
 
 
 @api_blueprint.route("/video_feed", methods=["GET", "POST"])
-def video_feed():
+def video_feed() -> Response:
     """Use the camera class to generate images into a stream"""
     project_name = session["project_name"]
     return Response(
@@ -72,7 +71,7 @@ def video_feed():
 
 
 @api_blueprint.route("/take_photo_and_predict", methods=["GET", "POST"])
-def take_photo_and_predict():
+def take_photo_and_predict() -> str:
     """Take picture, make, prediction and return original,
     heatmap, score and threshhold"""
     project_name = session["project_name"]
@@ -85,35 +84,28 @@ def take_photo_and_predict():
 
 
 @api_blueprint.route("/save_photo", methods=["GET", "POST"])
-def save_photo():
+def save_photo() -> str:
     """Save the image to folder 'images'"""
     project_name = request.args.get("project_name", None)
     save_path = project_functions.save_project_photo(project_name)
     return save_path
 
 
-@api_blueprint.route("/return_saved_photo", methods=["GET", "POST"])
-def return_saved_photo():
-    """Retrieves an image from"""
-    project_name = request.args.get("project_name", None)
-    project_functions.save_project_photo(project_name)  # TODO Put in frontend
-    image = project_functions.return_saved_project_photo(project_name)
-    return image
-
-
 @api_blueprint.route("/update_crop", methods=["GET", "POST"])
-def update_crop():
+def update_crop() -> str:
     project_name = request.args.get("project_name", None)
     x_1 = request.args.get("x_1", None)
     x_2 = request.args.get("x_2", None)
     y_1 = request.args.get("y_1", None)
     y_2 = request.args.get("y_2", None)
-    project_functions.update_project_crop(project_name, x_1, x_2, y_1, y_2)
+    project_functions.update_project_crop(
+        project_name, int(x_1), int(x_2), int(y_1), int(y_2)
+    )
     return "success"
 
 
 @api_blueprint.route("/update_camera", methods=["GET", "POST"])
-def update_camera():
+def update_camera() -> str:
     project_name = request.args.get("project_name", None)
     camera = request.args.get("camera", None)
     camera_type = request.args.get("camera_type", None)
@@ -122,7 +114,7 @@ def update_camera():
 
 
 @api_blueprint.route("/update_threshold", methods=["GET", "POST"])
-def update_threshold():
+def update_threshold() -> str:
     project_name = request.args.get("project_name", None)
     threshold = request.args.get("threshold", None)
     project_functions.update_project_threshold(project_name, threshold)
@@ -130,14 +122,14 @@ def update_threshold():
 
 
 @api_blueprint.route("/change_project", methods=["GET", "POST"])
-def change_project():
+def change_project() -> str:
     project_name = request.args.get("project_name", None)
     set_project(project_name)
     return "success"
 
 
 @api_blueprint.route("/train", methods=["GET", "POST"])
-def train():
+def train() -> str:
     """Train model on collected images"""
     project_name = request.args.get("project_name", None)
     project_functions.train(project_name)
@@ -145,19 +137,19 @@ def train():
 
 
 @api_blueprint.route("/get_projects", methods=["GET", "POST"])
-def get_projects():
+def get_projects() -> dict[str : list[dict[str:str]]]:
     """Get all the project names"""
     projects = project_functions.get_all_projects()
     return projects
 
 
 @api_blueprint.route("/delete_image", methods=["GET", "POST"])
-def delete_image():
+def delete_image() -> str:
     """Delete an image in project"""
     project_name = get_project()
     image_name = request.args.get("image_name", None)
     project_functions.delete_image(project_name, image_name)
-    
+
     return "success"
 
 
@@ -166,11 +158,10 @@ def delete_image():
 
 @api_blueprint.route("/", methods=["GET", "POST"])
 @api_blueprint.route("/select_project", methods=["GET", "POST"])
-def select_projectv():
+def select_projectv() -> Union[Response, str]:
     """Select or create new project page"""
     projects = project_functions.get_all_projects()
     form = forms.ProjectForm()
-
     if request.method == "POST" and form.validate_on_submit():
         # Set project
         project_name = form.project_name.data
@@ -184,8 +175,9 @@ def select_projectv():
 
 
 @api_blueprint.route("/predict", methods=["GET", "POST"])
-def predictv():
+def predictv() -> str:
     project_name = get_project()
+    print(request.headers.get("Host"))
 
     return render_template(
         "predict.html", project_name=project_name, ip_address=ip_address
@@ -193,7 +185,7 @@ def predictv():
 
 
 @api_blueprint.route("/edit/crop_camera", methods=["GET", "POST"])
-def crop_camerav():
+def crop_camerav() -> str:
     project_name = get_project()
 
     return render_template(
@@ -202,7 +194,7 @@ def crop_camerav():
 
 
 @api_blueprint.route("/edit/take_photo", methods=["GET", "POST"])
-def take_photov():
+def take_photov() -> str:
     project_name = get_project()
 
     return render_template(
@@ -211,7 +203,7 @@ def take_photov():
 
 
 @api_blueprint.route("/edit/view_images", methods=["GET", "POST"])
-def view_imagesv():
+def view_imagesv() -> str:
     project_name = get_project()
     # Load images
     images = project_functions.get_all_project_images(project_name)
@@ -227,7 +219,7 @@ def view_imagesv():
 
 
 @api_blueprint.route("/edit/train_project", methods=["GET", "POST"])
-def train_projectv():
+def train_projectv() -> str:
     project_name = get_project()
 
     return render_template(
@@ -238,6 +230,6 @@ def train_projectv():
 """ Error pages """
 
 
-@api_blueprint.errorhandler(404)
-def error_404v(error):
+@api_blueprint.app_errorhandler(404)
+def error_404(error: Response) -> str:
     return render_template("errors/404.html"), 404
