@@ -14,15 +14,15 @@
 <div class="row content">
   <div class="col-sm-6"> 
     <h5>Live feed</h5>
-    <div style="height: 400px;">
-      <img id="video_feed" style="max-height: 100%; max-width: 100%;" src="{{ url_for('api_blueprint.video_feed') }}"></img>
+    <div style="height: 400px; max-height: 400px;">
+      <img id="video_feed" style="max-height: 100%; max-width: 100%; min-height: 400px;" src="{{ url_for('api_blueprint.video_feed') }}"></img>
     </div>
   </div>
   
   <div class="col-sm-6">
     <h5>Prediction</h5>
-    <div style="height: 400px;">
-      <img id="canvas" class="img-responsive" style="max-height: 100%; max-width: 100%;"></canvas></div>
+    <div style="height: 400px; max-height: 400px;">
+      <img id="canvas" class="img-responsive" style="max-height: 100%; max-width: 100%; min-height: 400px;">
     </div>
   </div>
 
