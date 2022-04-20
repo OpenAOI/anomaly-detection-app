@@ -1,8 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
+from typing import Any
 
 
-def create_app():
+def create_app() -> Any:
     app = Flask(__name__, instance_relative_config=True)
     from pcb_anodet_server.api import api_blueprint
 
