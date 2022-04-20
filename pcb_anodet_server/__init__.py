@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_cors import CORS
 from typing import Any
 
 
@@ -10,6 +9,5 @@ def create_app() -> Any:
     app.register_blueprint(api_blueprint)
     app.secret_key = "AOI"
     app.config["SESSION_TYPE"] = "filesystem"
-    CORS(app)  # https://flask-cors.readthedocs.io/en/latest/
 
     return app
