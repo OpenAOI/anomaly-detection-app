@@ -16,9 +16,6 @@
         },
         "mask_color": 255
     },
-    "path_config": {
-        "path": "/home/plejd/Desktop/AOI/pcb-anodet-server/hidden_aoi/pcb_anodet_server/projects/"
-    },
     "camera_config": {
         "camera": 0,
         "camera_type": "USB"

@@ -1,55 +1,45 @@
 ﻿{% extends 'edit/base_edit.html' %}
 
 
-{% block head2 %}
-<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/stream.css') }}">
-{% endblock %}
-
-
 {% block content %}
 <!-- Live feed -->
 <div class="row content">
-  <div class="col-sm-3 text-left"></div>
-
-  <div class="col-sm-6 text-left live-stream"> 
+  <div class="col-sm-4 col-sm-offset-4 live-stream"> 
     <h5>Live feed</h5>
-      <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}"</img>
+      <img id="video_feed" style="width:300px; height:300px;" src="{{ url_for('api_blueprint.video_feed') }}">
   </div>
-
-  <div class="col-sm-3 text-left"></div>
+  <div class="col-sm-4 text-left"></div>
 </div>
 
 <!-- Buttons -->
 <div class="row content">
   <div class="col-sm-12">
+    <br>
     <button type="button" id="take-photo-btn" class="btn btn-primary btn-block">Save to model</button>
+  </div>
+</div>
+<div class="row content text-center">
+  <div class="col-sm-12">
+    <div>
+      <span id="save-info-txt">	&nbsp;</span>
+    </div>
     <hr>
-    <a id="go-next-btn" class="btn btn-block btn-success">Go to next step</a>
+    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('api_blueprint.view_imagesv') }}">Go to next step</a>
   </div>
 </div>
 
 <script>
-$("#take-photo-btn").click(function(){
-  var ip = ipAdress.concat("save_photo" + window.location.search)
-  var xhttp = sendHttpRequest(ip)
-
-  // Display response alert
-  if (xhttp.status === 200) {
-      var alert = document.getElementById("saved_image_success_alert");
-      // Add filename to alert
-      var txt = document.getElementById("saved_image_success_alert_text");
-      txt.textContent = xhttp.responseText;
-      
-      alert.style.display = "block";
-      setTimeout(function() {
-          alert.style.display = "none";
-      }, 2500);
-      
-  }
-});
-$("#go-next-btn").click(function(){
-  window.location.href = '/edit/view_images' + window.location.search;
-      
-});
+  $("#take-photo-btn").click(function(){
+    var ip = ipAdress.concat("save_photo?project_name=" + "{{ project_name }}")
+    var xhttp = sendHttpRequest(ip)
+    
+    if (xhttp.status === 200) {
+        // Flash-fade effect on image
+        $('#video_feed').fadeTo(50, 0.5, function() { $(this).fadeTo(300, 1.0); });
+        // Display image name
+        var saveInfoTxt = document.getElementById("save-info-txt");
+        saveInfoTxt.textContent = "Image saved as " + xhttp.responseText;
+    }
+  });
 </script>
 {% endblock %}

@@ -5,9 +5,7 @@
 <!-- Project images -->  
 <div class="row content">
   <div class="col-sm-12 text-left">
-    <h4>Info</h4>
     <br>
-    <p>Total images: <span id="total-images-number"></span></p>
   </div>
 </div>
 
@@ -20,10 +18,10 @@
 
 <script>
 $("#start-train-btn").click(function(){
-  var ip = ipAdress.concat("train" + window.location.search)
+  var ip = ipAdress.concat("train?project_name=" + "{{ project_name }}")
   var xhttp = sendHttpRequest(ip);
 
-  window.location.href = '/predict' + window.location.search;
+  window.location.href = '/predict';
 })
 </script>
 {% endblock %}

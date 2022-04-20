@@ -9,15 +9,29 @@ body {
   max-width: 1000px;
 }
 
+.navbar {
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
 .row {
   margin-top: 15px;
   margin-bottom: 15px;
   
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+hr {
+  border-color: #bfbfbf;
 }
 
 /* Empty gaps */
+.gap-5 {
+  width: 100%;
+  height: 10px;
+}
+
 .gap-10 {
   width: 100%;
   height: 10px;
@@ -25,7 +39,7 @@ body {
 
 .gap-15 {
   width: 100%;
-  height: 10px;
+  height: 15px;
 }
 
 .gap-20 {

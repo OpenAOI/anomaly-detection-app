@@ -7,10 +7,24 @@
 
 
 {% block content %}
+<!-- Buttons -->
+<div class="row content">
+  <div class="col-sm-12">
+    <br>
+    <a id="take-more-photos-btn" class="btn btn-block btn-primary" href="{{ url_for('api_blueprint.take_photov') }}">Take more photos</a>
+    <hr>
+    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('api_blueprint.train_projectv') }}">Go to next step</a>
+  </div>
+</div>
+
+<!-- Empty space-->
+<div class="gap-5"></div>
+
 <!-- Topic -->  
 <div class="row content">
   <div class="col-sm-12 text-left">
-    <h4>Total images: 100</h4>
+    <h4 style="display: inline;">Total images: </h4>
+    <h4 style="display: inline;" id="total-images-count">{{ total_images }}</h4>
   </div>
 </div>
 
@@ -20,11 +34,12 @@
 
     <div class="imgGallery" id="imgGallery">
       {% for image in images.images %}
-        <div class="thumbnail" style="width: 150px;">
+        <div class="thumbnail" style="width: 150px;" id="thumbnail-id-{{ loop.index }}" style="display: block;">
           <div class="item">
             <img href="#" src="{{ image.image_b64 }}" alt="{{ image.name }}" id="img-{{ loop.index }}">
             <div class="caption">
-              <span class="right"><a href="#">Delete</a></span><span class="left"><a href="#" id="view-{{ loop.index }}">View</a></span>​
+              <span class="right"><a href="#" id="delete-{{ loop.index }}">Delete</a></span>
+              <span class="left"><a href="#" id="view-{{ loop.index }}">View</a></span>​
             </div>
           </div>
         </div>
@@ -38,6 +53,18 @@
           $("#view-{{ loop.index }}").click(function(){
             $("#image-modal-content").attr("src", $("#img-{{ loop.index }}").attr('src'));
             $("#image-modal").css("display", "block");
+          });
+          // Delete modal on view text
+          $("#delete-{{ loop.index }}").click(function(){
+            var image_name = $("#img-{{ loop.index }}").attr('alt');
+            var ip = ipAdress.concat("delete_image?image_name=" + image_name);
+            var xhttp = sendHttpRequest(ip);
+            // Hide image
+            $("#thumbnail-id-{{ loop.index }}").css("display", "none");
+            // Update image counter
+            var totalImagesCount = $("#total-images-count").text();
+            var totalImagesCount = parseInt(totalImagesCount) - 1;
+            $("#total-images-count").html(totalImagesCount);
           });
         </script>
       {% endfor %}
@@ -56,15 +83,6 @@
   <div id="caption"></div>
 </div>
 
-<!-- Buttons -->
-<div class="row content">
-  <div class="col-sm-12">
-    <a id="take-more-photos-btn" class="btn btn-block btn-primary">Take more photos</a>
-    <hr>
-    <a id="go-next-btn" class="btn btn-block btn-success">Go to next step</a>
-  </div>
-</div>
-
 <script>
   // Hide modal when click on image
   $("#image-modal").click(function(){
@@ -73,13 +91,6 @@
   // Hide modal on X button
   $(".close:eq(0)").click(function(){
       $("#image-modal").css("display", "none");
-  });
-
-  $("#take-more-photos-btn").click(function(){
-  window.location.href = '/edit/take_photo' + window.location.search;
-  });
-  $("#go-next-btn").click(function(){
-  window.location.href = '/edit/train_project' + window.location.search;
   });
 </script>
 {% endblock %}

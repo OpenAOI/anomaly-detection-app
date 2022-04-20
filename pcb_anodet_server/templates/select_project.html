@@ -5,68 +5,42 @@
 <!-- Projects list --> 
 <div class="row content">
   <div class="col-sm-12 text-left">
-    <!-- List projects -->
-    <ul class="list-group" id="project-list">
-    </ul>
-
-    <div class="gap-20"></div>
     <!-- Create project form -->
-    <form>
+    <form action="{{ url_for('api_blueprint.select_projectv') }}" method="post" enctype="multipart/form-data" novalidate>
+      {{ form.hidden_tag() }}
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Project name" id="project-name">
+        {% if form.project_name.errors %}
+          {{ form.project_name(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.project_name.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %}
+            {{ form.project_name(class="form-control", placeholder="Project name") }}
+        {% endif %}
         <div class="input-group-btn">
-          <a id="create-project-btn" class="btn btn-block btn-default">Create new project</a>
+          {{ form.submit(class="btn btn-block btn-default") }}
         </div>
       </div>
     </form>
-    
+
+    <div class="gap-20"></div>
+
+    <!-- List projects -->
+    <ul class="list-group" id="project-list">
+      {% for p in projects.projects %}
+      <li class="list-group-item"><a id="{{ p.name }}">{{ p.name }}</a><br></li>
+          <script>
+          $("#{{ p.name }}").click(function(){
+            var path = "set_project_route" + "?project_name=" + "{{ p.name }}";
+            var ip = ipAdress.concat(path);
+            var xhttp = sendHttpRequest(ip);
+            window.location.href = "/predict"
+          });
+        </script>
+      {% endfor %}
+    </ul>
   </div>
 </div>
-
-<script>
-  window.addEventListener('load', function () {
-    // Load project list
-    var ip = ipAdress.concat("get_projects")
-    var xhttp = sendHttpRequest(ip)
-
-    var json_response = JSON.parse(xhttp.responseText);
-    var projects = json_response.projects;
-
-    // List projects in html
-    for (var i = 0; i < projects.length; i++) {
-      document.getElementById("project-list").innerHTML += '<li class="list-group-item"><a href="/predict?project_name='+ projects[i].name+'">' + projects[i].name + '</a><br></li>';
-    }
-  })
-function createProjectForm() {
-    var projectName = document.getElementById("project-name");
-    projectName = projectName.value;
-
-    var path = "init_project" + "?new_project_name=" + projectName;
-    var ip = ipAdress.concat(path);
-    var xhttp = sendHttpRequest(ip);
-
-    window.location.href = '/edit/crop_camera?project_name=' + projectName;
-
-}
-
-// Create project Btn
-$("#create-project-btn").click(function(){
-    createProjectForm();
-});
-
-// Get the input field
-var input = document.getElementById("project-name");
-
-
-// Execute a function when the user releases a key on the keyboard
-input.addEventListener("keydown", function(event) {
-// Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13) {
-        // Cancel the default action, if needed
-        event.preventDefault();
-        // Trigger the button element with a click
-        createProjectForm();
-    }
-}); 
-</script>
 {% endblock %}
