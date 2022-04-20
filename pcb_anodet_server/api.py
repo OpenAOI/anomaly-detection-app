@@ -176,8 +176,7 @@ def select_projectv() -> Union[Response, str]:
 
 @api_blueprint.route("/predict", methods=["GET", "POST"])
 def predictv() -> str:
-    project_name = get_project()
-    print(request.headers.get("Host"))
+    project_name = get_project() 
 
     return render_template(
         "predict.html", project_name=project_name, ip_address=ip_address
