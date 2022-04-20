@@ -10,29 +10,30 @@ from PIL import Image
 from numpy import asarray
 from pcb_anodet_server import camera_stream
 from pcb_anodet_server.config import project_path
+from typing import Any, Tuple
 
 
 PRED_IMAGE = None
 CAMERA = camera_stream.CameraStream()
 
 
-def delete_project(project_name):
+def delete_project(project_name: str) -> None:
     """Delete project"""
     path = project_path + project_name
     shutil.rmtree(path)
 
 
-def delete_image(project_name, image_name):
+def delete_image(project_name: str, image_name: str) -> None:
     file_path = project_path + project_name + "/images/" + image_name
     utils.delete_file(file_path)
 
 
-def return_latest_image_array():
+def return_latest_image_array() -> Any:
     """Return the latest array from camera class without claming the camera feed"""
     return CAMERA.return_image()
 
 
-def return_latest_photo():
+def return_latest_photo() -> str:
     """Returns the latest array as an image from camera class without claming the camera feed"""
     CAMERA.read()
     array = CAMERA.return_image()
@@ -40,14 +41,14 @@ def return_latest_photo():
     return image_b64
 
 
-def init_project(new_project_name):
+def init_project(new_project_name: str) -> str:
     """Generate folders and config-files for a new project"""
     success = gen_projects.create_project(new_project_name)
 
     return success
 
 
-def crop_project_photo(project_name, image):
+def crop_project_photo(project_name: str, image: Any) -> Any:
     """Crops the image to the size specified in projects config json"""
 
     crop_conf = get_projects.get_crop_config(project_name)
@@ -79,7 +80,7 @@ def take_project_photo():
 '''
 
 
-def gen(project_name):
+def gen(project_name: str) -> Any:
     """Generates camera stream"""
 
     while True:
@@ -90,7 +91,7 @@ def gen(project_name):
         yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 
 
-def predict_project_photo(project_name):
+def predict_project_photo(project_name: str) -> Tuple[Any, float, int]:
     """Uses the trained model to make an evaluation of an image of a project"""
     path = project_path + project_name
     thresh_conf = get_projects.get_threshold_config(project_name)
@@ -103,7 +104,7 @@ def predict_project_photo(project_name):
     return image_pred_b64, score, thresh
 
 
-def save_project_photo(project_name):
+def save_project_photo(project_name: str) -> str:
     """Saves an un-evaluated image of a project"""
     array = return_latest_image_array()  # TODO: Fix camera value 0
     cropped_array = crop_project_photo(project_name, array.copy())
@@ -115,22 +116,6 @@ def save_project_photo(project_name):
 
 
 """
-def return_saved_project_photo(project_name):
-    images = []
-
-    img_path = path_conf + "/images"
-    for path in os.listdir(img_path):
-        full_path = os.path.join(img_path, path)
-        if os.path.isfile(full_path):
-            images.append(full_path)
-    if len(images) > 0:
-        with Image.open(images[-1]) as im:
-            b64image = utils.ndarray_to_b64(asarray(im))
-    else:
-        return None
-    return b64image
-
-
 
 def update_project_camera(camera, camera_type):
     '''Updates the camera configuration'''
@@ -145,22 +130,24 @@ def update_project_threshold(threshold):
 """
 
 
-def update_project_crop(project_name, x_1, x_2, y_1, y_2):
+def update_project_crop(
+    project_name: str, x_1: int, x_2: int, y_1: int, y_2: int
+) -> None:
     """Updates the camera configuration"""
-    update_projects.update_crop(project_name, int(x_1), int(x_2), int(y_1), int(y_2))
+    update_projects.update_crop(project_name, (x_1), (x_2), (y_1), (y_2))
 
 
-def train(project_name):
+def train(project_name: str) -> None:
     """Trains model on collected images"""
     path = project_path + project_name
     training.train(path)
 
 
-def get_all_projects():
+def get_all_projects() -> dict[str : list[dict[str:str]]]:
     return get_projects.get_all_projects()
 
 
-def get_all_project_images(project_name):
+def get_all_project_images(project_name: str) -> dict[str : list[dict[str:str]]]:
     path = project_path + project_name + "/images/"
     image_names_dict = get_projects.get_all_image_names(project_name)
     for image in image_names_dict["images"]:

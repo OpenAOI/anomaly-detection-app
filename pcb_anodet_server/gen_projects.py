@@ -2,7 +2,7 @@ from os import path, mkdir
 from pcb_anodet_server.config import project_path, server_path
 
 
-def create_project(project_name):
+def create_project(project_name: str) -> bool:
     full_path = project_path + project_name
     if path.isdir(full_path):
         return False  # returns False if path already exists

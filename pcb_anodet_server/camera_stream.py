@@ -1,10 +1,12 @@
 import cv2
 from threading import Thread
+from typing import Any
 
 
 class CameraStream:
-    def __init__(self, stream_id=0):
-        self.stream_id = stream_id
+    def __init__(self, stream_id=0) -> None:
+        self.stream_id = stream_id  # Will take an int for USB-camera
+        # or str for ip- or rtsp-camera
 
         # opening video capture stream
         self.camera = cv2.VideoCapture(self.stream_id)
@@ -24,11 +26,11 @@ class CameraStream:
         self.t.daemon = True  # daemon threads run in background
 
     # method to start thread
-    def start(self):
+    def start(self) -> None:
         self.stopped = False
         self.t.start()  # method passed to thread to read next available image
 
-    def update(self):
+    def update(self) -> None:
         while True:
             if self.stopped is True:
                 break
@@ -39,12 +41,12 @@ class CameraStream:
                 break
         self.camera.release()  # method to return latest read image
 
-    def read(self):
+    def read(self) -> Any:
         _, self.image = self.camera.read()
         return self.image  # method to read images
 
-    def stop(self):
+    def stop(self) -> None:
         self.stopped = True
 
-    def return_image(self):
+    def return_image(self) -> Any:
         return self.image
