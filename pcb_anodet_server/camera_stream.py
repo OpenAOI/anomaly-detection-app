@@ -13,7 +13,6 @@ class CameraStream:
         if self.camera.isOpened() is False:
             print("[Exiting]: Error accessing webcam stream.")
             exit(0)
-            
 
         # reading a single image from camera stream for initializing
         self.success, self.image = self.camera.read()
