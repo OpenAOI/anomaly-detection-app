@@ -75,11 +75,19 @@ def take_photo_and_predict() -> str:
     """Take picture, make, prediction and return original,
     heatmap, score and threshhold"""
     project_name = session["project_name"]
-    image_pred_b64, score, thresh = project_functions.predict_project_photo(
-        project_name
-    )
+    (
+        image_pred_b64,
+        score,
+        thresh,
+        image_class,
+    ) = project_functions.predict_project_photo(project_name)
     return json.dumps(
-        {"image_pred_b64": image_pred_b64, "score": score, "thresh": thresh}
+        {
+            "image_pred_b64": image_pred_b64,
+            "score": score,
+            "thresh": thresh,
+            "image_class": image_class,
+        }
     )
 
 
@@ -116,8 +124,8 @@ def update_camera() -> str:
 @api_blueprint.route("/update_threshold", methods=["GET", "POST"])
 def update_threshold() -> str:
     project_name = request.args.get("project_name", None)
-    threshold = request.args.get("threshold", None)
-    project_functions.update_project_threshold(project_name, threshold)
+    thresh = request.args.get("threshold", None)
+    project_functions.update_project_threshold(project_name, thresh)
     return "success"
 
 
@@ -176,7 +184,7 @@ def select_projectv() -> Union[Response, str]:
 
 @api_blueprint.route("/predict", methods=["GET", "POST"])
 def predictv() -> str:
-    project_name = get_project() 
+    project_name = get_project()
 
     return render_template(
         "predict.html", project_name=project_name, ip_address=ip_address
