@@ -1,7 +1,7 @@
 anodet.egg==info
 Flask==2.0.3
 Flask_WTF==1.0.1
-numpy==1.19.5
+numpy>=1.21
 Pillow==9.1.0
 torch==1.10.2+cu113
 WTForms==3.0.1
