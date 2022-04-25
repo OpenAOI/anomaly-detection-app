@@ -6,7 +6,7 @@
 <div class="row content">
   <div class="col-sm-12 text-left">
     <!-- Create project form -->
-    <form action="{{ url_for('api_blueprint.select_projectv') }}" method="post" enctype="multipart/form-data" novalidate>
+    <form action="{{ url_for('views_blueprint.select_project_view') }}" method="post" enctype="multipart/form-data" novalidate>
       {{ form.hidden_tag() }}
       <div class="input-group">
         {% if form.project_name.errors %}
