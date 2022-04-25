@@ -15,14 +15,13 @@ The focus of this project is to make training and evaluation easy for any and al
 
 > Links
 
-- [LIVE Demo](https://jinja-swipe-bootstrap-5.appseed-srv1.com/) - starter in action
-- More [Jinja Templates](https://appseed.us/jinja-template) - provided by AppSeed
+- [Open AOI](https://github.com/OpenAOI) - Open AOI
 
 <br />
 
 ## The web interface
 
-Random comment about picture
+Gif to demo project.
 
 <br />
 
@@ -125,6 +124,7 @@ The project has a simple structure, represented as bellow:
 
 - [Flask Framework](https://www.palletsprojects.com/p/flask/) - The official website
 - [Cropper.js](https://github.com/fengyuanchen/cropperjs/) - JavaScript image cropper
+- [Jinja Templates](https://appseed.us/jinja-template) - Jinja templates
 
 <br />
 
