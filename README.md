@@ -26,7 +26,7 @@ Random comment about picture
 
 <br />
 
-![Random image.](https://raw.githubusercontent.com/pcbanodetserver/fake.png)
+![Website preview](/Media/pcb-anodet-server-preview.gif)
 
 <br />
 
