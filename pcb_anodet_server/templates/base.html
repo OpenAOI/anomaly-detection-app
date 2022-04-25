@@ -39,8 +39,8 @@
     {% block navbar %}
     <div class="" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#help-guide" style="margin-top: 8px; margin-right: 7px;">Guide</button></li>
-        <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="{{ url_for('api_blueprint.select_projectv') }}">Change project</a></li>
+        <li><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#help-guide" style="margin-top: 8px; margin-right: 8px;">Guide</button></li>
+        <li {% if request.path.startswith('/select_project') %}class="active"{% endif %} ><a href="{{ url_for('views_blueprint.select_project_view') }}">Change project</a></li>
       </ul>
     </div>
     {% endblock %}

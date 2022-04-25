@@ -93,15 +93,17 @@ def gen(project_name: str) -> Any:
 
 def predict_project_photo(project_name: str) -> Tuple[Any, float, int]:
     """Uses the trained model to make an evaluation of an image of a project"""
-    path = project_path + project_name
     thresh_conf = get_projects.get_threshold_config(project_name)
     thresh = thresh_conf["threshold"]
+    model_path = project_path + project_name + "/distributions/"
     array = return_latest_image_array()
     cropped_array = crop_project_photo(project_name, array.copy())
-    image_pred, score = predict.predict_image(cropped_array, path, thresh)
+    image_pred, score, image_class = predict.predict_image(
+        cropped_array, thresh, model_path
+    )
     image_pred_b64 = utils.ndarray_to_b64(image_pred)
 
-    return image_pred_b64, score, thresh
+    return image_pred_b64, score, thresh, image_class
 
 
 def save_project_photo(project_name: str) -> str:
@@ -123,11 +125,12 @@ def update_project_camera(camera, camera_type):
         camera = int(camera)
     update_projects.update_camera(PROJECT_NAME, camera, camera_type)
 
-
-def update_project_threshold(threshold):
-    '''Updates the threshold configuration'''
-    update_projects.update_threshold(PROJECT_NAME, int(threshold))
 """
+
+
+def update_project_threshold(project_name, threshold):
+    """Updates the threshold configuration"""
+    update_projects.update_threshold(project_name, int(threshold))
 
 
 def update_project_crop(
