@@ -5,14 +5,6 @@ The focus of this project is to make training and evaluation easy for any and al
 
 <br />
 
-> Features:
-
-- UI Kit: **Swipe Bootstrap 3** (Free Version) by **Themesberg**
-- Render Engine: Flask / [Jinja2](https://jinja.palletsprojects.com/)
-//- Support via **Github** (issues tracker) and [Discord](None).
-
-<br />
-
 > Links
 
 - [Open AOI](https://github.com/OpenAOI) - Open AOI
@@ -125,7 +117,9 @@ The project has a simple structure, represented as bellow:
 - [Flask Framework](https://www.palletsprojects.com/p/flask/) - The official website
 - [Cropper.js](https://github.com/fengyuanchen/cropperjs/) - JavaScript image cropper
 - [Jinja Templates](https://appseed.us/jinja-template) - Jinja templates
-
+- [Jinja2](https://jinja.palletsprojects.com/) - Render Engine: Flask
+- [Bootstrap](https://getbootstrap.com/) - UI Kit: Swipe Bootstrap 3 (Free Version) by Themesberg
 <br />
+
 
 
