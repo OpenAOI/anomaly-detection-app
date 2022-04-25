@@ -1,7 +1,11 @@
 /* Used by main.html */
 
 body {
-    background-color: rgb(249, 249, 249);
+  background-color: rgb(206, 206, 206); 
+}
+
+.container-fluid {
+  background-color: rgb(255, 255, 255);
 }
 
 /* Page width */
@@ -9,9 +13,22 @@ body {
   max-width: 1000px;
 }
 
-.navbar {
-  padding-right: 50px;
-  padding-left: 50px;
+@media (min-width: 768px){
+  .navbar-width{
+    max-width: 1000px; 
+    float:none; 
+    margin: 0 auto;
+    padding-left: 8px;
+    padding-right: 15px;
+  }
+}
+
+/* Bottom of page content */
+.bottom {
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
 }
 
 .row {
@@ -29,7 +46,7 @@ hr {
 /* Empty gaps */
 .gap-5 {
   width: 100%;
-  height: 10px;
+  height: 5px;
 }
 
 .gap-10 {
