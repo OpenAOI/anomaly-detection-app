@@ -2,13 +2,14 @@
 
 
 {% block content %}
-<!-- Projects list --> 
 <div class="row content">
   <div class="col-sm-12 text-left">
     <!-- Create project form -->
     <form action="{{ url_for('api_blueprint.select_projectv') }}" method="post" enctype="multipart/form-data" novalidate>
       {{ form.hidden_tag() }}
+      <label for="project-name">Create new project</label>
       <div class="input-group">
+        
         {% if form.project_name.errors %}
           {{ form.project_name(class="form-control form-control-lg is-invalid") }}
           <div class="invalid-feedback">
@@ -29,6 +30,7 @@
 
     <!-- List projects -->
     <ul class="list-group" id="project-list">
+      <label for="projects">Projects list</label>
       {% for p in projects.projects %}
       <li class="list-group-item"><a id="{{ p.name }}">{{ p.name }}</a><br></li>
           <script>
