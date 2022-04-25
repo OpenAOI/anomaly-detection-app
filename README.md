@@ -26,7 +26,7 @@ Random comment about picture
 
 <br />
 
-![Website preview](/Media/pcb-anodet-server-preview.gif)
+![Website preview](pcb_anodet_server/Media/pcb-anodet-server-preview.gif)
 
 <br />
 
