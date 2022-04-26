@@ -21,7 +21,7 @@ $("#start-train-btn").click(function(){
   var ip = ipAdress.concat("train?project_name=" + "{{ project_name }}")
   var xhttp = sendHttpRequest(ip);
 
-  window.location.href = '/predict';
+  window.location.href = '/evaluate';
 })
 </script>
 {% endblock %}

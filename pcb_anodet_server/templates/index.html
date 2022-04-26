@@ -5,7 +5,7 @@
 <div class="row content">
   <div class="col-sm-12 text-left">
     <!-- Create project form -->
-    <form action="{{ url_for('views_blueprint.select_project_view') }}" method="post" enctype="multipart/form-data" novalidate>
+    <form action="{{ url_for('views_blueprint.index_view') }}" method="post" enctype="multipart/form-data" novalidate>
       {{ form.hidden_tag() }}
       <label for="project-name">Create new project</label>
       <div class="input-group">

@@ -33,6 +33,7 @@ def delete_project() -> None:
     """Delete project in session cookie"""
     project_name = session["project_name"]
     project_functions.delete_project(project_name)
+    return "success"
 
 def get_project() -> str:
     """Get the project-name in session cookie"""
@@ -40,7 +41,7 @@ def get_project() -> str:
 
 
 @api_blueprint.route("/", methods=["GET", "POST"])
-def select_project_view() -> Union[Response, str]:
+def index_view() -> Union[Response, str]:
     """Select or create new project page"""
     projects = project_functions.get_all_projects()
     form = forms.ProjectForm()
@@ -57,8 +58,8 @@ def select_project_view() -> Union[Response, str]:
     )
 
 
-@api_blueprint.route("/predict", methods=["GET", "POST"])
-def predict_view() -> str:
+@api_blueprint.route("/evaluate", methods=["GET", "POST"])
+def evaluate_view() -> str:
     project_name = get_project()
 
     return render_template(
@@ -66,7 +67,7 @@ def predict_view() -> str:
     )
 
 
-@api_blueprint.route("/edit/crop_camera", methods=["GET", "POST"])
+@api_blueprint.route("/train/crop_camera", methods=["GET", "POST"])
 def crop_camera_view() -> str:
     project_name = get_project()
 
@@ -75,7 +76,7 @@ def crop_camera_view() -> str:
     )
 
 
-@api_blueprint.route("/edit/take_photo", methods=["GET", "POST"])
+@api_blueprint.route("/train/take_photo", methods=["GET", "POST"])
 def take_photo_view() -> str:
     project_name = get_project()
 
@@ -84,15 +85,15 @@ def take_photo_view() -> str:
     )
 
 
-@api_blueprint.route("/edit/view_images", methods=["GET", "POST"])
-def view_images_view() -> str:
+@api_blueprint.route("/train/preview_images", methods=["GET", "POST"])
+def preview_images_view() -> str:
     project_name = get_project()
     # Load images
     images = project_functions.get_all_project_images(project_name)
     total_images = len(images["images"])
 
     return render_template(
-        "train/view_images.html",
+        "train/preview_images.html",
         project_name=project_name,
         images=images,
         total_images=total_images,
@@ -100,7 +101,7 @@ def view_images_view() -> str:
     )
 
 
-@api_blueprint.route("/edit/train_project", methods=["GET", "POST"])
+@api_blueprint.route("/train/train_project", methods=["GET", "POST"])
 def train_project_view() -> str:
     project_name = get_project()
     return render_template(
@@ -112,5 +113,5 @@ def train_project_view() -> str:
 
 
 @api_blueprint.app_errorhandler(404)
-def error_404(error: Response) -> str:
+def error_404_view(error: Response) -> str:
     return render_template("errors/404.html"), 404
