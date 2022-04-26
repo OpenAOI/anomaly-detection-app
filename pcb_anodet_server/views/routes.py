@@ -10,16 +10,11 @@ from flask import (
 )
 from pcb_anodet_server import project_functions
 from pcb_anodet_server.config import ip_address
-from typing import Union
 from pcb_anodet_server.views import api_blueprint, forms
+from typing import Union
 
 
-@api_blueprint.route("/delete_project", methods=["GET", "POST"])
-def delete_project() -> None:
-    """Delete project"""
-    project_name = session["project_name"]
-    project_functions.delete_project(project_name)
-
+""" Session methods """
 
 def set_project(project_name: str) -> None:
     """Save project-name to session cookie"""
@@ -30,19 +25,21 @@ def set_project(project_name: str) -> None:
 def set_project_route() -> None:
     """Save project-route to session cookie"""
     project_name = request.args.get("project_name", None)
-
     session["project_name"] = project_name
-    return "Success"
 
+
+@api_blueprint.route("/delete_project", methods=["GET", "POST"])
+def delete_project() -> None:
+    """Delete project in session cookie"""
+    project_name = session["project_name"]
+    project_functions.delete_project(project_name)
 
 def get_project() -> str:
     """Get the project-name in session cookie"""
-
     return session["project_name"]
 
 
 @api_blueprint.route("/", methods=["GET", "POST"])
-@api_blueprint.route("/select_project", methods=["GET", "POST"])
 def select_project_view() -> Union[Response, str]:
     """Select or create new project page"""
     projects = project_functions.get_all_projects()
@@ -56,7 +53,7 @@ def select_project_view() -> Union[Response, str]:
         return redirect(url_for("views_blueprint.crop_camera_view"))
 
     return render_template(
-        "select_project.html", form=form, projects=projects, ip_address=ip_address
+        "index.html", form=form, projects=projects, ip_address=ip_address
     )
 
 
@@ -65,7 +62,7 @@ def predict_view() -> str:
     project_name = get_project()
 
     return render_template(
-        "predict.html", project_name=project_name, ip_address=ip_address
+        "evaluate/evaluate.html", project_name=project_name, ip_address=ip_address
     )
 
 
@@ -74,7 +71,7 @@ def crop_camera_view() -> str:
     project_name = get_project()
 
     return render_template(
-        "edit/crop_camera.html", project_name=project_name, ip_address=ip_address
+        "train/crop_camera.html", project_name=project_name, ip_address=ip_address
     )
 
 
@@ -83,7 +80,7 @@ def take_photo_view() -> str:
     project_name = get_project()
 
     return render_template(
-        "edit/take_photo.html", project_name=project_name, ip_address=ip_address
+        "train/take_photo.html", project_name=project_name, ip_address=ip_address
     )
 
 
@@ -95,7 +92,7 @@ def view_images_view() -> str:
     total_images = len(images["images"])
 
     return render_template(
-        "edit/view_images.html",
+        "train/view_images.html",
         project_name=project_name,
         images=images,
         total_images=total_images,
@@ -107,7 +104,7 @@ def view_images_view() -> str:
 def train_project_view() -> str:
     project_name = get_project()
     return render_template(
-        "edit/train_project.html", project_name=project_name, ip_address=ip_address
+        "train/train_project.html", project_name=project_name, ip_address=ip_address
     )
 
 
