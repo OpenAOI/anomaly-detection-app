@@ -17,7 +17,7 @@ Gif to demo project.
 
 <br />
 
-![Website preview](pcb_anodet_server/Media/pcb-anodet-server-preview.gif)
+![Website preview](anomaly_detection_app/Media/pcb-anodet-server-preview.gif)
 
 <br />
 
