@@ -1,7 +1,7 @@
-{% extends 'edit/base_edit.html' %}
+{% extends 'layouts/base_train.html' %}
 
 
-{% block head2 %}
+{% block head %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/cropper.js') }}"></script>
 <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/cropper.css') }}">
 {% endblock %}
@@ -170,7 +170,7 @@
 
   $("#save-crop-btn").click(function(){
     sendCropInfo();
-    window.location.href = '/edit/take_photo' + window.location.search;
+    window.location.href = '/train/take_photo';
   })
 
   $("#refresh-camera-btn").click(function(){

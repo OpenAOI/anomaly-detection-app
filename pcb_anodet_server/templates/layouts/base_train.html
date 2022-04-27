@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/main.css') }}">
+
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/train-menu-overview.css') }}">
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body>
+<!-- Script -->
+<script>
+  const ipAdress = "{{ ip_address }}"
+
+  function sendHttpRequest(ipAdress) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", ipAdress, false);
+    try {
+        xhttp.send();
+    } catch (error) {
+        console.log(error)
+    }
+    return xhttp;
+  }
+</script>
+
+<!-- Top Navigation Bar -->
+{% include 'includes/navigation_train.html' %}
+
+<!-- Help guide -->
+{% include 'includes/guide.html' %}
+
+<!-- Train overview -->
+{% include 'includes/train_overview.html' %}
+
+<!-- Page content -->
+<main>
+  <div class="container-fluid text-left bottom">
+    {% block content %}
+    {% endblock %}
+  </div>
+</main>
+
+<!-- Specific Page JS  -->
+{% block javascripts %}{% endblock javascripts %}
+
+</body>
+</html>

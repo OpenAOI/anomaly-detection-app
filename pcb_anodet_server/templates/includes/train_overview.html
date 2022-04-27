@@ -1,0 +1,93 @@
+<!-- Train overview -->
+<div class="container-fluid text-center">
+    <div class="row content train-bar train-bar-text">
+      <div class="col-sm-3">
+        <h4 id="camera-crop-text" style="opacity: 0.6; font-size: 13px; font-weight: normal;">Camera preferences</h4>
+      </div>
+      <div class="col-sm-3">
+        <h4 id="take-photo-text" style="opacity: 0.6; font-size: 13px; font-weight: normal;">Collect data</h4>
+      </div>
+      <div class="col-sm-3">
+        <h4 id="view-images-text" style="opacity: 0.6; font-size: 13px; font-weight: normal;">Preview images</h4>
+      </div>
+      <div class="col-sm-3">
+        <h4 id="train-project-text" style="opacity: 0.6; font-size: 13px; font-weight: normal;">Train model</h4>
+      </div>
+    </div>
+  
+    <div class="row content train-bar train-bar-line">
+      <div class="hidden-xs col-sm-12">
+        <!-- Fat line -->
+        <div class="line-fat"></div>
+        <!-- Thin line -->
+        <div class="line-thin">
+          <!-- Circle -->
+          <div id="circle" style="margin-top: 5px;"></div>
+        </div>
+      </div>
+    </div> 
+  </div>
+  
+  <script>
+    $(document).ready(function(){
+      moveEditMenu();
+    })
+  
+    function moveEditMenu() {
+      alert("efsef");
+      path = window.location.pathname;
+  
+      var cropCameraText = document.querySelector("#camera-crop-text");
+      var takePhotoText = document.querySelector("#take-photo-text");
+      var viewImagesText = document.querySelector("#view-images-text");
+      var trainProjectText = document.querySelector("#train-project-text");
+  
+      var lineFat = document.querySelector(".line-fat");
+      var lineThin = document.querySelector(".line-thin");
+  
+      if (path.startsWith("/train/crop_camera")) 
+      {
+          cropCameraText.style.fontSize = "14px";
+          cropCameraText.style.fontWeight = "bold";
+          cropCameraText.style.opacity = 1;
+  
+          lineFat.style.width = "12.5%";
+  
+          lineThin.style.marginLeft = "12.5%";
+          lineThin.style.width = "87.5%";
+      } 
+      else if (path.startsWith("/train/take_photo")) 
+      {
+          takePhotoText.style.fontSize = "14px";
+          takePhotoText.style.fontWeight = "bold";
+          takePhotoText.style.opacity = 1;
+  
+          lineFat.style.width = "37.5%";
+  
+          lineThin.style.marginLeft = "37.5%";
+          lineThin.style.width = "62.5%";
+      } 
+      else if (path.startsWith("/train/preview_images")) 
+      {
+          viewImagesText.style.fontSize = "14px";
+          viewImagesText.style.fontWeight = "bold";
+          viewImagesText.style.opacity = 1;
+  
+          lineFat.style.width = "62.5%";
+  
+          lineThin.style.marginLeft = "62.5%";
+          lineThin.style.width = "37.5%";
+      } 
+      else if (path.startsWith("/train/train_project")) 
+      {
+          trainProjectText.style.fontSize = "14px";
+          trainProjectText.style.fontWeight = "bold";
+          trainProjectText.style.opacity = 1;
+  
+          lineFat.style.width = "87.5%";
+  
+          lineThin.style.marginLeft = "87.5%";
+          lineThin.style.width = "12.5%";
+      }
+    }
+  </script>

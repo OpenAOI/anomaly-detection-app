@@ -1,0 +1,16 @@
+<!-- Navigation bar -->
+<nav class="navbar navbar-inverse">
+  <div class="navbar-width">
+    <div class="navbar-header" style="color: white;">
+      <h3 style="margin-top: 12px;">{{ project_name }}</h3>
+    </div>
+    {% block navbar %}
+    <div class="" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#help-guide" style="margin-top: 8px; margin-right: 8px;">Guide</button></li>
+        <li {% if request.path == '/' %}class="active"{% endif %} ><a href="{{ url_for('views_blueprint.index_view') }}">Change project</a></li>
+      </ul>
+    </div>
+    {% endblock %}
+  </div>
+</nav>
