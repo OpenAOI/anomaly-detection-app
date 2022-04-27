@@ -1,5 +1,5 @@
-from pcb_anodet_server.config import project_path
-from pcb_anodet_server import get_projects
+from anomaly_detection_app.config import project_path
+from anomaly_detection_app import get_projects
 import json
 from typing import Any
 

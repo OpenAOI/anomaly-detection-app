@@ -2,7 +2,7 @@
 __pycache__/
 /venv
 /trash
-pcb_anodet_server/projects/
-pcb_anodet_server/flask_session/
-pcb_anodet_server/pcbvenv/
-pcb_anodet_server/anodet-master/
+anomaly_detection_app/projects/
+anomaly_detection_app/flask_session/
+anomaly_detection_app/pcbvenv/
+anomaly_detection_app/anodet-master/

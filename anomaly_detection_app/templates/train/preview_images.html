@@ -57,7 +57,7 @@
           // Delete modal on view text
           $("#delete-{{ loop.index }}").click(function(){
             var image_name = $("#img-{{ loop.index }}").attr('alt');
-            var ip = ipAdress.concat("delete_image?image_name=" + image_name);
+		  var ip = ipAdress.concat("delete_image?image_name=" + image_name + "&project_name=" + "{{ project_name }}");
             var xhttp = sendHttpRequest(ip);
             // Hide image
             $("#thumbnail-id-{{ loop.index }}").css("display", "none");

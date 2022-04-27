@@ -1,6 +1,6 @@
 import json
 from os import listdir
-from pcb_anodet_server.config import project_path
+from anomaly_detection_app.config import project_path
 
 
 def load_conf(project_name: str) -> str:
@@ -35,7 +35,7 @@ def get_threshold_config(project_name: str) -> str:
 
 
 def get_all_projects() -> dict[str : list[dict[str:str]]]:
-    projects = listdir("pcb_anodet_server/projects/")
+    projects = listdir("anomaly_detection_app/projects/")
     project_dict = {"projects": []}
     for p in projects:
         project_dict["projects"].append({"name": p})

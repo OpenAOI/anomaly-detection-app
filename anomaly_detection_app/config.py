@@ -1,5 +1,4 @@
 from os import path
-from flask import request
 
 server_path = path.dirname(__file__)
 project_path = server_path + "/projects/"

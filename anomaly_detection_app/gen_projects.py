@@ -1,5 +1,5 @@
 from os import path, mkdir
-from pcb_anodet_server.config import project_path, server_path
+from anomaly_detection_app.config import project_path, server_path
 
 
 def create_project(project_name: str) -> bool:

@@ -1,4 +1,4 @@
-from pcb_anodet_server import create_app
+from anomaly_detection_app import create_app
 
 app = create_app()
 
