@@ -1,15 +1,17 @@
-from pcb_anodet_server import gen_projects
-from pcb_anodet_server import utils
-from pcb_anodet_server import predict
-from pcb_anodet_server import get_projects
-from pcb_anodet_server import update_projects
-from pcb_anodet_server import training
+from anomaly_detection_app import (
+    gen_projects,
+    utils,
+    predict,
+    get_projects,
+    update_projects,
+    training,
+    camera_stream,
+)
 import cv2
 import shutil
 from PIL import Image
 from numpy import asarray
-from pcb_anodet_server import camera_stream
-from pcb_anodet_server.config import project_path
+from anomaly_detection_app.config import project_path
 from typing import Any, Tuple
 
 

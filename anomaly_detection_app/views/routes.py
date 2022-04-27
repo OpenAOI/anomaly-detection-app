@@ -1,20 +1,19 @@
 from flask import (
-    Blueprint,
     redirect,
-    json,
     render_template,
     request,
     url_for,
     Response,
     session,
 )
-from pcb_anodet_server import project_functions
-from pcb_anodet_server.config import ip_address
-from pcb_anodet_server.views import api_blueprint, forms
+from anomaly_detection_app import project_functions
+from anomaly_detection_app.config import ip_address
+from anomaly_detection_app.views import api_blueprint, forms
 from typing import Union
 
 
 """ Session methods """
+
 
 def set_project(project_name: str) -> None:
     """Save project-name to session cookie"""
@@ -34,6 +33,7 @@ def delete_project() -> None:
     project_name = session["project_name"]
     project_functions.delete_project(project_name)
     return "success"
+
 
 def get_project() -> str:
     """Get the project-name in session cookie"""

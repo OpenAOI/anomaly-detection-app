@@ -3,7 +3,7 @@ import torch
 import numpy as np
 import anodet
 import cv2
-from pcb_anodet_server.config import device_type, project_path
+from anomaly_detection_app.config import device_type
 from typing import Any, Tuple
 
 

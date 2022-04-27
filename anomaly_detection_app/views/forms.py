@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
-from pcb_anodet_server.project_functions import get_all_projects
+from anomaly_detection_app.project_functions import get_all_projects
 from typing import Any
 
 

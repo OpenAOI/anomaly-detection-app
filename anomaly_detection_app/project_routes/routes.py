@@ -1,17 +1,11 @@
 from flask import (
-    Blueprint,
-    redirect,
     json,
-    render_template,
     request,
-    url_for,
     Response,
     session,
 )
-from pcb_anodet_server import project_functions
-from pcb_anodet_server.config import ip_address
-from typing import Union
-from pcb_anodet_server.project_routes import api_blueprint
+from anomaly_detection_app import project_functions
+from anomaly_detection_app.project_routes import api_blueprint
 
 
 @api_blueprint.route("/ping", methods=["GET", "POST"])
@@ -120,7 +114,7 @@ def train() -> str:
 def delete_image() -> str:
     """Delete an image from project"""
 
-    project_name = get_project()
+    project_name = request.args.get("project_name", None)
     image_name = request.args.get("image_name", None)
     project_functions.delete_image(project_name, image_name)
 
