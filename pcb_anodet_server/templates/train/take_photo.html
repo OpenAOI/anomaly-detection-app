@@ -1,4 +1,4 @@
-﻿{% extends 'edit/base_edit.html' %}
+﻿{% extends 'layouts/base_train.html' %}
 
 
 {% block content %}
@@ -24,7 +24,7 @@
       <span id="save-info-txt">	&nbsp;</span>
     </div>
     <hr>
-    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('views_blueprint.view_images_view') }}">Go to next step</a>
+    <a id="go-next-btn" class="btn btn-block btn-success" href="{{ url_for('views_blueprint.preview_images_view') }}">Go to next step</a>
   </div>
 </div>
 
