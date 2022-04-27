@@ -1,7 +1,9 @@
 *.DS_Store
-**/__pycache__/
+__pycache__/
 /venv
 /trash
+pcb_anodet_server/project_routes/__pycache__/
+pcb_anodet_server/views/__pycache__/
 pcb_anodet_server/__pycache__/
 pcb_anodet_server/static/images/test/
 pcb_anodet_server/static/images/test/
