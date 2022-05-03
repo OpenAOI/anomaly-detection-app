@@ -1,6 +1,22 @@
 ﻿{% extends 'layouts/base_train.html' %}
 
 
+{% block guide %}
+<p>
+The model needs images to be trained on. This is done with the "Save to model"- button.
+</p>
+<p>
+Save images of the products that you want to be able to make a prediction on. The model will probably overfit if you use images of less than 150 products.
+</p>
+<p>
+The model is very sensitive to lighting conditions and movement of the camera. This should be considered when collecting the data.
+</p>
+<p>
+When you have collected the images, press the "Go to next step" - button.
+</p>
+
+{% endblock %}
+
 {% block content %}
 <!-- Live feed -->
 <div class="row content">
