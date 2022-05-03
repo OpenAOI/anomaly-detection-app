@@ -1,5 +1,13 @@
 {% extends 'layouts/base.html' %}
 
+{% block guide %}
+<p>
+Enter the name of your new project and press the "Create project" - button to create a new project.
+</p>
+<p>
+If your project is already created: Choose among the names in the "Projects list".
+</p>
+{% endblock %}
 
 {% block content %}
 <div class="row content">
@@ -38,7 +46,7 @@
             var path = "set_project_route" + "?project_name=" + "{{ p.name }}";
             var ip = ipAdress.concat(path);
             var xhttp = sendHttpRequest(ip);
-            window.location.href = "/predict"
+            window.location.href = "/evaluate"
           });
         </script>
       {% endfor %}
