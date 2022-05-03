@@ -5,5 +5,4 @@ anodet/
 /trash
 anomaly_detection_app/projects/
 anomaly_detection_app/flask_session/
-anomaly_detection_app/pcbvenv/
-anomaly_detection_app/anodet-master/
+anomaly-detection-app-env/
