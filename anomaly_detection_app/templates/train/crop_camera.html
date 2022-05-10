@@ -162,8 +162,8 @@ When the crop is to your liking: Press the "Save Crop Parameters" - button.
     return cropper;
   };
 
-  function getLatestPhoto() {
-    var ip = ipAdress.concat("latest_photo");
+  function getLatestImage() {
+    var ip = ipAdress.concat("latest_image");
     var xhttp = sendHttpRequest(ip);
     return xhttp.responseText;
   }
@@ -176,18 +176,18 @@ When the crop is to your liking: Press the "Save Crop Parameters" - button.
 
 
   // Load current picture from camera to image-crop
-  imageCrop.src = getLatestPhoto();
+  imageCrop.src = getLatestImage();
   // Init cropper
   var cropper = createCropper();
 
   $("#save-crop-btn").click(function(){
     sendCropInfo();
-    window.location.href = '/train/take_photo';
+    window.location.href = '/train/take_image';
   })
 
   $("#refresh-camera-btn").click(function(){
-    var photo = getLatestPhoto();
-    cropper.replace(photo, true);
+    var image = getLatestImage();
+    cropper.replace(image, true);
   })
 
 

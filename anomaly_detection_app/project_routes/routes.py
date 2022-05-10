@@ -14,12 +14,12 @@ def ping() -> str:
     return "pong"
 
 
-@api_blueprint.route("/latest_photo", methods=["GET", "POST"])
-def latest_photo() -> Response:
-    """Return latest photo"""
+@api_blueprint.route("/latest_image", methods=["GET", "POST"])
+def latest_image() -> Response:
+    """Return latest image"""
 
     return Response(
-        project_functions.return_latest_photo(),
+        project_functions.return_latest_image(),
         mimetype="multipart/x-mixed-replace; boundary=frame",
     )
 
@@ -35,8 +35,8 @@ def video_feed() -> Response:
     )
 
 
-@api_blueprint.route("/take_photo_and_predict", methods=["GET", "POST"])
-def take_photo_and_predict() -> str:
+@api_blueprint.route("/take_image_and_predict", methods=["GET", "POST"])
+def take_image_and_predict() -> str:
     """Take picture, make prediction and return
     heatmap, score, threshhold and classification"""
 
@@ -46,7 +46,7 @@ def take_photo_and_predict() -> str:
         score,
         thresh,
         image_class,
-    ) = project_functions.predict_project_photo(project_name)
+    ) = project_functions.predict_project_image(project_name)
     return json.dumps(
         {
             "image_pred_b64": image_pred_b64,
@@ -57,12 +57,12 @@ def take_photo_and_predict() -> str:
     )
 
 
-@api_blueprint.route("/save_photo", methods=["GET", "POST"])
-def save_photo() -> str:
+@api_blueprint.route("/save_image", methods=["GET", "POST"])
+def save_image() -> str:
     """Save the image to folder 'images'"""
 
     project_name = request.args.get("project_name", None)
-    save_path = project_functions.save_project_photo(project_name)
+    save_path = project_functions.save_project_image(project_name)
     return save_path
 
 
