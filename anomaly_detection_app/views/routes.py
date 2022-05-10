@@ -13,6 +13,16 @@ from typing import Union
 
 
 """ Session methods """
+def session_required(func):
+    """Check if session exist, else render 401 page"""
+    def wrapper(*args, **kwargs):
+        try:
+            assert session["project_name"]
+            return func(*args, **kwargs)
+        except KeyError as key_error:
+            return render_template("errors/401.html", error=key_error), 401
+    wrapper.__name__ = func.__name__
+    return wrapper
 
 
 def set_project(project_name: str) -> None:
@@ -59,6 +69,7 @@ def index_view() -> Union[Response, str]:
 
 
 @api_blueprint.route("/evaluate", methods=["GET", "POST"])
+@session_required
 def evaluate_view() -> str:
     project_name = get_project()
 
@@ -68,6 +79,7 @@ def evaluate_view() -> str:
 
 
 @api_blueprint.route("/train/crop_camera", methods=["GET", "POST"])
+@session_required
 def crop_camera_view() -> str:
     project_name = get_project()
 
@@ -77,6 +89,7 @@ def crop_camera_view() -> str:
 
 
 @api_blueprint.route("/train/take_photo", methods=["GET", "POST"])
+@session_required
 def take_photo_view() -> str:
     project_name = get_project()
 
@@ -86,6 +99,7 @@ def take_photo_view() -> str:
 
 
 @api_blueprint.route("/train/preview_images", methods=["GET", "POST"])
+@session_required
 def preview_images_view() -> str:
     project_name = get_project()
     # Load images
@@ -102,6 +116,7 @@ def preview_images_view() -> str:
 
 
 @api_blueprint.route("/train/train_project", methods=["GET", "POST"])
+@session_required
 def train_project_view() -> str:
     project_name = get_project()
     return render_template(
@@ -110,6 +125,11 @@ def train_project_view() -> str:
 
 
 """ Error pages """
+
+
+@api_blueprint.app_errorhandler(401)
+def error_404_view(error: Response) -> str:
+    return render_template("errors/401.html"), 401
 
 
 @api_blueprint.app_errorhandler(404)
