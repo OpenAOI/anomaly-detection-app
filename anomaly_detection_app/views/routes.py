@@ -76,12 +76,12 @@ def crop_camera_view() -> str:
     )
 
 
-@api_blueprint.route("/train/take_photo", methods=["GET", "POST"])
-def take_photo_view() -> str:
+@api_blueprint.route("/train/take_image", methods=["GET", "POST"])
+def take_image_view() -> str:
     project_name = get_project()
 
     return render_template(
-        "train/take_photo.html", project_name=project_name, ip_address=ip_address
+        "train/take_image.html", project_name=project_name, ip_address=ip_address
     )
 
 

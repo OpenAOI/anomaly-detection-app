@@ -35,7 +35,7 @@ def return_latest_image_array() -> Any:
     return CAMERA.return_image()
 
 
-def return_latest_photo() -> str:
+def return_latest_image() -> str:
     """Returns the latest array as an image from camera class without claming the camera feed"""
     CAMERA.read()
     array = CAMERA.return_image()
@@ -50,7 +50,7 @@ def init_project(new_project_name: str) -> str:
     return success
 
 
-def crop_project_photo(project_name: str, image: Any) -> Any:
+def crop_project_image(project_name: str, image: Any) -> Any:
     """Crops the image to the size specified in projects config json"""
 
     crop_conf = get_projects.get_crop_config(project_name)
@@ -63,7 +63,7 @@ def crop_project_photo(project_name: str, image: Any) -> Any:
 
 
 '''
-def mask_project_photo(project_name, image):
+def mask_project_image(project_name, image):
     """Mask out unwanted area of project image"""
     mask_conf = get_projects.get_mask_config(project_name)
     x_1 = mask_conf["mask_parameters"]["x_1"]
@@ -74,32 +74,26 @@ def mask_project_photo(project_name, image):
     return utils.mask(image, x_1, x_2, y_1, y_2, color)
 
 
-def take_project_photo():
-    """Take photo of project"""
-    image = utils.take_photo(CAMERA)
-    cropped_project_photo = crop_project_photo(image)
-    return cropped_project_photo
 '''
-
 
 def gen(project_name: str) -> Any:
     """Generates camera stream"""
 
     while True:
         image = CAMERA.read()
-        cropped_image = crop_project_photo(project_name, image)
+        cropped_image = crop_project_image(project_name, image)
         _, jpeg = cv2.imencode(".jpg", cropped_image)
         frame = jpeg.tobytes()
         yield (b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n")
 
 
-def predict_project_photo(project_name: str) -> Tuple[Any, float, int]:
+def predict_project_image(project_name: str) -> Tuple[Any, float, int]:
     """Uses the trained model to make an evaluation of an image of a project"""
     thresh_conf = get_projects.get_threshold_config(project_name)
     thresh = thresh_conf["threshold"]
     model_path = project_path + project_name + "/distributions/"
     array = return_latest_image_array()
-    cropped_array = crop_project_photo(project_name, array.copy())
+    cropped_array = crop_project_image(project_name, array.copy())
     image_pred, score, image_class = predict.predict_image(
         cropped_array, thresh, model_path
     )
@@ -108,12 +102,12 @@ def predict_project_photo(project_name: str) -> Tuple[Any, float, int]:
     return image_pred_b64, score, thresh, image_class
 
 
-def save_project_photo(project_name: str) -> str:
+def save_project_image(project_name: str) -> str:
     """Saves an un-evaluated image of a project"""
     array = return_latest_image_array()  # TODO: Fix camera value 0
-    cropped_array = crop_project_photo(project_name, array.copy())
+    cropped_array = crop_project_image(project_name, array.copy())
     cropped_image = Image.fromarray(cropped_array)
-    file_name = utils.save_photo(
+    file_name = utils.save_image(
         cropped_image, project_path + project_name + "/images/", project_name
     )
     return file_name
