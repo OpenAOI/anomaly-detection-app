@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 
 
 def train(path: str) -> None:
-
+    """Train the Anodet-model on the collected images"""
     dataset = anodet.AnodetDataset(os.path.join(path, "images"))
     dataloader = DataLoader(dataset, batch_size=32)
 

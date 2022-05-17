@@ -3,6 +3,7 @@ from anomaly_detection_app.config import project_path, server_path
 
 
 def create_project(project_name: str) -> bool:
+    """Create new project folders and config file."""
     full_path = project_path + project_name
     if path.isdir(full_path):
         return False  # returns False if path already exists
