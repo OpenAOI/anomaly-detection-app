@@ -8,8 +8,8 @@ import os
 from typing import Any
 
 
-def take_photo(camera: Any) -> Any:
-    """Take photo with the device given"""
+def take_image(camera: Any) -> Any:
+    """Take image with the device given"""
     image = camera.read()
     return image
 
@@ -19,7 +19,7 @@ def delete_file(file_path: str) -> None:
     os.remove(file_path)
 
 
-def save_photo(image: Any, path: str, project_name: str):
+def save_image(image: Any, path: str, project_name: str):
     """Take image and save it as a jpg file in the folder "images" """
     image_path = path
     now = datetime.now()

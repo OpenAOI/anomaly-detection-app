@@ -72,47 +72,60 @@ The project has a simple structure, represented as bellow:
 
 ```bash
 < PROJECT ROOT >
-	|-- pcb_anodet_server/
-	|   |-- projects/
-	|   |-- static/
-	|   |   |-- css/
-	|   |   |   |-- cropper.css
-	|   |   |   |-- image-gallery.css
-	|   |   |   |-- main.css
-	|   |   |   |-- stream.css
-	|   |   |   +-- train-menu-overview.css
-	|   |   |-- images/
-	|   |   |   +-- modal-images.css
-	|   |   +-- js/
-	|   |       +-- cropper.js
-	|   |-- templates/
-	|   |   |-- edit/
-	|   |   |   |-- base_edit.html
-	|   |   |   |-- crop_camera.html
-	|   |   |   |-- take_photo.html
-	|   |   |   |-- train_project.html
-	|   |   |   +-- view_images.html
-	|   |   |-- errors/
-	|   |   |   +-- 404.html
-	|   |   |-- base.html
-	|   |   |-- predict.html
-	|   |   +-- select_project.html
-	|   |-- __init__.py
-	|   |-- api.py
-	|   |-- camera_stream.py
-	|   |-- conf_template.json
-	|   |-- config.py
-	|   |-- forms.py
-	|   |-- gen_projects.py
-	|   |-- get_projects.py
-	|   |-- predict.py
-	|   |-- project_functions.py
-	|   |-- training.py
-	|   |-- update_projects.py
-	|   +-- utils.py
-	|-- .gitignore
-	|-- README.md
-	+-- run.py
+.
+├── anomaly_detection_app/
+│   ├── Media/
+│   │   └── pcb-anodet-server-preview.gif
+│   ├── project_routes/
+│   │   ├── __init__.py
+│   │   └── routes.py
+│   ├── projects/
+│   ├── static/
+│   │   ├── css/
+│   │   │   ├── cropper.css
+│   │   │   ├── image-gallery.css
+│   │   │   ├── main.css
+│   │   │   └── train-menu-overview.css
+│   │   └── js/
+│   │       └── cropper.js
+│   ├── templates/
+│   │   ├── errors/
+│   │   │   └── 404.html
+│   │   ├── evaluate/
+│   │   │   └── evaluate.html
+│   │   ├── includes/
+│   │   │   ├── guide.html
+│   │   │   ├── navigation.html
+│   │   │   ├── navigation_train.html
+│   │   │   └── train_overview.html
+│   │   ├── layouts/
+│   │   │   ├── base.html
+│   │   │   └── base_train.html
+│   │   ├── train/
+│   │   │   ├── crop_camera.html
+│   │   │   ├── preview_images.html
+│   │   │   ├── take_image.html
+│   │   │   └── train_project.html
+│   │   └── index.html
+│   ├── views/
+│   │   ├── __init__.py
+│   │   ├── forms.py
+│   │   └── routes.py
+│   ├── __init__.py
+│   ├── camera_stream.py
+│   ├── conf_template.json
+│   ├── config.py
+│   ├── gen_projects.py
+│   ├── get_projects.py
+│   ├── predict.py
+│   ├── project_functions.py
+│   ├── training.py
+│   ├── update_projects.py
+│   └── utils.py
+├── .gitignore
+├── README.md
+├── requirements.txt
+└── run.py
 
 ```
 

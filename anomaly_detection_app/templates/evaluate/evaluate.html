@@ -42,15 +42,15 @@ Ut varius ex quis mauris consequat, vitae tristique ipsum egestas. Quisque vulpu
 <script>
   // Evaluate btn
   $("#evaluate-btn").click(function(){
-    var ip = ipAdress.concat("take_photo_and_predict" + window.location.search)
+    var ip = ipAdress.concat("take_image_and_predict" + window.location.search)
     var xhttp = sendHttpRequest(ip)
   
     var json_response = JSON.parse(xhttp.responseText);
-    photo = json_response.image_pred_b64;
+    image = json_response.image_pred_b64;
     score = json_response.score;
     thresh = json_response.thresh;
   
-    document.getElementById('canvas').src = photo;
+    document.getElementById('canvas').src = image;
     document.getElementById('score-data').innerHTML = score;
     document.getElementById('thresh-data').innerHTML = thresh;
 
