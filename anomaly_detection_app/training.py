@@ -10,7 +10,7 @@ def train(path: str) -> None:
     dataset = anodet.AnodetDataset(os.path.join(path, "images"))
     dataloader = DataLoader(dataset, batch_size=32)
 
-    padim = anodet.Padim(backbone="resnet18", device = torch.device(device_type))
+    padim = anodet.Padim(backbone="resnet18", device=torch.device(device_type))
 
     padim.fit(dataloader)
 

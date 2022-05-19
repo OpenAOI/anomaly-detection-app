@@ -13,14 +13,18 @@ from typing import Union
 
 
 """ Session methods """
+
+
 def session_required(func):
     """Check if session exist, else render 401 page"""
+
     def wrapper(*args, **kwargs):
         try:
             assert session["project_name"]
             return func(*args, **kwargs)
         except KeyError as key_error:
             return render_template("errors/401.html", error=key_error), 401
+
     wrapper.__name__ = func.__name__
     return wrapper
 
@@ -35,6 +39,7 @@ def set_project_route() -> None:
     """Save project-route to session cookie"""
     project_name = request.args.get("project_name", None)
     session["project_name"] = project_name
+    return "success"
 
 
 @api_blueprint.route("/delete_project", methods=["GET", "POST"])
