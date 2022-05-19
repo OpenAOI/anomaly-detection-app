@@ -23,6 +23,13 @@ Gif to demo project.
 
 ## Build from sources
 
+
+<br />
+Pytorch needs to be downloaded from https://pytorch.org/get-started/locally/
+This is because the download and installation is dependent on your setup.
+Pytorch is therefore not included in the requirements file.
+<br />
+
 ```bash
 $ # Clone the sources
 $ git clone https://github.com/OpenAOI/pcb-anodet-server.git
@@ -72,52 +79,80 @@ The project has a simple structure, represented as bellow:
 
 ```bash
 < PROJECT ROOT >
-	|-- pcb_anodet_server/
-	|   |-- projects/
-	|   |-- static/
-	|   |   |-- css/
-	|   |   |   |-- cropper.css
-	|   |   |   |-- image-gallery.css
-	|   |   |   |-- main.css
-	|   |   |   |-- stream.css
-	|   |   |   +-- train-menu-overview.css
-	|   |   |-- images/
-	|   |   |   +-- modal-images.css
-	|   |   +-- js/
-	|   |       +-- cropper.js
-	|   |-- templates/
-	|   |   |-- edit/
-	|   |   |   |-- base_edit.html
-	|   |   |   |-- crop_camera.html
-	|   |   |   |-- take_photo.html
-	|   |   |   |-- train_project.html
-	|   |   |   +-- view_images.html
-	|   |   |-- errors/
-	|   |   |   +-- 404.html
-	|   |   |-- base.html
-	|   |   |-- predict.html
-	|   |   +-- select_project.html
-	|   |-- __init__.py
-	|   |-- api.py
-	|   |-- camera_stream.py
-	|   |-- conf_template.json
-	|   |-- config.py
-	|   |-- forms.py
-	|   |-- gen_projects.py
-	|   |-- get_projects.py
-	|   |-- predict.py
-	|   |-- project_functions.py
-	|   |-- training.py
-	|   |-- update_projects.py
-	|   +-- utils.py
-	|-- .gitignore
-	|-- README.md
-	+-- run.py
+.
+├── anomaly_detection_app/
+│   ├── Media/
+│   │   └── pcb-anodet-server-preview.gif
+│   ├── project_routes/
+│   │   ├── __init__.py
+│   │   └── routes.py
+│   ├── projects/
+│   ├── static/
+│   │   ├── css/
+│   │   │   ├── cropper.css
+│   │   │   ├── image-gallery.css
+│   │   │   ├── main.css
+│   │   │   └── train-menu-overview.css
+│   │   └── js/
+│   │       └── cropper.js
+│   ├── templates/
+│   │   ├── errors/
+│   │   │   └── 404.html
+│   │   ├── evaluate/
+│   │   │   └── evaluate.html
+│   │   ├── includes/
+│   │   │   ├── guide.html
+│   │   │   ├── navigation.html
+│   │   │   ├── navigation_train.html
+│   │   │   └── train_overview.html
+│   │   ├── layouts/
+│   │   │   ├── base.html
+│   │   │   └── base_train.html
+│   │   ├── train/
+│   │   │   ├── crop_camera.html
+│   │   │   ├── preview_images.html
+│   │   │   ├── take_image.html
+│   │   │   └── train_project.html
+│   │   └── index.html
+│   ├── views/
+│   │   ├── __init__.py
+│   │   ├── forms.py
+│   │   └── routes.py
+│   ├── __init__.py
+│   ├── camera_stream.py
+│   ├── conf_template.json
+│   ├── config.py
+│   ├── gen_projects.py
+│   ├── get_projects.py
+│   ├── predict.py
+│   ├── project_functions.py
+│   ├── training.py
+│   ├── update_projects.py
+│   └── utils.py
+├── .gitignore
+├── README.md
+├── requirements.txt
+└── run.py
 
 ```
 
 <br />
+In the config.py file you should change the ip-adress to your local ip-adress. <br />
+You can also change between 'cpu' and 'cuda' devices. If your computer is set up for use with a graphics card, you can run 'cuda'. Else choose 'cpu'. <br />
+If you would like to use an ip-camera or a rtsp-stream instead of usb- camera, you can change the camera value in camera_stream.py. <br />
+<br />
 
+For example, this is usb camera 0 (passed in as an int): <br />
+def __init__(self, stream_id=0) -> None: <br />
+<br />
+This is a rtsp stream (passed in as a string): <br />
+def __init__(self, stream_id='rtsp://example.com/media.mp4') -> None:<br />
+
+
+<br />
+If the resolution of the training image is to be changed, that is done in the anodet/anodet/utils.py
+
+<br />
 
 ## Credits & Links
 
