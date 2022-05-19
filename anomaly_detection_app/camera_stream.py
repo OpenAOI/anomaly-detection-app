@@ -1,10 +1,11 @@
 import cv2
+from anomaly_detection_app.config import camera_source
 from threading import Thread
 from typing import Any
 
 
 class CameraStream:
-    def __init__(self, stream_id=0) -> None:
+    def __init__(self, stream_id=camera_source) -> None:
         self.stream_id = stream_id  # Will take an int for USB-camera
         # or str for ip- or rtsp-camera
 
