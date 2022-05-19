@@ -23,6 +23,13 @@ Gif to demo project.
 
 ## Build from sources
 
+
+<br />
+Pytorch needs to be downloaded from https://pytorch.org/get-started/locally/
+This is because the download and installation is dependent on your setup.
+Pytorch is therefore not included in the requirements file.
+<br />
+
 ```bash
 $ # Clone the sources
 $ git clone https://github.com/OpenAOI/pcb-anodet-server.git
@@ -130,7 +137,22 @@ The project has a simple structure, represented as bellow:
 ```
 
 <br />
+In the config.py file you should change the ip-adress to your local ip-adress. <br />
+You can also change between 'cpu' and 'cuda' devices. If your computer is set up for use with a graphics card, you can run 'cuda'. Else choose 'cpu'. <br />
+If you would like to use an ip-camera or a rtsp-stream instead of usb- camera, you can change the camera value in camera_stream.py. <br />
+<br />
 
+For example, this is usb camera 0 (passed in as an int): <br />
+def __init__(self, stream_id=0) -> None: <br />
+<br />
+This is a rtsp stream (passed in as a string): <br />
+def __init__(self, stream_id='rtsp://example.com/media.mp4') -> None:<br />
+
+
+<br />
+If the resolution of the training image is to be changed, that is done in the anodet/anodet/utils.py
+
+<br />
 
 ## Credits & Links
 
