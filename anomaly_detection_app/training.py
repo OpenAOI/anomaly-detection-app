@@ -6,7 +6,7 @@ from anomaly_detection_app.config import device_type
 
 
 def train(path: str) -> None:
-
+    """Train the Anodet-model on the collected images"""
     dataset = anodet.AnodetDataset(os.path.join(path, "images"))
     dataloader = DataLoader(dataset, batch_size=32)
 

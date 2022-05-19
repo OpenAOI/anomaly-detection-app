@@ -60,6 +60,7 @@ def index_view() -> Union[Response, str]:
 
 @api_blueprint.route("/evaluate", methods=["GET", "POST"])
 def evaluate_view() -> str:
+    """The page for evaluation"""
     project_name = get_project()
 
     return render_template(
@@ -69,6 +70,7 @@ def evaluate_view() -> str:
 
 @api_blueprint.route("/train/crop_camera", methods=["GET", "POST"])
 def crop_camera_view() -> str:
+    """The page for crop configuration"""
     project_name = get_project()
 
     return render_template(
@@ -78,6 +80,7 @@ def crop_camera_view() -> str:
 
 @api_blueprint.route("/train/take_image", methods=["GET", "POST"])
 def take_image_view() -> str:
+    """The page for taking images"""
     project_name = get_project()
 
     return render_template(
@@ -87,6 +90,7 @@ def take_image_view() -> str:
 
 @api_blueprint.route("/train/preview_images", methods=["GET", "POST"])
 def preview_images_view() -> str:
+    """The page that previews images"""
     project_name = get_project()
     # Load images
     images = project_functions.get_all_project_images(project_name)
@@ -103,6 +107,7 @@ def preview_images_view() -> str:
 
 @api_blueprint.route("/train/train_project", methods=["GET", "POST"])
 def train_project_view() -> str:
+    """The page that trains the model"""
     project_name = get_project()
     return render_template(
         "train/train_project.html", project_name=project_name, ip_address=ip_address
@@ -114,4 +119,5 @@ def train_project_view() -> str:
 
 @api_blueprint.app_errorhandler(404)
 def error_404_view(error: Response) -> str:
+    """Error handling page"""
     return render_template("errors/404.html"), 404

@@ -26,6 +26,7 @@ def delete_project(project_name: str) -> None:
 
 
 def delete_image(project_name: str, image_name: str) -> None:
+    """Delete image"""
     file_path = project_path + project_name + "/images/" + image_name
     utils.delete_file(file_path)
 
@@ -53,6 +54,7 @@ def init_project(new_project_name: str) -> str:
 def crop_project_image(project_name: str, image: Any) -> Any:
     """Crops the image to the size specified in projects config json"""
 
+
     crop_conf = get_projects.get_crop_config(project_name)
     x_1 = crop_conf["x_1"]  # X start value
     y_1 = crop_conf["y_1"]  # Y start value
@@ -64,6 +66,7 @@ def crop_project_image(project_name: str, image: Any) -> Any:
 
 '''
 def mask_project_image(project_name, image):
+    """Will be implemented when someone needs to mask the images in their project"""
     """Mask out unwanted area of project image"""
     mask_conf = get_projects.get_mask_config(project_name)
     x_1 = mask_conf["mask_parameters"]["x_1"]
@@ -72,8 +75,6 @@ def mask_project_image(project_name, image):
     y_2 = mask_conf["mask_parameters"]["y_2"]
     color = mask_conf["mask_color"]
     return utils.mask(image, x_1, x_2, y_1, y_2, color)
-
-
 '''
 
 def gen(project_name: str) -> Any:
@@ -116,6 +117,7 @@ def save_project_image(project_name: str) -> str:
 """
 
 def update_project_camera(camera, camera_type):
+    '''Will be implemented when someone wants to put the camera choice in the front end'''
     '''Updates the camera configuration'''
     if camera_type == "USB":
         camera = int(camera)
@@ -143,10 +145,12 @@ def train(project_name: str) -> None:
 
 
 def get_all_projects() -> dict[str : list[dict[str:str]]]:
+    """Get all projects"""
     return get_projects.get_all_projects()
 
 
 def get_all_project_images(project_name: str) -> dict[str : list[dict[str:str]]]:
+    """Get all images from the selected projects image folder"""
     path = project_path + project_name + "/images/"
     image_names_dict = get_projects.get_all_image_names(project_name)
     for image in image_names_dict["images"]:
