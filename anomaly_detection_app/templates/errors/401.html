@@ -1,0 +1,12 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %} 
+<div class="row content">
+  <div class="col-sm-12 text-left">
+    <h4>401</h4>
+    <p>Unauthorized.</p>
+    <p>If no project is selected - go to <a href="{{ url_for('views_blueprint.index_view') }}"">select project</a>.</p>
+  </div>
+</div>
+{% endblock %}

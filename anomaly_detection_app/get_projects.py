@@ -1,6 +1,7 @@
 import json
-from os import listdir
+from os import listdir, path
 from anomaly_detection_app.config import project_path
+from typing import Union
 
 
 def load_conf(project_name: str) -> str:
@@ -43,6 +44,12 @@ def get_all_projects() -> dict[str : list[dict[str:str]]]:
     """Get all existing projects"""
     projects = listdir("anomaly_detection_app/projects/")
     project_dict = {"projects": []}
+
+    # Return empty if no folder exist
+    if not path.isdir(project_path):
+        return project_dict
+
+    projects = listdir(project_path)
     for p in projects:
         project_dict["projects"].append({"name": p})
     return project_dict
