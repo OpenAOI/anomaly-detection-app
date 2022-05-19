@@ -46,7 +46,7 @@ When you have collected the images, press the "Go to next step" - button.
 
 <script>
   $("#take-photo-btn").click(function(){
-    var ip = ipAdress.concat("save_photo?project_name=" + "{{ project_name }}")
+    var ip = ipAdress.concat("save_image?project_name=" + "{{ project_name }}")
     var xhttp = sendHttpRequest(ip)
     
     if (xhttp.status === 200) {
