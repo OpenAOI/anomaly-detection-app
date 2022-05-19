@@ -39,6 +39,7 @@ def set_project_route() -> None:
     """Save project-route to session cookie"""
     project_name = request.args.get("project_name", None)
     session["project_name"] = project_name
+    return "success"
 
 
 @api_blueprint.route("/delete_project", methods=["GET", "POST"])
