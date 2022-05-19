@@ -5,11 +5,6 @@ from typing import Any
 
 
 class CameraStream:
-
-    def __init__(self, stream_id=camera_source) -> None:
-        self.stream_id = stream_id  # Will take an int for USB-camera
-        # or str for ip- or rtsp-camera
-
     """
     The CameraStream object puts images captured from a camera
     into different threads to gain processing speed and puts
@@ -21,6 +16,9 @@ class CameraStream:
 
     """
 
+    def __init__(self, stream_id=camera_source) -> None:
+        self.stream_id = stream_id  # Will take an int for USB-camera
+        # or str for ip- or rtsp-camera
 
         # Open the video capture stream
         self.camera = cv2.VideoCapture(self.stream_id)

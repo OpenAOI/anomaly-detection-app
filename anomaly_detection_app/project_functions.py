@@ -54,7 +54,6 @@ def init_project(new_project_name: str) -> str:
 def crop_project_image(project_name: str, image: Any) -> Any:
     """Crops the image to the size specified in projects config json"""
 
-
     crop_conf = get_projects.get_crop_config(project_name)
     x_1 = crop_conf["x_1"]  # X start value
     y_1 = crop_conf["y_1"]  # Y start value
@@ -76,6 +75,7 @@ def mask_project_image(project_name, image):
     color = mask_conf["mask_color"]
     return utils.mask(image, x_1, x_2, y_1, y_2, color)
 '''
+
 
 def gen(project_name: str) -> Any:
     """Generates camera stream"""
