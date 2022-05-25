@@ -81,58 +81,74 @@ The project has a simple structure, represented as bellow:
 < PROJECT ROOT >
 .
 ├── anomaly_detection_app/
-│   ├── Media/
+│   │   
+│   ├── Media/                                 # Media used by README.md
 │   │   └── pcb-anodet-server-preview.gif
-│   ├── project_routes/
-│   │   ├── __init__.py
-│   │   └── routes.py
-│   ├── projects/
-│   ├── static/
+│   │   
+│   ├── project_routes/                        # Handles projects routes
+│   │   ├── __init__.py                        # Includes a blueprint object
+│   │   └── routes.py                          # Define project routes
+│   │   
+│   ├── projects/                              # Containing unique projects folders for settings and data 
+│   │   
+│   ├── static/                                # CSS files, Javascripts files
+│   │   │ 
 │   │   ├── css/
-│   │   │   ├── cropper.css
-│   │   │   ├── image-gallery.css
-│   │   │   ├── main.css
-│   │   │   └── train-menu-overview.css
+│   │   │   ├── cropper.css                    # Used by cropper at crop_camera.html
+│   │   │   ├── image-gallery.css              # Image gallery used by preview_images.html
+│   │   │   ├── main.css                       # Main css style
+│   │   │   └── train-menu-overview.css        # Train overview used by base_train.html
+│   │   │ 
 │   │   └── js/
-│   │       └── cropper.js
-│   ├── templates/
-│   │   ├── errors/
-│   │   │   └── 404.html
-│   │   ├── evaluate/
-│   │   │   └── evaluate.html
-│   │   ├── includes/
-│   │   │   ├── guide.html
-│   │   │   ├── navigation.html
-│   │   │   ├── navigation_train.html
-│   │   │   └── train_overview.html
-│   │   ├── layouts/
-│   │   │   ├── base.html
-│   │   │   └── base_train.html
-│   │   ├── train/
-│   │   │   ├── crop_camera.html
-│   │   │   ├── preview_images.html
-│   │   │   ├── take_image.html
-│   │   │   └── train_project.html
-│   │   └── index.html
-│   ├── views/
-│   │   ├── __init__.py
-│   │   ├── forms.py
-│   │   └── routes.py
-│   ├── __init__.py
-│   ├── camera_stream.py
-│   ├── conf_template.json
-│   ├── config.py
-│   ├── gen_projects.py
-│   ├── get_projects.py
-│   ├── predict.py
-│   ├── project_functions.py
-│   ├── training.py
-│   ├── update_projects.py
-│   └── utils.py
+│   │       └── cropper.js                     # Used by cropper at crop_camera.html
+│   │   
+│   ├── templates/                             # Templates used to render pages
+│   │   │ 
+│   │   ├── errors/                            # UI error pages
+│   │   │   ├── 401.html                       # 401 authentication
+│   │   │   └── 404.html                       # 404 not found
+│   │   │ 
+│   │   ├── evaluate/                          # UI evaluation pages
+│   │   │   └── evaluate.html                  
+│   │   │ 
+│   │   ├── includes/                          # HTML chunks and components
+│   │   │   ├── guide.html                     # Help guide component
+│   │   │   ├── navigation.html                # Top menu component
+│   │   │   ├── navigation_train.html          # Top menu component for training pages
+│   │   │   └── train_overview.html            # Train overview component
+│   │   │ 
+│   │   ├── layouts/                           # Master pages
+│   │   │   ├── base.html                      # Main master page
+│   │   │   └── base_train.html                # Master page for training pages
+│   │   │ 
+│   │   ├── train/                             # UI training pages
+│   │   │   ├── crop_camera.html               # Crop photo from camera
+│   │   │   ├── preview_images.html            # Preview photos
+│   │   │   ├── take_image.html                # Take photos from camera
+│   │   │   └── train_project.html             # Train project
+│   │   │ 
+│   │   └── index.html                         # UI index page
+│   │   
+│   ├── views/                                 # Handles app views routes
+│   │   ├── __init__.py                        # Includes a blueprint object
+│   │   ├── forms.py                           # Form for creating a project
+│   │   └── routes.py                          # Define view routes
+│   │   
+│   ├── __init__.py                            # Functions for creating a flask app
+│   ├── camera_stream.py                       # On going camera stream
+│   ├── conf_template.json                     # Project template settings
+│   ├── config.py                              # Store server path, ip, device type
+│   ├── gen_projects.py                        # For creating a new project
+│   ├── get_projects.py                        # Get project settings
+│   ├── predict.py                             # Connects to anodet for evaluation
+│   ├── project_functions.py                   # Several functions for a project
+│   ├── training.py                            # Connects to anodet for training a project
+│   ├── update_projects.py                     # Update project settings
+│   └── utils.py                               # Independent utils functions
 ├── .gitignore
 ├── README.md
-├── requirements.txt
-└── run.py
+├── requirements.txt                           # Development modules
+└── run.py                                     # Start the app 
 
 ```
 
